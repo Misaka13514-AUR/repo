@@ -3,8 +3,8 @@ pkgname=yubico-authenticator
 _app_id=com.yubico.yubioath
 pkgdesc="Yubico Authenticator for Desktop"
 pkgver=6.4.0
-pkgrel=5
-_flutter_ver=3.19.4
+pkgrel=6
+_flutter_ver=3.19.5
 arch=('x86_64' 'aarch64')
 url="https://github.com/Yubico/yubioath-flutter"
 license=('Apache-2.0')
@@ -36,7 +36,7 @@ source=("git+https://github.com/Yubico/yubioath-flutter.git#commit=${_commit}?si
 validpgpkeys=('AF511D2CBC0F973E5D308054325C8E4AE2E6437D'  # Adam Velebil <adam.velebil@yubico.com>
               '20EE325B86A81BCBD3E56798F04367096FBA95E8')  # Dain Nilsson <dain@yubico.com>
 sha256sums=('5409741c3e10645fe9b41e497e34f94bc95c7c8d79a71c645c00486c0484f40c'
-            '66adfe6b6559a2e2f1fdbf89c938d0af53add3860c854c79dbbd5452f5d2290a')
+            '6590607e7f2fb23bcc7e0a2d6aac292f9208cbf12a40862c281058c758604fb3')
 
 prepare() {
   cd yubioath-flutter
