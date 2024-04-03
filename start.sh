@@ -73,9 +73,9 @@ fi
 
 # 处理旧版本
 rm -rf "${QQ_HOTUPDATE_DIR}/"**".zip"
-is_hotupdated_version=0  # 正在运行的版本是否经过热更新？
+is_hotupdated_version=0 # 正在运行的版本是否经过热更新？
 
-find "${QQ_HOTUPDATE_DIR}/"*-* -maxdepth 1 -type "d,l" | while read path; do
+find "${QQ_HOTUPDATE_DIR}/"*[-_]* -maxdepth 1 -type "d,l" | while read path; do
     this_version="$(basename "$path")"
     if [ "$(vercmp "${this_version}" "${QQ_HOTUPDATE_VERSION//_/-}")" -lt "0" ]; then
         # 这个版本小于当前版本，删除之

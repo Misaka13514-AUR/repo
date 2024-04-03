@@ -2,10 +2,8 @@
 # Maintainer: sukanka
 
 _pkgname=linuxqq
-_base_pkgver=3.2.7-22578
+_base_pkgver=3.2.7_240403
 _update_pkgver=${_base_pkgver}
-_base_pkgver_hash=1e486dc4
-# _update_pkgver_hash=c893f6be
 pkgname=linuxqq-nt-bwrap
 pkgver="${_update_pkgver//-/_}"
 pkgrel=1
@@ -25,18 +23,18 @@ provides=('qq' 'linuxqq')
 conflicts=('linuxqq')
 options=('!emptydirs')
 install="${pkgname}.install"
-source_x86_64=("https://dldir1.qq.com/qqfile/qq/QQNT/${_base_pkgver_hash}/linuxqq_${_base_pkgver}_amd64.deb")  # 底包
+source_x86_64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_amd64_01.deb")  # 底包
                #  "https://qqpatch.gtimg.cn/hotUpdate_new/release/linux-x64/${pkgver//_/-}/${_update_pkgver_hash}/${pkgver//_/-}.zip.zip" )  # 热更新补丁
-source_aarch64=("https://dldir1.qq.com/qqfile/qq/QQNT/${_base_pkgver_hash}/linuxqq_${_base_pkgver}_arm64.deb")  # 底包
+source_aarch64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_arm64_01.deb")  # 底包
                 #  "https://qqpatch.gtimg.cn/hotUpdate_new/release/linux-arm64/${pkgver//_/-}/${_update_pkgver_hash}/${pkgver//_/-}.zip.zip" )  # 热更新补丁
-source_loong64=("https://dldir1.qq.com/qqfile/qq/QQNT/${_base_pkgver_hash}/linuxqq_${_base_pkgver}_loongarch64.deb")  # 底包
+source_loong64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_loongarch64_01.deb")  # 底包
 source=('start.sh' 'config.json' 'xdg-open.sh')
-sha256sums=('61f20e40a8fa02052f3d0bc8d5e84fa7a3fdd60ecc8df417d5084396af680411'
+sha256sums=('01eb16521b9cfc993bbc91b3ebd8c8ab521e0cb63996a60fbcd1050b1184a676'
             'bb2ec0f104da4da7422d9b0f51c71d0ab38ed2a21764a7a643ab42689e098e4b'
             '99d7fe8dd193ebc06ba450a3e868d778e1dbe5938b726a67fadddc0c9ad9cab1')
-sha256sums_x86_64=('23abf885b92681358ebf89023682260b01c703c9d995a95c295ba58c93c58157')
-sha256sums_aarch64=('c776c414b5096d67a1d98550626258a8e49efc02d0deac78e9f030a87ff7e69a')
-sha256sums_loong64=('54df03890ae5145e186e934400e19503bf7cc98d6d0ba644d46740f5eae843c7')
+sha256sums_x86_64=('ed77719082c891630124b77fc73efd4aacad30978361bae17b11f1bf60b8d365')
+sha256sums_aarch64=('5d4a7a1b0d33f504a6fea4ee6204c9d6637f4f760dd7ab55fbf41869157dbabb')
+sha256sums_loong64=('15207fe5c738c3622c9b7c5b1fecbee8a8234d13ac5f7b386d98c1c888e7e2a4')
 
 prepare() {
 	local base_ver=${_base_pkgver}
