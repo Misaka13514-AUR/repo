@@ -1,4 +1,4 @@
-# Maintainer: Kirukaze Chiyuki <me@chyk.ink>
+# Maintainer: Kirikaze Chiyuki <me@chyk.ink>
 # Maintainer: sukanka
 
 _pkgname=linuxqq
@@ -23,11 +23,9 @@ provides=('qq' 'linuxqq')
 conflicts=('linuxqq')
 options=('!emptydirs')
 install="${pkgname}.install"
-source_x86_64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_amd64_01.deb")  # 底包
-               #  "https://qqpatch.gtimg.cn/hotUpdate_new/release/linux-x64/${pkgver//_/-}/${_update_pkgver_hash}/${pkgver//_/-}.zip.zip" )  # 热更新补丁
-source_aarch64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_arm64_01.deb")  # 底包
-                #  "https://qqpatch.gtimg.cn/hotUpdate_new/release/linux-arm64/${pkgver//_/-}/${_update_pkgver_hash}/${pkgver//_/-}.zip.zip" )  # 热更新补丁
-source_loong64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_loongarch64_01.deb")  # 底包
+source_x86_64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_amd64_01.deb")
+source_aarch64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_arm64_01.deb")
+source_loong64=("https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${_base_pkgver}_loongarch64_01.deb")
 source=('start.sh' 'config.json' 'xdg-open.sh')
 sha256sums=('01eb16521b9cfc993bbc91b3ebd8c8ab521e0cb63996a60fbcd1050b1184a676'
             'bb2ec0f104da4da7422d9b0f51c71d0ab38ed2a21764a7a643ab42689e098e4b'
@@ -46,10 +44,6 @@ prepare() {
 package() {
 	# 解压程序包
 	tar -xJ -f "data.tar.xz" -C "${pkgdir}"
-
-	# 应用热更新
-	# rm -rf "${pkgdir}/opt/QQ/resources/app"
-	# 7z x "${pkgver//_/-}.zip" -aoa -o"${pkgdir}/opt/QQ/resources/app"
 
 	chmod 755 "${pkgdir}/opt/QQ/resources/app"
 
