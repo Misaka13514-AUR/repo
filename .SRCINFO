@@ -1,7 +1,7 @@
 pkgbase = python-pipreqs
 	pkgdesc = Pip requirements.txt generator based on imports in project
 	pkgver = 0.5.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/bndr/pipreqs
 	arch = any
 	license = MIT
@@ -9,6 +9,7 @@ pkgbase = python-pipreqs
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
+	makedepends = python-poetry-core
 	depends = python
 	depends = python-docopt
 	depends = python-yarg
