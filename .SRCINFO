@@ -1,10 +1,11 @@
 pkgbase = python-pipreqs
 	pkgdesc = Pip requirements.txt generator based on imports in project
 	pkgver = 0.5.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/bndr/pipreqs
 	arch = any
-	license = MIT
+	license = Apache-2.0
+	checkdepends = jupyter-nbconvert
 	makedepends = python-setuptools
 	makedepends = python-build
 	makedepends = python-installer
