@@ -1,7 +1,7 @@
 pkgbase = python-pipreqs
 	pkgdesc = Pip requirements.txt generator based on imports in project
-	pkgver = 0.4.13
-	pkgrel = 2
+	pkgver = 0.5.0
+	pkgrel = 1
 	url = https://github.com/bndr/pipreqs
 	arch = any
 	license = MIT
@@ -9,9 +9,12 @@ pkgbase = python-pipreqs
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
+	depends = python
 	depends = python-docopt
 	depends = python-yarg
-	source = python-pipreqs-0.4.13.tar.gz::https://github.com/bndr/pipreqs/archive/v0.4.13.tar.gz
-	sha512sums = f5a1c384017d9194c353d4cee021e3d994ae2d1426ef24bff2daf4a79f576bf04b2d8dd4b81f76b8715c8398fe5a308c51e4cb13dd66870ff006247295199ae3
+	depends = python-requests
+	optdepends = jupyter-nbconvert: for scanning jupyter notebooks
+	source = python-pipreqs-0.5.0.tar.gz::https://github.com/bndr/pipreqs/archive/v0.5.0.tar.gz
+	sha512sums = 0a15f1b675006ce24408fbca5f87d782c479d33db2a98ec60f619547b74e9220387321bf19c94a312039f50a51f8e47ec8b766e4e631cac740306965b64abb43
 
 pkgname = python-pipreqs

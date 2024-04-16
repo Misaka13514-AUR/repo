@@ -1,16 +1,18 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer:  Misaka13514 <Misaka13514 at gmail dot com>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pipreqs
-pkgver=0.4.13
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="Pip requirements.txt generator based on imports in project"
 url="https://github.com/bndr/pipreqs"
 license=('MIT')
 arch=('any')
-depends=('python-docopt' 'python-yarg')
+depends=('python' 'python-docopt' 'python-yarg' 'python-requests')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+optdepends=('jupyter-nbconvert: for scanning jupyter notebooks')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/bndr/pipreqs/archive/v$pkgver.tar.gz")
-sha512sums=('f5a1c384017d9194c353d4cee021e3d994ae2d1426ef24bff2daf4a79f576bf04b2d8dd4b81f76b8715c8398fe5a308c51e4cb13dd66870ff006247295199ae3')
+sha512sums=('0a15f1b675006ce24408fbca5f87d782c479d33db2a98ec60f619547b74e9220387321bf19c94a312039f50a51f8e47ec8b766e4e631cac740306965b64abb43')
 
 build() {
   cd pipreqs-$pkgver
