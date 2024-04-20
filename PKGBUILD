@@ -26,11 +26,9 @@ optdepends=(
 	)
 options=(!strip !zipman)
 source=("https://packages.microsoft.com/yumrepos/edge/Packages/m/${_pkgname}-stable-${pkgver}-1.x86_64.rpm"
-        "microsoft-edge-stable.sh"
-        "Microsoft Standard Application License Terms - Standalone (free) Use Terms.pdf")
+	"microsoft-edge-stable.sh")
 sha256sums=('8a235a2dfd426858529df4a050c9f0b39b8f49e20ba243970909d615858a92ac'
-            'dc3765d2de6520b13f105b8001aa0e40291bc9457ac508160b23eea8811e26af'
-			'edf2ed596eb068f168287fc76aa713ad5e0afb59f0a0a47a4f29c0c124ade15e')
+			'dc3765d2de6520b13f105b8001aa0e40291bc9457ac508160b23eea8811e26af')
 
 package() {
 	cp --parents -a {opt,usr} "$pkgdir"
@@ -43,9 +41,6 @@ package() {
 		install -Dm644 "${pkgdir}/opt/microsoft/${_pkgshortname}/product_logo_${res}.png" \
 			"${pkgdir}/usr/share/icons/hicolor/${res}x${res}/apps/${_pkgname}.png"
 	done
-
-	# License
-	install -Dm644 'Microsoft Standard Application License Terms - Standalone (free) Use Terms.pdf' "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE.pdf"
 
 	# User flag aware launcher
 	install -m755 microsoft-edge-stable.sh "${pkgdir}/usr/bin/microsoft-edge-stable"

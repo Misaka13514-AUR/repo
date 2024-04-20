@@ -26,9 +26,7 @@ pkgbase = microsoft-edge-stable-bin
 	options = !zipman
 	source = https://packages.microsoft.com/yumrepos/edge/Packages/m/microsoft-edge-stable-124.0.2478.51-1.x86_64.rpm
 	source = microsoft-edge-stable.sh
-	source = Microsoft Standard Application License Terms - Standalone (free) Use Terms.pdf
 	sha256sums = 8a235a2dfd426858529df4a050c9f0b39b8f49e20ba243970909d615858a92ac
 	sha256sums = dc3765d2de6520b13f105b8001aa0e40291bc9457ac508160b23eea8811e26af
-	sha256sums = edf2ed596eb068f168287fc76aa713ad5e0afb59f0a0a47a4f29c0c124ade15e
 
 pkgname = microsoft-edge-stable-bin
