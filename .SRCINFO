@@ -1,12 +1,15 @@
 pkgbase = python-yarg
 	pkgdesc = A semi hard Cornish cheese, also queries PyPI (PyPI client)
 	pkgver = 0.1.9
-	pkgrel = 10
+	pkgrel = 11
 	url = https://github.com/kura/yarg
 	arch = any
 	license = MIT
 	checkdepends = python-nose
-	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-wheel
+	makedepends = python-installer
+	depends = python
 	depends = python-requests
 	source = python-yarg-0.1.9.tar.gz::https://github.com/kura/yarg/archive/0.1.9.tar.gz
 	source = drop-python-mock-dependency.patch
