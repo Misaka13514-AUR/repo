@@ -1,7 +1,7 @@
 # Maintainer: João Victor Soares <joao.victor.ssv@outlook.com>
 
 pkgname=fvm
-pkgver=3.1.3
+pkgver=3.1.4
 pkgrel=1
 pkgdesc="Flutter Version Management: A simple cli to manage Flutter SDK versions."
 arch=('x86_64')
@@ -15,7 +15,7 @@ source=(
 conflicts=()
 OPTIONS=()
 sha256sums=(
-  'a86aa8f218c9463c37c63db60c748a7816d40e6a600e75ba670fd264c82c985f'
+  '0eb28aea782352207e94013f38e66de257e1ac5a5bb4538f1e67c75caabe06fb'
 )
 
 package() {
