@@ -2,8 +2,8 @@
 pkgname=yubico-authenticator
 _app_id=com.yubico.yubioath
 pkgdesc="Yubico Authenticator for Desktop"
-pkgver=6.4.0
-pkgrel=7
+pkgver=7.0.0
+pkgrel=1
 _flutter_ver=3.19.6
 arch=('x86_64' 'aarch64')
 url="https://github.com/Yubico/yubioath-flutter"
@@ -30,13 +30,11 @@ makedepends=(
   'python-poetry-core'
   'python-wheel'
 )
-_commit=c44d65eb6efc9e82b74eb44f228c3937bdc1e071  # tags/6.4.0^0
-source=("git+https://github.com/Yubico/yubioath-flutter.git#commit=${_commit}?signed"
+source=("git+https://github.com/Yubico/yubioath-flutter.git#tag=$pkgver?signed"
         "flutter-${_flutter_ver}.tar.xz::https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${_flutter_ver/.hotfix/+hotfix}-stable.tar.xz")
-validpgpkeys=('AF511D2CBC0F973E5D308054325C8E4AE2E6437D'  # Adam Velebil <adam.velebil@yubico.com>
-              '20EE325B86A81BCBD3E56798F04367096FBA95E8')  # Dain Nilsson <dain@yubico.com>
-sha256sums=('5409741c3e10645fe9b41e497e34f94bc95c7c8d79a71c645c00486c0484f40c'
+sha256sums=('e728ae5c5e94f7ed9b92a76e1e5dc91a6e4775da265b51379f027bf47f6bf84d'
             'db6742a20626d0d2a089eb41ad61b9b2138b996679911e9c8268c1f896191f97')
+validpgpkeys=('20EE325B86A81BCBD3E56798F04367096FBA95E8')  # Dain Nilsson <dain@yubico.com>
 
 prepare() {
   cd yubioath-flutter
