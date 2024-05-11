@@ -1,7 +1,7 @@
 # Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
 pkgname=fscan
-pkgver=1.8.3.build3
-_pkgver=1.8.3-build3
+pkgver=1.8.4
+_pkgver=$pkgver
 pkgrel=1
 pkgdesc="An intranet comprehensive scanning tool"
 arch=('i686' 'x86_64' 'armv7h' 'aarch64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 source=("$pkgname-$pkgver.tar.gz"::"$url/archive/$_pkgver.tar.gz")
-sha256sums=('ae9dced28b9d06897e285d68c5ac9627a41578532896f355682d086b09e20457')
+sha256sums=('24e0aeac234e458ff1cdfd1b0d8f1d2b4fd920582a420fb1091f7cafa18fe33c')
 
 prepare() {
     cd "$pkgname-$_pkgver"
@@ -34,7 +34,7 @@ check() {
 
 package() {
     cd "$pkgname-$_pkgver"
-    install -Dm755 build/$pkgname "$pkgdir/usr/bin/$pkgname"
-    install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm755 -t "$pkgdir/usr/bin/" build/$pkgname
+    install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.txt
     install -Dm644 -t "$pkgdir/usr/share/doc/$pkgname/" *.md
 }
