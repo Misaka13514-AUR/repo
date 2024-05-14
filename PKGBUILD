@@ -40,17 +40,17 @@ prepare() {
   fvm install stable
   fvm global stable
 
-  # Disable analytics and enable linux desktop
-  fvm flutter --no-version-check config --no-analytics
-  fvm flutter --no-version-check config --enable-linux-desktop
+  # Disable analytics
+  fvm flutter --disable-analytics
+
+  # Pull dependencies within prepare, allowing for offline builds later on
 
   # Because yubico_authenticator depends on flutter_localizations from sdk 
   # which depends on intl 0.19.0, intl 0.19.0 is required.
   # So, because yubico_authenticator depends on intl ^0.18.1, version solving failed.
   fvm flutter pub add intl:^0.19.0
 
-  # Pull dependencies within prepare, allowing for offline builds later on
-  fvm flutter --no-version-check pub get
+  fvm flutter pub get
 
   desktop-file-edit --set-key=Exec --set-value="authenticator" --set-icon="${_app_id}" \
     resources/linux/linux_support/com.yubico.authenticator.desktop
@@ -67,7 +67,7 @@ build() {
   popd
 
   export FVM_CACHE_PATH="$srcdir/fvm"
-  fvm flutter --no-version-check build linux
+  fvm flutter build linux
 }
 
 check() {
