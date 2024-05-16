@@ -3,8 +3,7 @@ pkgname=yubico-authenticator
 _app_id=com.yubico.yubioath
 pkgdesc="Yubico Authenticator for Desktop"
 pkgver=7.0.0
-pkgrel=3
-_flutter_ver=3.19.6
+pkgrel=4
 arch=('x86_64' 'aarch64')
 url="https://github.com/Yubico/yubioath-flutter"
 license=('Apache-2.0')
@@ -23,6 +22,7 @@ makedepends=(
   'chrpath'
   'clang'
   'cmake'
+  'fvm'
   'git'
   'ninja'
   'python-build'
@@ -30,14 +30,22 @@ makedepends=(
   'python-poetry-core'
   'python-wheel'
 )
-source=("git+https://github.com/Yubico/yubioath-flutter.git#tag=$pkgver?signed"
-        "flutter-${_flutter_ver}.tar.xz::https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${_flutter_ver/.hotfix/+hotfix}-stable.tar.xz")
-sha256sums=('e728ae5c5e94f7ed9b92a76e1e5dc91a6e4775da265b51379f027bf47f6bf84d'
-            'db6742a20626d0d2a089eb41ad61b9b2138b996679911e9c8268c1f896191f97')
+source=("git+https://github.com/Yubico/yubioath-flutter.git#tag=$pkgver?signed")
+sha256sums=('e728ae5c5e94f7ed9b92a76e1e5dc91a6e4775da265b51379f027bf47f6bf84d')
 validpgpkeys=('20EE325B86A81BCBD3E56798F04367096FBA95E8')  # Dain Nilsson <dain@yubico.com>
 
 prepare() {
   cd yubioath-flutter
+  export FVM_CACHE_PATH="$srcdir/fvm"
+  fvm install 3.19.6
+  fvm global 3.19.6
+
+  # Disable analytics
+  fvm flutter --disable-analytics
+
+  # Pull dependencies within prepare, allowing for offline builds later on
+  fvm flutter pub get
+
   desktop-file-edit --set-key=Exec --set-value="authenticator" --set-icon="${_app_id}" \
     resources/linux/linux_support/com.yubico.authenticator.desktop
 
@@ -52,18 +60,14 @@ build() {
   GIT_DIR='.' python -m build --wheel --no-isolation
   popd
 
-  export FLUTTER_HOME="$srcdir/flutter"
-  export PATH="${FLUTTER_HOME}/bin:${PATH}"
-  flutter --disable-analytics
-  flutter pub get
-  flutter build linux
+  export FVM_CACHE_PATH="$srcdir/fvm"
+  fvm flutter build linux
 }
 
 check() {
   cd yubioath-flutter
-  export FLUTTER_HOME="$srcdir/flutter"
-  export PATH="${FLUTTER_HOME}/bin:${PATH}"
-  flutter test
+  export FVM_CACHE_PATH="$srcdir/fvm"
+  fvm flutter test
 }
 
 package() {
@@ -100,3 +104,4 @@ package() {
   # Remove insecure RUNPATH pointing to build dir
   chrpath --delete "$pkgdir/opt/$pkgname"/lib/*.so
 }
+
