@@ -43,16 +43,29 @@ fi
 # 从 flags 文件中加载参数
 
 set -euo pipefail
-flags_file="${XDG_CONFIG_HOME}/qq-electron-flags.conf"
-declare -a flags
+electron_flags_file="${XDG_CONFIG_HOME}/qq-electron-flags.conf"
+declare -a electron_flags
 
-if [[ -f "${flags_file}" ]]; then
-    mapfile -t <"${flags_file}"
+if [[ -f "${electron_flags_file}" ]]; then
+    mapfile -t ELECTRON_FLAGS_MAPFILE <"${electron_flags_file}"
 fi
 
-for line in "${MAPFILE[@]}"; do
+for line in "${ELECTRON_FLAGS_MAPFILE[@]}"; do
     if [[ ! "${line}" =~ ^[[:space:]]*#.* ]]; then
-        flags+=("${line}")
+        electron_flags+=("${line}")
+    fi
+done
+
+bwrap_flags_file="${XDG_CONFIG_HOME}/qq-bwrap-flags.conf"
+declare -a bwrap_flags
+
+if [[ -f "${bwrap_flags_file}" ]]; then
+    mapfile -t BWRAP_FLAGS_MAPFILE <"${bwrap_flags_file}"
+fi
+
+for line in "${BWRAP_FLAGS_MAPFILE[@]}"; do
+    if [[ ! "${line}" =~ ^[[:space:]]*#.* ]]; then
+        bwrap_flags+=("${line}")
     fi
 done
 
@@ -126,7 +139,8 @@ bwrap --new-session --cap-drop ALL --unshare-user-try --unshare-pid --unshare-cg
     --setenv IBUS_USE_PORTAL 1 \
     --setenv QQNTIM_HOME "${QQ_APP_DIR}/QQNTim" \
     --setenv LITELOADERQQNT_PROFILE "${QQ_APP_DIR}/LiteLoaderQQNT" \
-    /opt/QQ/electron "${flags[@]}" "$@" /opt/QQ/resources/app
+    "${bwrap_flags[@]}" \
+    /opt/QQ/electron "${electron_flags[@]}" "$@" /opt/QQ/resources/app
 
 # 移除无用崩溃报告和日志
 # 如果需要向腾讯反馈 bug，请注释掉如下几行

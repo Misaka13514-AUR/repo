@@ -7,7 +7,7 @@ _update_pkgver=${_base_pkgver}
 _md5=96fbb21f
 pkgname=linuxqq-nt-bwrap
 pkgver="${_update_pkgver//-/_}"
-pkgrel=1
+pkgrel=2
 pkgdesc="New Linux QQ based on Electron, with bubblewrap sandbox and some tweaks"
 arch=('x86_64' 'aarch64' 'loong64')
 url='https://im.qq.com/linuxqq/index.shtml'
@@ -28,7 +28,7 @@ source_x86_64=("https://dldir1.qq.com/qqfile/qq/QQNT/${_md5}/linuxqq_${_base_pkg
 source_aarch64=("https://dldir1.qq.com/qqfile/qq/QQNT/${_md5}/linuxqq_${_base_pkgver}_arm64.deb")
 source_loong64=("https://dldir1.qq.com/qqfile/qq/QQNT/${_md5}/linuxqq_${_base_pkgver}_loongarch64.deb")
 source=('start.sh' 'config.json' 'xdg-open.sh')
-sha256sums=('bf956210c3feef339efbec3a7663dcc061a3066f038d74b1e8bd3eede780d1a5'
+sha256sums=('f52223dc193dccea1b43a654ba453169ca9467bc6f389400962fab9ee63e75ab'
             'bb2ec0f104da4da7422d9b0f51c71d0ab38ed2a21764a7a643ab42689e098e4b'
             'f1c778b5a8b23bc77fd8e5e89056fea07309794c9a44ec38134a176cf1f7b675')
 sha256sums_x86_64=('d23e212d26cf80a40e3eab44499aa76586eade3fc260d1b9f171294fb507393f')
