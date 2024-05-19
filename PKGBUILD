@@ -2,7 +2,7 @@
 # Co-Maintainer:    zzjzxq33 <wojiushixxx at 126 dot com>
 pkgname=bbg-git
 _pkgname=${pkgname%-git}
-pkgver=20231016.r6.9e9ae1d
+pkgver=20240519.r0.73e2d82
 pkgrel=1
 pkgdesc="A static blog generator built with electron"
 arch=('any')
@@ -36,8 +36,8 @@ prepare() {
 
 build() {
     cd "$srcdir/${_pkgname}"
-    yarn install
-    asar pack . app.asar
+    yarn install --production --frozen-lockfile
+    asar pack --exclude-hidden . app.asar
     mv app.asar ../"app-${pkgver}.asar"
 }
 
