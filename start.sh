@@ -69,6 +69,15 @@ for line in "${BWRAP_FLAGS_MAPFILE[@]}"; do
     fi
 done
 
+
+# read the mac address from .qq_mac, if not exist, generate a random one
+if [ -f "${QQ_APP_DIR}/.qq_mac" ]; then
+    qq_mac=$(cat "${QQ_APP_DIR}/.qq_mac")
+else
+    qq_mac=00\:$(hexdump -n5 -e '/1 ":%02X"' /dev/random | sed s/^://g)
+    echo $qq_mac > "${QQ_APP_DIR}/.qq_mac"
+fi
+
 QQ_HOTUPDATE_DIR="${QQ_APP_DIR}/versions"
 
 # 在「下载」目录不存在的时候，自动使用 ~/Downloads
@@ -103,7 +112,15 @@ if [ "$is_hotupdated_version" == "0" ]; then
     cp "/opt/QQ/workarounds/config.json" "${QQ_HOTUPDATE_DIR}/config.json"
 fi
 
-bwrap --new-session --cap-drop ALL --unshare-user-try --unshare-pid --unshare-cgroup-try \
+INFO_DIR=$(mktemp -d)
+INFO_FILE=$INFO_DIR/info
+touch $INFO_FILE
+
+bwrap --new-session --unshare-user-try --unshare-cgroup-try \
+    --unshare-user \
+    --uid "$(id -u)" --gid "$(id -g)" \
+    --unshare-net \
+    --cap-add CAP_NET_ADMIN,CAP_NET_RAW,CAP_SYS_ADMIN \
     --symlink usr/lib /lib \
     --symlink usr/lib64 /lib64 \
     --symlink usr/bin /bin \
@@ -118,7 +135,7 @@ bwrap --new-session --cap-drop ALL --unshare-user-try --unshare-pid --unshare-cg
     --ro-bind /etc/passwd /etc/passwd \
     --ro-bind /etc/nsswitch.conf /etc/nsswitch.conf \
     --ro-bind-try /run/systemd/userdb /run/systemd/userdb \
-    --ro-bind /etc/resolv.conf /etc/resolv.conf \
+    --ro-bind /opt/QQ/workarounds/resolv.conf /etc/resolv.conf \
     --ro-bind /etc/localtime /etc/localtime \
     --proc /proc \
     --dev-bind /run/dbus /run/dbus \
@@ -128,6 +145,7 @@ bwrap --new-session --cap-drop ALL --unshare-user-try --unshare-pid --unshare-cg
     --bind-try "${HOME}/.pki" "${HOME}/.pki" \
     --ro-bind-try "${XAUTHORITY}" "${XAUTHORITY}" \
     --bind-try "${QQ_DOWNLOAD_DIR}" "${QQ_DOWNLOAD_DIR}" \
+    --setenv QQ_APP_DIR "${QQ_APP_DIR}" \
     --bind "${QQ_APP_DIR}" "${QQ_APP_DIR}" \
     --ro-bind-try "${FONTCONFIG_HOME}" "${FONTCONFIG_HOME}" \
     --ro-bind-try "${HOME}/.icons" "${HOME}/.icons" \
@@ -139,24 +157,54 @@ bwrap --new-session --cap-drop ALL --unshare-user-try --unshare-pid --unshare-cg
     --setenv IBUS_USE_PORTAL 1 \
     --setenv QQNTIM_HOME "${QQ_APP_DIR}/QQNTim" \
     --setenv LITELOADERQQNT_PROFILE "${QQ_APP_DIR}/LiteLoaderQQNT" \
+    --bind "${INFO_DIR}" "${INFO_DIR}" \
+    --setenv INFO_FILE "${INFO_FILE}" \
     "${bwrap_flags[@]}" \
-    /opt/QQ/electron "${electron_flags[@]}" "$@" /opt/QQ/resources/app
+    /opt/QQ/_start.sh "${electron_flags[@]}" "$@" /opt/QQ/resources/app &
 
-# 移除无用崩溃报告和日志
-# 如果需要向腾讯反馈 bug，请注释掉如下几行
-rm -rf ${QQ_APP_DIR}/crash_files
-touch ${QQ_APP_DIR}/crash_files
-if [ -d "${QQ_APP_DIR}/log" ]; then
-    rm -rf "${QQ_APP_DIR}/log"
+if [ $? -ne 0 ]; then
+    rm $INFO_FILE
+    echo "bwrap failed"
+    exit 1
 fi
-for nt_qq_userdata in "${QQ_APP_DIR}/nt_qq_"*; do
-    if [ -d "${nt_qq_userdata}/log" ]; then
-        rm -rf "${nt_qq_userdata}/log"
-    fi
-    if [ -d "${nt_qq_userdata}/log-cache" ]; then
-        rm -rf "${nt_qq_userdata}/log-cache"
-    fi
+while [ ! -s $INFO_FILE ]; do
+    sleep 0.01
 done
-if [ -d "${QQ_APP_DIR}/Crashpad" ]; then
-    rm -rf "${QQ_APP_DIR}/Crashpad"
+PID=$(cat $INFO_FILE)
+echo "SubProcess PID: $PID"
+
+SLIRP_API_SOCKET=$INFO_DIR/slirp.sock
+slirp4netns --configure --mtu=65520 --disable-host-loopback --enable-ipv6 $PID eth0 --macaddress $qq_mac --api-socket $SLIRP_API_SOCKET &
+SLIRP_PID=$!
+if [ $? -ne 0 ]; then
+    echo "slirp4netns failed"
+    kill $PID
+    rm -rf ${INFO_DIR:?}
+    exit 1
 fi
+add_hostfwd() {
+    local proto=$1
+    local guest_port=$2
+    shift 2
+    local ports=("$@")
+    for port in "${ports[@]}"; do
+        result=$(echo -n "{\"execute\": \"add_hostfwd\", \"arguments\": {\"proto\": \"$proto\", \"host_addr\": \"127.0.0.1\", \"host_port\": $port, \"guest_port\": $guest_port}}" | socat UNIX-CONNECT:$SLIRP_API_SOCKET -)
+        if [[ $result != *"error"* ]]; then
+            echo "$proto forwarding setup on port $port"
+            return 0
+        fi
+    done
+    echo "Failed to setup $proto forwarding."
+    return 1
+}
+https_ports=(4301 4303 4305 4307 4309)
+http_ports=(4310 4308 4306 4304 4302)
+add_hostfwd "tcp" 94301 "${https_ports[@]}"
+add_hostfwd "tcp" 94310 "${http_ports[@]}"
+rm $INFO_FILE
+# 启动步骤结束
+tail --pid=$PID -f /dev/null
+kill -TERM $SLIRP_PID
+# wait $SLIRP_PID
+rm -rf ${INFO_DIR:?}
+exit 0
