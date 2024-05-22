@@ -1,6 +1,6 @@
 pkgbase = easyeda-pro-bin
 	pkgdesc = EasyEDA Professional Edition
-	pkgver = 2.1.59
+	pkgver = 2.1.61
 	pkgrel = 1
 	url = https://pro.easyeda.com/
 	install = easyeda-pro-bin.install
@@ -14,13 +14,13 @@ pkgbase = easyeda-pro-bin
 	conflicts = easyeda-pro
 	conflicts = easyeda-pro-git
 	conflicts = easyeda-pro-electron
-	source = LICENSE-2.1.59.html::https://easyeda.com/page/legal
+	source = LICENSE-2.1.61.html::https://easyeda.com/page/legal
 	source = easyeda-pro-bin.install
 	sha256sums = SKIP
 	sha256sums = ab64abe7821e4ea37a0e4d1f77c94f37d6a51c7df2038ba7b609c640adf8e51d
-	source_x86_64 = easyeda-pro-x86_64-2.1.59.zip::https://image.easyeda.com/files/easyeda-pro-linux-x64-2.1.59.zip
-	sha256sums_x86_64 = f0fa39f5f01c2c24fe2f41115f30a789000f64e42938b39e1c9590b1f69bf93d
-	source_aarch64 = easyeda-pro-aarch64-2.1.59.zip::https://image.easyeda.com/files/easyeda-pro-linux-arm64-2.1.59.zip
-	sha256sums_aarch64 = 8d84d7ac003f21da1ee86b435367980f18f4b0b14ccfb2796b078daf1842989e
+	source_x86_64 = easyeda-pro-x86_64-2.1.61.zip::https://image.easyeda.com/files/easyeda-pro-linux-x64-2.1.61.zip
+	sha256sums_x86_64 = dc7a552fdb71161938e9863385498a77c4fc572fb5606a50700c6a952857e397
+	source_aarch64 = easyeda-pro-aarch64-2.1.61.zip::https://image.easyeda.com/files/easyeda-pro-linux-arm64-2.1.61.zip
+	sha256sums_aarch64 = 819d928e84013f1edfa27762d0546c26bca5db28af0b244ea75f901c07f46897
 
 pkgname = easyeda-pro-bin
