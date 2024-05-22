@@ -43,13 +43,12 @@ fi
 # 从 flags 文件中加载参数
 
 set -euo pipefail
+
 electron_flags_file="${XDG_CONFIG_HOME}/qq-electron-flags.conf"
 declare -a electron_flags
-
 if [[ -f "${electron_flags_file}" ]]; then
     mapfile -t ELECTRON_FLAGS_MAPFILE <"${electron_flags_file}"
 fi
-
 for line in "${ELECTRON_FLAGS_MAPFILE[@]}"; do
     if [[ ! "${line}" =~ ^[[:space:]]*#.* ]]; then
         electron_flags+=("${line}")
@@ -58,16 +57,17 @@ done
 
 bwrap_flags_file="${XDG_CONFIG_HOME}/qq-bwrap-flags.conf"
 declare -a bwrap_flags
-
 if [[ -f "${bwrap_flags_file}" ]]; then
-    mapfile -t BWRAP_FLAGS_MAPFILE <"${bwrap_flags_file}"
+    while IFS= read -r line; do
+        if [[ ! "${line}" =~ ^[[:space:]]*# ]] && [[ -n "${line}" ]]; then
+            eval "expanded_line=\"$line\""
+            read -ra parts <<< "$expanded_line"
+            for part in "${parts[@]}"; do
+                bwrap_flags+=("$part")
+            done
+        fi
+    done < "${bwrap_flags_file}"
 fi
-
-for line in "${BWRAP_FLAGS_MAPFILE[@]}"; do
-    if [[ ! "${line}" =~ ^[[:space:]]*#.* ]]; then
-        bwrap_flags+=("${line}")
-    fi
-done
 
 
 # read the mac address from .qq_mac, if not exist, generate a random one
@@ -114,7 +114,6 @@ fi
 
 INFO_DIR=$(mktemp -d)
 INFO_FILE=$INFO_DIR/info
-touch $INFO_FILE
 
 bwrap --new-session --unshare-user-try --unshare-cgroup-try \
     --unshare-user \
@@ -162,24 +161,30 @@ bwrap --new-session --unshare-user-try --unshare-cgroup-try \
     "${bwrap_flags[@]}" \
     /opt/QQ/_start.sh "${electron_flags[@]}" "$@" /opt/QQ/resources/app &
 
-if [ $? -ne 0 ]; then
-    rm $INFO_FILE
+if [ "$?" -ne 0 ]; then
+    rm "$INFO_FILE"
     echo "bwrap failed"
     exit 1
 fi
-while [ ! -s $INFO_FILE ]; do
+while [ ! -s "$INFO_FILE" ]; do
     sleep 0.01
 done
-PID=$(cat $INFO_FILE)
+
+PID="$(cat "$INFO_FILE")"
 echo "SubProcess PID: $PID"
 
 SLIRP_API_SOCKET=$INFO_DIR/slirp.sock
-slirp4netns --configure --mtu=65520 --disable-host-loopback --enable-ipv6 $PID eth0 --macaddress $qq_mac --api-socket $SLIRP_API_SOCKET &
+slirp4netns --configure --mtu=65520 --disable-host-loopback --enable-ipv6 "$PID" eth0 --macaddress "$qq_mac" --api-socket "$SLIRP_API_SOCKET" &
 SLIRP_PID=$!
-if [ $? -ne 0 ]; then
+
+while [ ! -S "$SLIRP_API_SOCKET" ]; do
+    sleep 0.01
+done
+
+if [ "$?" -ne 0 ]; then
     echo "slirp4netns failed"
-    kill $PID
-    rm -rf ${INFO_DIR:?}
+    kill "$PID"
+    rm -rf "${INFO_DIR:?}"
     exit 1
 fi
 add_hostfwd() {
@@ -201,10 +206,12 @@ https_ports=(4301 4303 4305 4307 4309)
 http_ports=(4310 4308 4306 4304 4302)
 add_hostfwd "tcp" 94301 "${https_ports[@]}"
 add_hostfwd "tcp" 94310 "${http_ports[@]}"
-rm $INFO_FILE
+rm "$INFO_FILE"
 # 启动步骤结束
-tail --pid=$PID -f /dev/null
-kill -TERM $SLIRP_PID
-# wait $SLIRP_PID
-rm -rf ${INFO_DIR:?}
+tail --pid="$PID" -f /dev/null
+echo "Cleaning up..."
+set +e
+kill -TERM "$SLIRP_PID"
+wait "$SLIRP_PID"
+rm -rf "${INFO_DIR:?}"
 exit 0

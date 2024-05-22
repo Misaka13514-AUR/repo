@@ -3,12 +3,13 @@
 
 trap 'kill $(jobs -p)' EXIT
 
-echo $$ > ${INFO_FILE}
+echo $$ > "${INFO_FILE}"
+echo "PID written."
+
 # wait for the file to be deleted
-while [ -f ${INFO_FILE} ]; do
+while [ -f "${INFO_FILE}" ]; do
     sleep 0.01
 done
-sleep 0.01
 # clear proxy settings
 unset http_proxy
 unset https_proxy
