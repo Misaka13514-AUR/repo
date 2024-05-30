@@ -56,7 +56,7 @@ prepare() {
 }
 
 package_wps-office-cn() {
-    depends=('fontconfig' 'xorg-mkfontdir' 'libxrender' 'desktop-file-utils' 'shared-mime-info' 'xdg-utils' 'glu' 'openssl-1.1' 'sdl2' 'libpulse' 'hicolor-icon-theme' 'libxss' 'sqlite' 'libtool' 'libxslt' 'qt5-base' 'libjpeg-turbo')
+    depends=('fontconfig' 'xorg-mkfontdir' 'libxrender' 'desktop-file-utils' 'shared-mime-info' 'xdg-utils' 'glu' 'sdl2' 'libpulse' 'hicolor-icon-theme' 'libxss' 'sqlite' 'libtool' 'libxslt' 'libjpeg-turbo')
     optdepends=('libtiff5: Provide libtiff.so.5 for wpspdf working'
                 'cups: for printing support'
                 'libjpeg-turbo: JPEG image codec support'
