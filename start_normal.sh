@@ -122,6 +122,7 @@ bwrap --new-session --cap-drop ALL --unshare-user-try --unshare-pid --unshare-cg
     --ro-bind /etc/resolv.conf /etc/resolv.conf \
     --ro-bind /etc/localtime /etc/localtime \
     --proc /proc \
+    --tmpfs "/sys/devices/virtual" \
     --dev-bind /run/dbus /run/dbus \
     --bind "${USER_RUN_DIR}" "${USER_RUN_DIR}" \
     --ro-bind-try /etc/fonts /etc/fonts \
