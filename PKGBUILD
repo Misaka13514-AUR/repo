@@ -4,7 +4,7 @@
 _pkgname=ImHex
 pkgname=${_pkgname,,}
 pkgver=1.34.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Hex Editor for Reverse Engineers, Programmers and people that value their eye sight when working at 3 AM'
 url='https://imhex.werwolv.net'
 license=('GPL-2.0-or-later')
@@ -19,21 +19,12 @@ optdepends=('dotnet-runtime: support for .NET scripts')
 provides=('imhex-patterns')
 conflicts=('imhex-patterns-git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/WerWolv/ImHex/releases/download/v$pkgver/Full.Sources.tar.gz"
-        "imhex-patterns-$pkgver.tar.gz::https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v$pkgver.tar.gz"
-        0001-fix-main-Handle-different-LLVM-version.patch)
+"imhex-patterns-$pkgver.tar.gz::https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v$pkgver.tar.gz")
 sha256sums=('0918470bfa9603c423fb4708258d18195fbae582c585bcb822ceded141cf75f0'
-            'fa0d7862ecf4698e6b26fde1307b314f2ddc16d7e2c99e80d9b18c357e43bf06'
-            '10824e6dfd8fedbad13c32be0ec3f4db09c250db827d8781869875426ee8b451')
+            'fa0d7862ecf4698e6b26fde1307b314f2ddc16d7e2c99e80d9b18c357e43bf06')
 b2sums=('ef746a991eb72c10747450d869eea5a5acc275cdbb75ecbb4c0d5ea66de0b09fa4606f6e4989b5c80988c805028f03ec2ea374d6bf0ef143c7ef5fc61ee551d0'
-        'd2601f344d51598a3e27da014617bed7e8cd5891bdbfc01a03aa6a337ca21d40bcd09d6de87c10971c49d6830672dbe8a6ec09c581ce329132ee495c0b131792'
-        'c9ac00ac69426f484ae2852c53bc2f9403859c4b38568b44c8c4a1c6258b33d7cf0429617aaf7cd5a356fd65a9647639f7f447451e493020439c259dae9e8dad')
+        'd2601f344d51598a3e27da014617bed7e8cd5891bdbfc01a03aa6a337ca21d40bcd09d6de87c10971c49d6830672dbe8a6ec09c581ce329132ee495c0b131792')
 options=(!lto !strip)
-
-prepare() {
-  cd "$_pkgname"
-
-  patch -Np1 -i "$srcdir/0001-fix-main-Handle-different-LLVM-version.patch"
-}
 
 build() {
   export CXXFLAGS="$CXXFLAGS -Wno-inconsistent-missing-override"
