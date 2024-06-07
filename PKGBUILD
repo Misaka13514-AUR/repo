@@ -1,8 +1,8 @@
-#Maintainer: Marco Pompili <aur@emarcs.org>
+# Maintainer: Marco "marcs" Pompili <aur@odd.red>
 
 pkgname=pkcrack
-pkgver=1.2.2
-pkgrel=4
+pkgver=1.2.3
+pkgrel=1
 pkgdesc="An algorithm for breaking the PkZip cipher that was devised by Eli Biham and Paul Kocher."
 arch=('i686' 'x86_64')
 url="https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html"
@@ -11,8 +11,8 @@ conflicts=('libextractor')
 depends=('glibc')
 source=("https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack/pkcrack-${pkgver}.tar.gz"
         "LICENSE")
-sha256sums=('4d2dc193ffa4342ac2ed3a6311fdf770ae6a0771226b3ef453dca8d03e43895a'
-            'c7243221bf8692cef82dadcf4db0e2c64a845b2373eb8b5827e8db512a0e4e84')
+sha256sums=('8f49fa387962a37a14c9abd549016721a634251105bf4b837cc72f0bad413d38'
+            '12b5054963697d11082597453457ef9bac93435a4cee79ebb09511e1566c5e43')
 install=pkcrack.install
 
 build() {
