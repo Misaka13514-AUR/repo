@@ -1,20 +1,21 @@
+# Maintainer: Boyang Yan <yanboyang713@gmail.com>
 # Contributor: Emanuel Couto <unit73e at gmail dot com>
 # Contributor: Renato Garcia <fgarcia.renato@gmail.com>
 # Contributor: Simon Conseil <contact+aur at saimon dot org>
-# Maintainer: Boyang Yan <yanboyang713@gmail.com>
+# Contributor: Misaka13514 <Misaka13514 at gmail dot com>
 
 pkgname=python-sexpdata
-_name=sexpdata
+_name=${pkgname#python-}
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="S-expression parser for Python"
 arch=('any')
-url="https://github.com/tkf/sexpdata"
-license=('BSD')
+url="https://github.com/jd-boyd/sexpdata"
+license=('BSD-2-Clause')
 depends=('python')
-makedepends=('python-build' 'python-installer' 'python-wheel')
-source=("https://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz")
-sha256sums=('92b67b0361f6766f8f9e44b9519cf3fbcfafa755db85bbf893c3e1cf4ddac109')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('a36c99143e778718b33d06db46d8f842736296f44358504c48fc8732663943a8')
 
 build() {
     cd "$_name-$pkgver"
@@ -24,4 +25,5 @@ build() {
 package() {
     cd "$_name-$pkgver"
     python -m installer --destdir="$pkgdir" dist/*.whl
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
