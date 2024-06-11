@@ -4,9 +4,9 @@
 
 pkgname=nuclei
 pkgver=3.2.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast tool for configurable targeted scanning based on templates offering massive extensibility and ease of use'
-arch=('x86_64' 'armv6h' 'aarch64')
+arch=('i686' 'x86_64' 'armv6h' 'armv7h' 'aarch64')
 url='https://github.com/projectdiscovery/nuclei'
 license=('MIT')
 depends=('glibc')
@@ -32,7 +32,7 @@ build() {
 package() {
   cd "${pkgname}-${pkgver}"
   install -Dvm755 "${pkgname}" -t "${pkgdir}/usr/bin"
-  install -Dvm644 'README.md' -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dvm644 README*.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dvm644 'LICENSE.md' "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
