@@ -3,9 +3,9 @@
 
 pkgname=mfoc-hardnested-git
 pkgver=0.10.9.r171.a600743
-pkgrel=3
+pkgrel=4
 pkgdesc="A fork of mfoc integrating hardnested code from the proxmark"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv7h' 'aarch64')
 url="https://github.com/nfc-tools/mfoc-hardnested"
 license=('GPL-2.0-only')
 depends=('libnfc>=1.7.0' 'xz' 'glibc')
