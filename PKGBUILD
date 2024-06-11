@@ -3,9 +3,9 @@
 pkgname=python-lzf
 _name=${pkgname}
 pkgver=0.2.5
-pkgrel=1
+pkgrel=2
 pkgdesc="C Extension for liblzf"
-arch=('x86_64')
+arch=('i686' 'x86_64' 'armv7h' 'aarch64')
 url="https://github.com/teepark/python-lzf"
 license=('BSD-3-Clause')
 depends=('glibc')
