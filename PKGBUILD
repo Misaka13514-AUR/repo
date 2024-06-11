@@ -3,13 +3,14 @@
 
 pkgname=gqrx-scanner
 pkgver=1.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A frequency scanner for Gqrx Software Defined Radio receiver"
-arch=('x86_64')
+arch=('i686' 'x86_64' 'armv7h' 'aarch64')
 url="https://github.com/neural75/gqrx-scanner"
 license=('MIT')
 depends=('glibc')
 makedepends=('cmake')
+optdepends=('gqrx: Software Defined Radio receiver')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
 sha256sums=('76eb312cbae4407524df137d2ca7377b5c400ba350d9566dfc5a82328a6aca52')
 
