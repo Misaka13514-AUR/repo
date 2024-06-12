@@ -1,7 +1,7 @@
 # Maintainer:       zzjzxq33 <wojiushixxx at 126 dot com>
 # Co-Maintainer:    Misaka13514 <Misaka13514 at gmail dot com>
 pkgname=bbg
-pkgver=20240604
+pkgver=20240613
 pkgrel=1
 pkgdesc="A static blog generator built with electron"
 arch=('any')
@@ -14,7 +14,7 @@ source=(
     "app-${pkgver}.asar"::"${url}/releases/download/${pkgver}/app.asar"
 )
 sha256sums=('f25a9595d339f61193a7e79c08c5f56014fa487a6ddee271d0785bb1cae2155f'
-            '53dfb1f8e1c6943501c4b262e6ff5079c57b5d9316302653e91ed58d57f711a3')
+            '3d7be08263941cc0da4245cb6bd19986e42ad2b0ac923ac10e42f63d6735c2f2')
 
 package() {
     cd "$srcdir"
