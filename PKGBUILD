@@ -2,8 +2,8 @@
 
 pkgname=python-lzf
 _name=${pkgname}
-pkgver=0.2.5
-pkgrel=2
+pkgver=0.2.6
+pkgrel=1
 pkgdesc="C Extension for liblzf"
 arch=('i686' 'x86_64' 'armv7h' 'aarch64')
 url="https://github.com/teepark/python-lzf"
@@ -11,7 +11,7 @@ license=('BSD-3-Clause')
 depends=('glibc')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/release-$pkgver.tar.gz")
-sha256sums=('114c694969046a4f77f68571d88ff86235d3161670178547e89b183e6e7d50ce')
+sha256sums=('19716a98e02a4f2835902642d5f276950131b019737f58b45373d721c10b8190')
 
 build() {
     cd "$_name-release-$pkgver"
