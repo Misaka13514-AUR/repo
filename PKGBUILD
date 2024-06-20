@@ -9,7 +9,7 @@ license=('MIT')
 depends=('git' 'unzip')
 makedepends=('dart')
 options=('!strip')
-source=("https://github.com/leoafarias/fvm/archive/refs/tags/$pkgver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/leoafarias/fvm/archive/refs/tags/$pkgver.tar.gz")
 sha256sums=('a479b54c4ade1df99dee975adbf61b56c6dff224915e44d4914925e4dfce8b4c')
 
 prepare() {
