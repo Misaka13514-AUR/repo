@@ -1,36 +1,34 @@
-# Maintainer: João Victor Soares <joao.victor.ssv@outlook.com>
-
+# Maintainer: Mark Wagie <mark dot wagie at proton dot me>
 pkgname=fvm
-pkgver=3.1.4
+pkgver=3.1.7
 pkgrel=1
-pkgdesc="Flutter Version Management: A simple cli to manage Flutter SDK versions."
+pkgdesc="Flutter Version Management: A simple CLI to manage Flutter SDK versions."
 arch=('x86_64')
-url="https://github.com/leoafarias/fvm"
+url="https://fvm.app"
 license=('MIT')
-depends=('git' 'zip' 'unzip' 'xz' 'curl' 'file' 'mesa')
-optdepends=()
-source=(
-  "$url/releases/download/$pkgver/fvm-$pkgver-linux-x64.tar.gz"
-)
-conflicts=()
-OPTIONS=()
-sha256sums=(
-  '0eb28aea782352207e94013f38e66de257e1ac5a5bb4538f1e67c75caabe06fb'
-)
+depends=('git' 'unzip')
+makedepends=('dart')
+options=('!strip')
+source=("https://github.com/leoafarias/fvm/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('a479b54c4ade1df99dee975adbf61b56c6dff224915e44d4914925e4dfce8b4c')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # disable analytics
+  dart --disable-analytics
+
+  # download dependencies
+  dart pub get
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  dart compile exe -o bin/fvm bin/main.dart
+}
 
 package() {
-  cd $srcdir
-
-  tar -xf "fvm-${pkgver}-linux-x64.tar.gz"
-  install -Dm755 "${srcdir}/fvm/fvm" "${pkgdir}/usr/share/${pkgname}/${pkgname}"
-  install -Dm664 "${srcdir}/fvm/src/dart" "${pkgdir}/usr/share/${pkgname}/src/dart"
-  install -Dm664 "${srcdir}/fvm/src/fvm.snapshot" "${pkgdir}/usr/share/${pkgname}/src/fvm.snapshot"
-  install -Dm644 "${srcdir}/fvm/src/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-
-  mkdir -p "${pkgdir}/usr/bin"
-  
-  chmod +x "${pkgdir}/usr/share/${pkgname}/${pkgname}"
-  chmod +x "${pkgdir}/usr/share/${pkgname}/src/dart"
-
-  ln -s "/usr/share/${pkgname}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  cd "$pkgname-$pkgver"
+  install -Dm755 "bin/$pkgname" -t "$pkgdir/usr/bin/"
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
