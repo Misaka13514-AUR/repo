@@ -1,6 +1,6 @@
 pkgbase = turbocase
 	pkgdesc = Generate an OpenSCAD case template from a KiCAD PCB
-	pkgver = 1.6.1
+	pkgver = 1.7.1
 	pkgrel = 1
 	url = https://git.sr.ht/~martijnbraam/turbocase
 	arch = any
@@ -11,7 +11,7 @@ pkgbase = turbocase
 	makedepends = python-setuptools
 	depends = python
 	depends = python-sexpdata
-	source = turbocase-1.6.1.tar.gz::https://git.sr.ht/~martijnbraam/turbocase/archive/1.6.1.tar.gz
-	sha256sums = 606f0d8a4d2e2e1051af38ceb31dfb16140303461f456917286abd22824f7c87
+	source = turbocase-1.7.1.tar.gz::https://git.sr.ht/~martijnbraam/turbocase/archive/1.7.1.tar.gz
+	sha256sums = c13dfa1714d4fae9b7c652161c289abcae2b6b7c060d07e914ad5284c245c4be
 
 pkgname = turbocase
