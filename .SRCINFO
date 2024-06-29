@@ -1,6 +1,6 @@
 pkgbase = imhex
 	pkgdesc = A Hex Editor for Reverse Engineers, Programmers and people that value their eye sight when working at 3 AM
-	pkgver = 1.35.1
+	pkgver = 1.35.2
 	pkgrel = 1
 	url = https://imhex.werwolv.net
 	arch = x86_64
@@ -28,11 +28,11 @@ pkgbase = imhex
 	conflicts = imhex-patterns-git
 	options = !lto
 	options = !strip
-	source = imhex-1.35.1.tar.gz::https://github.com/WerWolv/ImHex/releases/download/v1.35.1/Full.Sources.tar.gz
-	source = imhex-patterns-1.35.1.tar.gz::https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v1.35.1.tar.gz
-	sha256sums = 2f730ae432230df16abc53a2176758027b3a66ccb3a197540be84eee2f0c615d
-	sha256sums = 4e58d7ca3c750be5b94b2c3f05819431055885816c58786867c6a062e78a4fbc
-	b2sums = 1524fe78ae8671e2cb4855babaa40b451a0bac6c5064aca8cb7e9159844e711fda6e2404732bcd08d40327b6cf398727c167c62f07c9a1bd0a280e8980d69ca0
-	b2sums = 928c4593f77a8d32cff2f675ab23c9d4bf6c16b33011a33f89519104bd2520fee4f8d9b476574f509a5bd686036a19ace2065748ea3d80eed6104472bf87ba88
+	source = imhex-1.35.2.tar.gz::https://github.com/WerWolv/ImHex/releases/download/v1.35.2/Full.Sources.tar.gz
+	source = imhex-patterns-1.35.2.tar.gz::https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v1.35.2.tar.gz
+	sha256sums = 8296449547b8b446b352907144bbd02f1abefa7ba1af6311c7490d8f8f883e51
+	sha256sums = b56800f7667ee0dcc4e85a3d0583f70c91899959b0833f0c465f8750337109d0
+	b2sums = fae23a44666fa802fc3a5fd1d705b3b66c7231e35b3cb32ae13eb4c5c8290c9cb61208567f543e5dfd7f993a24a584b0ccefc5c65e59a7d31fa57426aff27a9f
+	b2sums = 86049245ff9b9ec92aea910414d7b206b129d057ca5b56839c1bcbb0c7c13e47be9b7823f12f659e229d8e02fec844af4e8434a31e5989391cd8c91232794ad7
 
 pkgname = imhex
