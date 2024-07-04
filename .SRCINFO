@@ -27,6 +27,7 @@ pkgbase = lilac-git
 	depends = pyalpm
 	depends = python-structlog
 	depends = python-prctl
+	depends = python-fluent.runtime
 	optdepends = smtp-forwarder: for sending error reports
 	optdepends = python-sqlalchemy: for recording build results in a database
 	provides = lilac=r1093.f627128
