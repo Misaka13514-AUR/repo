@@ -1,6 +1,7 @@
 _name=fluent.runtime
 pkgname=python-fluent.runtime
-pkgver=0.19.0
+epoch=2
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="Localization library for expressive translations."
 arch=(any)
