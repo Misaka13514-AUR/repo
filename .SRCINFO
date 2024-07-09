@@ -1,7 +1,7 @@
 pkgbase = python-largestinteriorrectangle
 	pkgdesc = Largest Interior/Inscribed Rectangle implementation in Python
-	pkgver = 0.2.0
-	pkgrel = 6
+	pkgver = 0.2.1
+	pkgrel = 1
 	url = https://github.com/OpenStitching/lir
 	arch = any
 	license = Apache-2.0
@@ -12,7 +12,7 @@ pkgbase = python-largestinteriorrectangle
 	depends = python-opencv
 	depends = python-numba
 	depends = python-numpy
-	source = python-largestinteriorrectangle-0.2.0.tar.gz::https://github.com/OpenStitching/lir/archive/v0.2.0.tar.gz
-	sha256sums = ffac62a19b9fdb581c74ae4b8e96834d0baef847cce75443c78feeff1d1045ce
+	source = python-largestinteriorrectangle-0.2.1.tar.gz::https://github.com/OpenStitching/lir/archive/v0.2.1.tar.gz
+	sha256sums = 72b27714d017a970f3a8da8a5796bde14bdeb354721e5400fbe1260abb9bbe07
 
 pkgname = python-largestinteriorrectangle
