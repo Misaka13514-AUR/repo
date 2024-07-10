@@ -3,7 +3,7 @@
 
 pkgname=easyeda-pro-bin
 _pkgname=${pkgname%-bin}
-pkgver=2.1.61
+pkgver=2.1.64
 pkgrel=1
 pkgdesc="EasyEDA Professional Edition"
 arch=('x86_64' 'aarch64')
@@ -20,8 +20,8 @@ source_x86_64=("$_pkgname-x86_64-$pkgver.zip::https://image.easyeda.com/files/ea
 source_aarch64=("$_pkgname-aarch64-$pkgver.zip::https://image.easyeda.com/files/easyeda-pro-linux-arm64-$pkgver.zip")
 sha256sums=('SKIP'
             'ab64abe7821e4ea37a0e4d1f77c94f37d6a51c7df2038ba7b609c640adf8e51d')
-sha256sums_x86_64=('dc7a552fdb71161938e9863385498a77c4fc572fb5606a50700c6a952857e397')
-sha256sums_aarch64=('819d928e84013f1edfa27762d0546c26bca5db28af0b244ea75f901c07f46897')
+sha256sums_x86_64=('92517f826e7c30065b65c2cb7888672345d012835e995b41ffc9b91bd24b4884')
+sha256sums_aarch64=('b8661d8fb84055c12a29171e2af74843b60e9d4b5e5f5a0f3961910d422fb881')
 
 package() {
     cd $srcdir
