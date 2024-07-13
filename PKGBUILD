@@ -4,7 +4,7 @@
 pkgname=easyeda-pro-bin
 _pkgname=${pkgname%-bin}
 pkgver=2.1.64
-pkgrel=1
+pkgrel=2
 pkgdesc="EasyEDA Professional Edition"
 arch=('x86_64' 'aarch64')
 url="https://pro.easyeda.com/"
@@ -42,17 +42,35 @@ package() {
         install -Dm644 icon/icon_${_icon}x${_icon}.png \
                        $pkgdir/usr/share/icons/hicolor/${_icon}x${_icon}/apps/$_pkgname.png
     done
-    install -Dm644 icon/icon_512x512@2x.png \
-                   $pkgdir/usr/share/icons/hicolor/1024x1024/apps/$_pkgname.png
+    if [ -f icon/icon_512x512@2x.png ]; then
+        install -Dm644 icon/icon_512x512@2x.png \
+                       $pkgdir/usr/share/icons/hicolor/1024x1024/apps/$_pkgname.png
+    fi
 
     # desktop entry
-    install -Dm644 easyeda-pro.dkt \
-                   $pkgdir/usr/share/applications/$_pkgname.desktop
+    if [ -f easyeda-pro.dkt ]; then
+        install -Dm644 easyeda-pro.dkt \
+                       $pkgdir/usr/share/applications/$_pkgname.desktop
 
-    sed -i 's|/opt/easyeda-pro/icon/icon_128x128.png|easyeda-pro|g' \
-        $pkgdir/usr/share/applications/$_pkgname.desktop
-    sed -i 's|/opt/easyeda-pro/||g' \
-        $pkgdir/usr/share/applications/$_pkgname.desktop
+        sed -i 's|/opt/easyeda-pro/icon/icon_128x128.png|easyeda-pro|g' \
+            $pkgdir/usr/share/applications/$_pkgname.desktop
+        sed -i 's|/opt/easyeda-pro/||g' \
+            $pkgdir/usr/share/applications/$_pkgname.desktop
+    else
+        install -Dm644 /dev/stdin $pkgdir/usr/share/applications/$_pkgname.desktop << "EOF"
+[Desktop Entry]
+Categories=Development;Electronics;
+Comment=A Simple and Powerful Electronic Circuit Design Tool
+Exec=easyeda-pro %f
+Keywords=PCB;EasyEDA;EDA
+GenericName=EasyEDA Pro
+Icon=easyeda-pro
+Name=EasyEDA Pro
+Type=Application
+Name[en_US]=EasyEDA Pro
+MimeType=application/eprj
+EOF
+    fi
 
     # soft link
     install -dm755 $pkgdir/usr/bin
