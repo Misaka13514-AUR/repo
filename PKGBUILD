@@ -1,7 +1,7 @@
 # Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
 
 pkgname=turbocase
-pkgver=1.7.1
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Generate an OpenSCAD case template from a KiCAD PCB"
 arch=('any')
@@ -9,10 +9,8 @@ url="https://git.sr.ht/~martijnbraam/turbocase"
 license=('MIT')
 depends=('python' 'python-sexpdata')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=()
-optdepends=()
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('c13dfa1714d4fae9b7c652161c289abcae2b6b7c060d07e914ad5284c245c4be')
+sha256sums=('e2656a4708d54842e8aa1f151a163eabae30b3d524bd824c29f3d2fd1b53c745')
 
 build() {
     cd $pkgname-$pkgver
