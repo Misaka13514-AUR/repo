@@ -6,7 +6,7 @@ _pkgname=serenity
 pkgname=serenity-bin
 _pkgver=1.0.0-beta.17
 pkgver=${_pkgver//-/_}
-pkgrel=1
+pkgrel=2
 pkgdesc='The configuration generator for sing-box'
 arch=('i686' 'x86_64' 'aarch64' 'armv7h')
 url='https://github.com/SagerNet/serenity'
@@ -27,6 +27,7 @@ sha256sums_aarch64=('79e808b5d2f66bbf4b59bd39398ee2aac79d2c310071f2026cab78e79c2
 sha256sums_armv7h=('31bb2cae115260f101874b51ea65b3c9deadb826e71154402a2ac07363dfe459')
 
 package() {
+    install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$_pkgname/LICENSE
     cp -dpr --no-preserve=ownership "$srcdir/usr/" "$pkgdir/usr"
     cp -dpr --no-preserve=ownership "$srcdir/etc/" "$pkgdir/etc"
 }
