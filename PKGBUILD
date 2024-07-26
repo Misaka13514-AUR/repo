@@ -2,27 +2,27 @@
 # Contributor: Henry-ZHR <henry-zhr@qq.com>
 
 pkgname=serenity
-_pkgver=1.0.0-beta.13
-pkgver=${_pkgver//-/_}
+pkgver=1.0.0beta.13
+_tagname='1.0.0-beta.13'
 pkgrel=1
 pkgdesc='The configuration generator for sing-box'
 arch=('i686' 'x86_64' 'aarch64' 'armv7h')
 url='https://github.com/SagerNet/serenity'
-license=('GPL-3.0-or-later')
+license=('custom:GPL-3.0-or-later WITH name use or association addition')
 depends=('glibc')
 makedepends=('go')
 optdepends=('sing-box')
 backup=("etc/$pkgname/config.json")
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$_pkgver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$_tagname.tar.gz")
 sha256sums=('118268cdbc44f5970ed59b5afbd75ca5100d8061ab2e00b910af541504b739ca')
 
 prepare() {
-  cd $pkgname-$_pkgver
+  cd $pkgname-$_tagname
   mkdir -p build/
 }
 
 build() {
-  cd $pkgname-$_pkgver
+  cd $pkgname-$_tagname
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
@@ -38,12 +38,12 @@ build() {
 }
 
 check() {
-  cd $pkgname-$_pkgver
+  cd $pkgname-$_tagname
   go test ./...
 }
 
 package() {
-  cd $pkgname-$_pkgver
+  cd $pkgname-$_tagname
   install -Dm755 build/$pkgname $pkgdir/usr/bin/$pkgname
   install -Dm644 build/bash-completion "$pkgdir/usr/share/bash-completion/completions/$pkgname"
   install -Dm644 build/fish-completion "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
@@ -51,4 +51,5 @@ package() {
   install -Dm644 release/config/config.json "$pkgdir/etc/$pkgname/config.json"
   install -Dm644 release/config/$pkgname.service "$pkgdir/usr/lib/systemd/system/$pkgname.service"
   install -Dm644 release/config/$pkgname@.service "$pkgdir/usr/lib/systemd/system/$pkgname@.service"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
