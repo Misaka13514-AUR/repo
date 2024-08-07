@@ -4,7 +4,7 @@
 pkgname=lceda-pro-bin
 _pkgname=${pkgname%-bin}
 pkgver=2.2.25.6
-pkgrel=1
+pkgrel=2
 pkgdesc="免费、专业、强大的国产PCB设计工具"
 arch=('x86_64' 'aarch64')
 url="https://pro.lceda.cn/"
@@ -59,6 +59,7 @@ package() {
     find "${pkgdir}/opt/${_pkgname}/" -type f -exec chmod 644 {} \;
     find "${pkgdir}/opt/${_pkgname}/" -type d -exec chmod 755 {} \;
     chmod 0755 "${pkgdir}/opt/${_pkgname}/${_pkgname}"
+    chmod 0755 "${pkgdir}/opt/${_pkgname}/chrome_crashpad_handler"
 
     # soft link
     install -dm0755 "${pkgdir}/usr/bin/"
