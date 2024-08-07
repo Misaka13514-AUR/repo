@@ -3,10 +3,10 @@
 
 pkgname=lceda-pro-bin
 _pkgname=${pkgname%-bin}
-pkgver=2.1.63
+pkgver=2.2.25.6
 pkgrel=1
 pkgdesc="免费、专业、强大的国产PCB设计工具"
-arch=('x86_64' 'aarch64' 'loong64')
+arch=('x86_64' 'aarch64')
 url="https://pro.lceda.cn/"
 license=('LicenseRef-LCEDA-Proprietary')
 provides=(${_pkgname})
@@ -20,12 +20,12 @@ source=("LICENSE-$pkgver.html::https://lceda.cn/page/legal"
         "${pkgname}.install")
 source_x86_64=("${_pkgname}-x86_64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-x64-${pkgver}.zip")
 source_aarch64=("${_pkgname}-aarch64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-arm64-${pkgver}.zip")
-source_loong64=("${_pkgname}-loong64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-loong64-${pkgver}.zip")
+# source_loong64=("${_pkgname}-loong64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-loong64-${pkgver}.zip")
 sha256sums=('SKIP'
             'afba3c6712227a37c08783b3cc1a97ae71e90dc2f575409213d2773372220697')
-sha256sums_x86_64=('3505f0c18619ba9b752833cb2ac9cdbaa591546d85d1b3009fde0c64a97e7b66')
-sha256sums_aarch64=('3f53ec63d11960af6e10edef29f4f6c2dc1de942f8bec96624a58de2d3d9d4eb')
-sha256sums_loong64=('ec699be7850c5ddabf7ab88b2fbc37a94cd99e58f40ea48f18e1bf98cce9573e')
+sha256sums_x86_64=('1033aefde2bc0fbe3bce45bc05a93a3a56ba42704066094acb89cbece2ec8b28')
+sha256sums_aarch64=('0d5a636b1130756829f3a70a46213a5f05cfaf8c51759cb9012e7755e42bf8b7')
+# sha256sums_loong64=('SKIP')
 
 package() {
     export LC_CTYPE="zh_CN.UTF-8"
