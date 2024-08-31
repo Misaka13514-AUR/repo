@@ -3,7 +3,7 @@
 
 pkgname=lceda-pro-bin
 _pkgname=${pkgname%-bin}
-pkgver=2.2.26.6
+pkgver=2.2.27.1
 pkgrel=1
 pkgdesc="免费、专业、强大的国产PCB设计工具"
 arch=('x86_64' 'aarch64')
@@ -12,9 +12,6 @@ license=('LicenseRef-LCEDA-Proprietary')
 provides=(${_pkgname})
 conflicts=(${_pkgname} ${_pkgname}-git)
 depends=('gtk3' 'nss' 'alsa-lib')
-makedepends=()
-backup=()
-#options=('!strip')
 install=${pkgname}.install
 source=("LICENSE-$pkgver.html::https://lceda.cn/page/legal"
         "${pkgname}.install")
@@ -23,8 +20,8 @@ source_aarch64=("${_pkgname}-aarch64-${pkgver}.zip::https://image.lceda.cn/files
 # source_loong64=("${_pkgname}-loong64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-loong64-${pkgver}.zip")
 sha256sums=('SKIP'
             'afba3c6712227a37c08783b3cc1a97ae71e90dc2f575409213d2773372220697')
-sha256sums_x86_64=('ff524818d21e931a04b79c95f69c6e298b5b79e72f95c39f4f67e26f4607cd4c')
-sha256sums_aarch64=('5c3b9228574433af8cd52adce1912aca4326249d0e8d5762862c7008257d6a4a')
+sha256sums_x86_64=('7a331f7af023325f4f37e52925ddbf4c217465a92d411f8f442805137a73e7d1')
+sha256sums_aarch64=('57e0252f59a4408ca982706597b679d1cc72da0bef2cd25921d7197a8f07e226')
 # sha256sums_loong64=('SKIP')
 
 package() {
