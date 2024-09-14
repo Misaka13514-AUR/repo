@@ -3,11 +3,12 @@
 
 pkgname=sedutil
 pkgver=1.49.4
-pkgrel=1
+pkgrel=2
 pkgdesc="TCG OPAL 2.00 SED Management Program"
 arch=('i686' 'x86_64')
 url="https://github.com/Drive-Trust-Alliance/sedutil"
 license=('GPL3')
+depends=('libnvme')
 optdepends=('syslinux: to create a bootable PBA disk image'
             'gptfdisk: to create a bootable PBA disk image'
             'parted: to create a bootable PBA disk image'
