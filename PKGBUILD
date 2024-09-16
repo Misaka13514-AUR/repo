@@ -46,7 +46,7 @@ package() {
   install -Dm755 "${srcdir}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 
   # install icons
-  for size in {16,24,32,48,128,256,512}; do
+  for size in 16 24 32 48 128 256 512; do
     install -Dm644 "${srcdir}/icon${size}.png" "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/burpsuite-pro.png"
   done
   install -Dm644 "${srcdir}/icon.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/burpsuite-pro.svg"
