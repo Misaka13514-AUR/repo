@@ -3,7 +3,7 @@
 
 pkgname=lceda-pro-bin
 _pkgname=${pkgname%-bin}
-pkgver=2.2.27.1
+pkgver=2.2.28.1
 pkgrel=1
 pkgdesc="免费、专业、强大的国产PCB设计工具"
 arch=('x86_64' 'aarch64')
@@ -20,8 +20,8 @@ source_aarch64=("${_pkgname}-aarch64-${pkgver}.zip::https://image.lceda.cn/files
 # source_loong64=("${_pkgname}-loong64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-loong64-${pkgver}.zip")
 sha256sums=('SKIP'
             'afba3c6712227a37c08783b3cc1a97ae71e90dc2f575409213d2773372220697')
-sha256sums_x86_64=('7a331f7af023325f4f37e52925ddbf4c217465a92d411f8f442805137a73e7d1')
-sha256sums_aarch64=('57e0252f59a4408ca982706597b679d1cc72da0bef2cd25921d7197a8f07e226')
+sha256sums_x86_64=('060e0e1bcb5a81926e971e1782487161478179297a86f060a35806ffa6a28dad')
+sha256sums_aarch64=('93990e6c2dbe1c4b129c482d6d80ca0c3785235543a5c2d5775075bea4f89129')
 # sha256sums_loong64=('SKIP')
 
 package() {
@@ -38,19 +38,37 @@ package() {
         install -Dm0644 "icon/icon_${_icon}x${_icon}.png" \
                         "${pkgdir}/usr/share/icons/hicolor/${_icon}x${_icon}/apps/${_pkgname}.png"
     done
-    install -Dm0644 "icon/icon_512x512@2x.png" \
-                    "${pkgdir}/usr/share/icons/hicolor/1024x1024/apps/${_pkgname}.png"
+    if [ -f icon/icon_512x512@2x.png ]; then
+        install -Dm0644 "icon/icon_512x512@2x.png" \
+                       "${pkgdir}/usr/share/icons/hicolor/1024x1024/apps/${_pkgname}.png"
+    fi
     rm -rf icon
 
     # desktop entry
-    install -Dm0644 lceda-pro.dkt \
-                    "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+    if [ -f lceda-pro.dkt ]; then
+        install -Dm0644 lceda-pro.dkt \
+                        "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
 
-    sed -i 's|/opt/lceda-pro/icon/icon_128x128.png|lceda-pro|g' \
-        "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
-    sed -i 's|/opt/lceda-pro/||g' \
-        "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
-    rm -rf lceda-pro.dkt
+        sed -i 's|/opt/lceda-pro/icon/icon_128x128.png|lceda-pro|g' \
+            "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+        sed -i 's|/opt/lceda-pro/||g' \
+            "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+        rm -rf lceda-pro.dkt
+    else
+        install -Dm644 /dev/stdin $pkgdir/usr/share/applications/$_pkgname.desktop << "EOF"
+[Desktop Entry]
+Categories=Development;Electronics;
+Comment=免费、强大、易用的在线电路设计软件
+Exec=lceda-pro %f
+Keywords=PCB;LCEDA;嘉立创EDA;LC;EDA
+GenericName=嘉立创EDA(专业版)
+Icon=lceda-pro
+Name=嘉立创EDA(专业版)
+Type=Application
+Name[en_US]=嘉立创EDA(专业版)
+MimeType=application/eprj
+EOF
+    fi
 
     # fix permissions
     find "${pkgdir}/opt/${_pkgname}/" -type f -exec chmod 644 {} \;
