@@ -2,8 +2,9 @@
 pkgname=yubico-authenticator
 _app_id=com.yubico.yubioath
 pkgdesc="Yubico Authenticator for Desktop"
-pkgver=7.0.0
-pkgrel=4
+pkgver=7.1.0
+pkgrel=1
+_flutter_ver=3.24.2
 arch=('x86_64' 'aarch64')
 url="https://github.com/Yubico/yubioath-flutter"
 license=('Apache-2.0')
@@ -31,14 +32,14 @@ makedepends=(
   'python-wheel'
 )
 source=("git+https://github.com/Yubico/yubioath-flutter.git#tag=$pkgver?signed")
-sha256sums=('e728ae5c5e94f7ed9b92a76e1e5dc91a6e4775da265b51379f027bf47f6bf84d')
+sha256sums=('79bf1f5597b62a21d21abe140e8cc35e3349f8da5266026b6f3c0fc4174c2e18')
 validpgpkeys=('20EE325B86A81BCBD3E56798F04367096FBA95E8')  # Dain Nilsson <dain@yubico.com>
 
 prepare() {
   cd yubioath-flutter
   export FVM_CACHE_PATH="$srcdir/fvm"
-  fvm install 3.19.6
-  fvm global 3.19.6
+  fvm install "${_flutter_ver}"
+  fvm global "${_flutter_ver}"
 
   # Disable analytics
   fvm flutter --disable-analytics
