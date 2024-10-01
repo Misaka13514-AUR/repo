@@ -1,7 +1,7 @@
 pkgbase = apple-fonts
 	pkgdesc = Fonts for Apple platforms, including San Francisco and New York typefaces
 	pkgver = 6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://developer.apple.com/fonts/
 	arch = any
 	license = custom
