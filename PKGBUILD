@@ -2,14 +2,14 @@
 # Co-Maintainer:    zzjzxq33 <wojiushixxx at 126 dot com>
 pkgname=bbg-git
 _pkgname=${pkgname%-git}
-pkgver=20240519.r0.73e2d82
+pkgver=20240613.r37.22c156d
 pkgrel=1
 pkgdesc="A static blog generator built with electron"
 arch=('any')
 url="https://github.com/bbg-contributors/bbg"
 license=('Unlicense')
 depends=('electron')
-makedepends=('git' 'npm' 'yarn' 'asar')
+makedepends=('git' 'npm' 'yarn' 'asar' 'python')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 source=(
