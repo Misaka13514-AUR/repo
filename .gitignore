@@ -1,0 +1,6 @@
+src/
+pkg/
+*.run
+*.hexlic
+*.tar
+*.tar.gz
