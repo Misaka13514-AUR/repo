@@ -9,13 +9,14 @@
 
 pkgver=9.0
 pkgname="ida-pro"
-pkgrel=3
+pkgrel=4
 pkgdesc="Hex-Rays IDA Pro"
 url="https://www.hex-rays.com/products/ida/${pkgver}/index.shtml"
 license=('custom')
 makedepends=('fakechroot')
 depends=('libgl'
 	'qt5-base'
+	'python-rpyc'
 	)
 options=('!strip')
 
