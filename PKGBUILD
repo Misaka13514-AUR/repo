@@ -4,10 +4,10 @@
 # Contributor: Daniel Plank <tyrolyean@semi-professional.net>
 
 pkgname=freerouting
-pkgver=1.9.0
-_jrever=17
-_jdkver=17
-pkgrel=2
+pkgver=2.0.0
+_jrever=21
+_jdkver=21
+pkgrel=1
 pkgdesc="Advanced PCB autorouter"
 arch=('any')
 url="https://github.com/freerouting/freerouting"
@@ -18,8 +18,8 @@ optdepends=('kicad: for use with PCB editor')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
         "freerouting.sh"
         "freerouting.desktop")
-sha512sums=('ed51eeaaa1315b3fb4311f4f0a74e64266492b2a8e6aff69179911e31b8c612825c7783228a0dddc8f06fc92962f426ccb7f6305d8ff7537a0009f82841a8ab0'
-            '3ff1a906c3f02e0e0077599cfad8082fa11c8b321e90b3e466b70969b44c4675ac6df6b898fda4d2b17d9f263787d319dab6c836a37b1ff4737f715730819ce3'
+sha512sums=('8d24cf824cff7dbb68854d1829a170b351d32f3f481ebec815508bb173f7cae6d12e88f1945182b1305d68f7b97ca888e681ca3a088249981144c9617a680b19'
+            '994102e3f526fe364920602dfa8f2160eeeeb512194172bdc82f1fb45c261c2da79b8baf58008da9ab56f33d1b047dfe1ccb2f7d4113215cdfc376319b4f9320'
             '1eeacc544cd6081a9cef03424e505177972c65dc13d1379989889c0ed7419ed1b76013d48d160d0b74932aec1170ca1535b103f4266024b7f35e9656a11281f5')
 
 build() {
