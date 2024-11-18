@@ -3,7 +3,7 @@
 
 pkgname=python-toml-sort
 _name=${pkgname#python-}
-pkgver=0.24.0
+pkgver=0.24.1
 pkgrel=1
 pkgdesc="Toml sorting library"
 arch=('any')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('python' 'python-tomlkit' 'python-importlib-metadata')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-poetry')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('7386e4dc8a1a674d0fab907abf5f02961702c3aefe8c0ae18ad2eb5c6cebd479')
+sha256sums=('f78dc3a1c9c88d9b347d68b615abc9c3985c32ba63e7eed2afe90116630b4ace')
 
 build() {
     cd "$_name-$pkgver"
