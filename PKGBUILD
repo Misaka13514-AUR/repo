@@ -6,7 +6,7 @@
 # Contributor: moostik <mooostik at gmail dot com>
 
 pkgname=geogebra-6-electron
-pkgver=6.0.868.0
+pkgver=6.0.869.0
 pkgrel=1
 pkgdesc='Dynamic mathematics software with interactive graphics, algebra and spreadsheet'
 arch=(any)
@@ -21,7 +21,7 @@ source=(https://download.geogebra.org/installers/6.0/GeoGebra-Windows-Portable-$
         geogebra.svg
         geogebra.desktop
         geogebra-mime.xml)
-sha256sums=('2da92b627c0d9525a9137d008d7f5de6ac299d404ce17ad841fa6f0d2246b242'
+sha256sums=('081ef50b293038bf299f26822ffff5500dab8f90445fc8c0cbaddfcf9c97e68d'
             'SKIP'
             '62d6d48511ec9a3d08440d0bba7e6da35e61f84348729872941f66f2f8f15e57'
             'd81270ac2a7702246633fe11f448bd809e9250e2057077195eeabdc32b64ac46'
