@@ -3,7 +3,7 @@
 pkgname=intel-graphics-compiler-legacy-bin
 pkgver=1.0.17537.20
 _oclcommit=470cf0018e1ef6fc92eda1356f5f31f7da452abc
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel Graphics Compiler for OpenCL (legacy platforms; pre-compiled binaries)'
 arch=('x86_64')
 url='https://github.com/intel/intel-graphics-compiler/'
@@ -48,5 +48,6 @@ package() {
     install -D -m644 opencl-clang/common_clang.h -t "${pkgdir}/usr/include/cclang"
     install -D -m644 opencl-clang/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-opencl-clang"
     install -D -m644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+    sed -i 's|/usr/local|/usr|' "${pkgdir}/usr/lib/pkgconfig/igc-opencl.pc"
     mv "${pkgdir}/usr/lib/igc/NOTICES.txt" "${pkgdir}/usr/share/licenses/${pkgname}"
 }
