@@ -2,7 +2,7 @@
 
 pkgname=intel-compute-runtime-legacy
 pkgver=24.35.30872.22
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL Driver (legacy platforms)'
 arch=('x86_64')
 url='https://github.com/intel/compute-runtime/'
@@ -41,6 +41,8 @@ build() {
         -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
         -DCMAKE_INSTALL_LIBDIR:PATH='lib' \
         -DNEO_DISABLE_LD_GOLD:BOOL:BOOL='ON' \
+        -DNEO_CURRENT_PLATFORMS_SUPPORT:BOOL='OFF' \
+        -DNEO_LEGACY_PLATFORMS_SUPPORT:BOOL='ON' \
         -DNEO_OCL_VERSION_MAJOR:STRING="${pkgver%%.*}" \
         -DNEO_OCL_VERSION_MINOR:STRING="$(cut -d . -f2 <<< "$pkgver")" \
         -DNEO_VERSION_BUILD:STRING="$(cut -d . -f3 <<< "$pkgver")" \
@@ -57,6 +59,6 @@ package() {
     DESTDIR="$pkgdir" cmake --install build
     install -D -m644 "compute-runtime-${pkgver}/LICENSE.md" -t "${pkgdir}/usr/share/licenses/${pkgname}"
     
-    ln -s "$(find "${pkgdir}/usr/lib" -regex '.*libze_intel_gpu.so.[0-9]*' -exec basename {} \;)" "${pkgdir}/usr/lib/libze_intel_gpu.so"
+    ln -s "$(find "${pkgdir}/usr/lib" -regex '.*libze_intel_gpu_legacy1.so.[0-9]*' -exec basename {} \;)" "${pkgdir}/usr/lib/libze_intel_gpu_legacy1.so"
     ln -s "$(find "${pkgdir}/usr/bin" -name 'ocloc-*' -exec basename {} \;)" "${pkgdir}/usr/bin/ocloc"
 }
