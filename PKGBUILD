@@ -3,7 +3,7 @@
 pkgbase=level-zero-legacy
 pkgname=('level-zero-headers-legacy' 'level-zero-loader-legacy')
 pkgver=1.17.42
-pkgrel=1
+pkgrel=2
 pkgdesc='API for accessing low level interfaces in oneAPI platform devices (legacy platforms)'
 arch=('x86_64')
 url='https://spec.oneapi.com/versions/latest/elements/l0/source/index.html'
@@ -20,8 +20,8 @@ build() {
     cmake -B build -S "level-zero-${pkgver}" \
         -G 'Unix Makefiles' \
         -DCMAKE_BUILD_TYPE:STRING='None' \
-        -DCMAKE_INSTALL_PREFIX:STRING='/usr' \
-        -DSYSTEM_SPDLOG:BOOL:STRING='OFF' \
+        -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
+        -DSYSTEM_SPDLOG:BOOL='OFF' \
         -Wno-dev
     cmake --build build
 }
