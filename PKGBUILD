@@ -2,7 +2,7 @@
 pkgname=python-wallbreaker
 _name=Wallbreaker
 pkgver=1.0.3
-pkgrel=4
+pkgrel=5
 pkgdesc="A useful tool to live analyzing Java heap, powered by frida."
 arch=('any')
 url="https://github.com/hluwa/Wallbreaker"
@@ -12,7 +12,7 @@ depends=(
     'python-frida'
     'python-click'
 )
-makedepends=('python-build' 'python-installer' 'python-wheel')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
 sha256sums=('d0b2802e2d0a47b4249e72fd08213c580a7778d10b91d8651afd60b362b62641')
 
