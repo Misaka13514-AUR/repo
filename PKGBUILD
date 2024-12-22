@@ -3,7 +3,7 @@
 
 pkgname=python-pipreqs
 pkgver=0.5.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Pip requirements.txt generator based on imports in project"
 url="https://github.com/bndr/pipreqs"
 license=('Apache-2.0')
