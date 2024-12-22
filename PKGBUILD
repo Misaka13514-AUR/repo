@@ -1,7 +1,7 @@
 # Maintainer:  Misaka13514 <Misaka13514 at gmail dot com>
 pkgname=frida-dexdump
 pkgver=2.0.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A frida tool to dump dex in memory"
 arch=('any')
 url="https://github.com/hluwa/frida-dexdump"
@@ -16,6 +16,7 @@ makedepends=(
     'python-build'
     'python-installer'
     'python-wheel'
+    'python-setuptools'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('a7e643bee7f380e43b1dd460284d251d3581b7c18ca73219147e2ed0dc15f5c3')
