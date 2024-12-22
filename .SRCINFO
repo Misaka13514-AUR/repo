@@ -1,7 +1,7 @@
 pkgbase = python-wallbreaker
 	pkgdesc = A useful tool to live analyzing Java heap, powered by frida.
 	pkgver = 1.0.3
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/hluwa/Wallbreaker
 	arch = any
 	license = GPL-3.0-only
