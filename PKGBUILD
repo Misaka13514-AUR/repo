@@ -4,7 +4,7 @@
 pkgname=python-yarg
 _name=${pkgname#python-}
 pkgver=0.1.10
-pkgrel=1
+pkgrel=2
 pkgdesc="A semi hard Cornish cheese, also queries PyPI (PyPI client)"
 url="https://github.com/kura/yarg"
 license=('MIT')
