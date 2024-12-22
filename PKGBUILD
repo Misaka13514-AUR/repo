@@ -3,7 +3,7 @@
 pkgname=python-stitching
 _name=${pkgname#python-}
 pkgver=0.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A Python package for fast and robust Image Stitching"
 arch=('any')
 url="https://github.com/OpenStitching/stitching"
