@@ -1,7 +1,7 @@
 pkgbase = turbocase
 	pkgdesc = Generate an OpenSCAD case template from a KiCAD PCB
 	pkgver = 1.8.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://git.sr.ht/~martijnbraam/turbocase
 	arch = any
 	license = MIT

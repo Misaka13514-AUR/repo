@@ -2,7 +2,7 @@
 
 pkgname=turbocase
 pkgver=1.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Generate an OpenSCAD case template from a KiCAD PCB"
 arch=('any')
 url="https://git.sr.ht/~martijnbraam/turbocase"
