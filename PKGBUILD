@@ -4,7 +4,7 @@
 pkgname=python-toml-sort
 _name=${pkgname#python-}
 pkgver=0.24.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Toml sorting library"
 arch=('any')
 url="https://github.com/pappasam/toml-sort"

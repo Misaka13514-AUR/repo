@@ -1,7 +1,7 @@
 pkgbase = python-toml-sort
 	pkgdesc = Toml sorting library
 	pkgver = 0.24.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/pappasam/toml-sort
 	arch = any
 	license = MIT
