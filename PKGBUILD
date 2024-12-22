@@ -1,8 +1,10 @@
-# Maintainer: jtmb <packaging at technologicalwizardry dot com>
-# Maintainer: Dct Mei <dctxmei@yandex.com>
+# Maintainer: scientificworld <scientificworld at 126 dot com>
+# Co-Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
+# Contributor: jtmb <packaging at technologicalwizardry dot com>
+# Contributor: Dct Mei <dctxmei@yandex.com>
 
 pkgname=hath
-pkgver=1.6.3
+pkgver=1.6.4
 pkgrel=1
 pkgdesc="Open-source Peer-2-Peer gallery distribution system"
 arch=('any')
@@ -16,7 +18,7 @@ source=("https://repo.e-hentai.org/hath/HentaiAtHome_${pkgver}_src.zip"
         "hath.sh"
         "hath.sysusers"
         "hath.tmpfiles")
-sha256sums=('801de4cfdb2f57f9aab27371900b9fab33df82f83811b03e72425595dec45388'
+sha256sums=('4d3f7d67b05089dab0c6d774999605cd121997f36d0ef5f75a380d90f73df29d'
             '4b7124af5e27d25a9b3033b2a14e48ea8745417c3fd400a6ec6ddf1817b74b61'
             '80064d7e31085b56ad5b41863f51b25c33a20328a7f49cd88f80dfed281c439a'
             '0c3a1a6c26cec616bc44274acbf5908e736581ae30cdf0af7508d4bfcad3a81e'
