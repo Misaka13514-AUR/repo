@@ -1,7 +1,7 @@
 # Maintainer:  Misaka13514 <Misaka13514 at gmail dot com>
 pkgname=frida-dexdump
 pkgver=2.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A frida tool to dump dex in memory"
 arch=('any')
 url="https://github.com/hluwa/frida-dexdump"
