@@ -1,0 +1,19 @@
+pkgbase = video2x-qt6
+	pkgdesc = The Qt6 GUI for Video2X
+	pkgver = 6.3.1
+	pkgrel = 1
+	url = https://github.com/k4yt3x/video2x-qt6
+	arch = x86_64
+	license = ISC
+	makedepends = git
+	makedepends = cmake
+	makedepends = qt6-tools
+	depends = video2x
+	depends = qt6-base
+	depends = spdlog
+	provides = video2x-qt6
+	conflicts = video2x-qt6
+	source = video2x-qt6-6.3.1.tar.gz::https://github.com/k4yt3x/video2x-qt6/archive/678ebb5.tar.gz
+	b2sums = a30906f09d8e3329e301db4a9e0dd962d1ec852e86ae33598f081377f0440a30a28a48e97f78f7cf072ddd78239f2eb70d7965c608ee13bcf5f45c05a2862507
+
+pkgname = video2x-qt6
