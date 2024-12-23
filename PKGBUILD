@@ -1,63 +1,43 @@
-# Maintainer : Antoine Viallon <antoine+aur@lesviallon.fr>
-
+# Maintainer: K4YT3X <aur@k4yt3x.com>
+# Maintainer: Antoine Viallon <antoine+aur@lesviallon.fr>
 pkgname=video2x
-pkgver=4.8.1
+pkgver=6.3.1
 pkgrel=1
-pkgdesc="Machine learning video/GIF/image upscaling"
-url="https://video2x.org/"
-arch=("any")
-license=("GPL3")
-depends=(
-	"python"
-	"ffmpeg"
-	"python-pyaml"
-	"python-avalon_framework" # AUR
-	"python-colorama"
-	"patool" # AUR, should be named python-patool
-	"python-pillow"
-	#"python-pyqt5"
-	"python-requests"
-	"python-tqdm"
-	"python-magic"
-)
-optdepends=(
-	"waifu2x-ncnn-vulkan: for anime/cartoon upscaling and JPEG denoising - fast"
-	"realsr-ncnn-vulkan: real photos upscaling and denoising - slow"
-	"srmd-ncnn-vulkan: general purpose upscaling and image restoration"
-	"waifu2x-converter-cpp: C++ implemenation of waifu2x working on all platforms"
-)
-source=(
-	"https://github.com/k4yt3x/video2x/archive/${pkgver}.tar.gz"
-	"etc_config_file.patch"
-	"video2x.yaml"
-)
-sha256sums=('a372027fb09c45f6624db8839b46fa34b4c3c639ba19fe9d192f9ef0a4ed9c46'
-            '9d027d3f8ca5bdf4e7c543fe5cd18e5024cf7ce0e74c2d52db0a3d1ca27fcc5e'
-            'dae9fb91b965d27a868ab71e36c8d6633f0c4be770c8f70c2ea41bc957b7c796')
+pkgdesc="A machine learning-based video super resolution and frame interpolation framework"
+arch=('x86_64')
+url="https://github.com/k4yt3x/video2x"
+license=('AGPL-3.0-only')
+depends=('ffmpeg' 'ncnn' 'vulkan-driver' 'spdlog' 'boost-libs')
+makedepends=('git' 'cmake' 'clang' 'vulkan-headers' 'openmp' 'boost')
+provides=("${pkgname}")
+conflicts=("${pkgname}")
+source=("git+${url}.git#tag=${pkgver}"
+        "git+https://github.com/k4yt3x/libreal-esrgan-ncnn-vulkan.git"
+	    "git+https://github.com/k4yt3x/librealcugan-ncnn-vulkan.git"
+	    "git+https://github.com/k4yt3x/librife-ncnn-vulkan.git")
+b2sums=('f8b078d2440d4f28a4cf87566580d84a1d9856184901349b1b467426ad882edeb0afbfb98f13e2588913aaa2ec230a3c06a271291023271789dc9d81d1ee7a3b'
+        'SKIP'
+        'SKIP'
+        'SKIP')
 
 prepare() {
-	cd "${srcdir}/${pkgname}-${pkgver}/src"
+    cd "${srcdir}/${pkgname}"
+    git rm third_party/{ncnn,spdlog,boost}
+    git submodule init
+	git config submodule.third_party/libreal_esrgan_ncnn_vulkan.url "${srcdir}/libreal-esrgan-ncnn-vulkan"
+	git config submodule.third_party/librealcugan_ncnn_vulkan.url "${srcdir}/librealcugan-ncnn-vulkan"
+	git config submodule.third_party/librife_ncnn_vulkan.url "${srcdir}/librife-ncnn-vulkan"
+	git -c protocol.file.allow=always submodule update
+}
 
-	patch video2x.py "${srcdir}/etc_config_file.patch"
+build() {
+    cmake -B build -S "${pkgname}" -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_CXX_COMPILER=clang++ -DVIDEO2X_ENABLE_NATIVE=ON
+    cmake --build build --config Release --parallel
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}/src"
-
-	mkdir -p "${pkgdir}/usr/share/video2x/"
-	mkdir -p "${pkgdir}/usr/share/video2x/wrappers"
-	mkdir -p "${pkgdir}/usr/bin"
-
-	for file in "image_cleaner.py upscaler.py video2x.py exceptions.py bilogger.py progress_monitor.py"; do
-		install -D -m755 ${file} "${pkgdir}/usr/share/video2x/"
-	done
-
-	for file in wrappers/*.py; do
-		install -D -v -m755 ${file} "${pkgdir}/usr/share/video2x/wrappers/"
-	done
-
-	mkdir -p "${pkgdir}/etc"
-	install -D -m644 "${srcdir}/video2x.yaml" "${pkgdir}/etc/video2x.yaml"
-
-	ln -s /usr/share/video2x/video2x.py "${pkgdir}/usr/bin/video2x"
+    DESTDIR="$pkgdir" cmake --install build
+    install -Dm644 "${pkgname}/LICENSE" -t "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
+
