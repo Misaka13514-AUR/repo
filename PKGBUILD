@@ -2,14 +2,14 @@
 #
 # To install:
 # 	git clone https://aur.archlinux.org/ida-pro.git && cd ida-pro
-# 	Download the `ida-pro_VERSION_x64linux.run` installer from the IDA download center at https://my.hex-rays.com/ or VirusTotal, and place it in the same directory
+# 	Download the `ida-pro_VERSION_x64linux.run` installer from the IDA download center at https://my.hex-rays.com/, and place it in the same directory
 # 	makepkg -sicf
 
 # Maintainer: patchouli
 
-pkgver=9.0
+pkgver=9.0sp1
 pkgname="ida-pro"
-pkgrel=5
+pkgrel=1
 pkgdesc="Hex-Rays IDA Pro"
 url="https://www.hex-rays.com/products/ida/${pkgver}/index.shtml"
 license=('custom')
@@ -24,13 +24,13 @@ depends=('libgl'
 	)
 options=('!strip')
 
-_installer='ida-pro_90_x64linux.run'
+_installer='ida-pro_90sp1_x64linux.run'
 
 source=("file://${_installer}"
 		"${pkgname}.desktop"
 		"${pkgname}-teams.desktop")
 
-sha256sums=('159cf8983a0e7b199d6efab5af42eca31a288e7ef2ec44eba6336de4acb8107a' # Download on VT if you have a license: https://www.virustotal.com/gui/file/159cf8983a0e7b199d6efab5af42eca31a288e7ef2ec44eba6336de4acb8107a
+sha256sums=('c0e2d5f410f8a4a3745bb219d821d690ce1768a5ce0a25e86e0c30c1fe599c71'
 			'662478dbcb939db8a36f89170246c2187b1086bff840dd96bd4d8f72eac3cad5'
 			'437fc36a8edd8dd6adadd773dd777966797640d93f499892bdd1217afaf1b636')
 
@@ -46,9 +46,12 @@ package() {
 	# have to copy the installer due to chroot
 	cp "${srcdir}"/${_installer} "${pkgdir}"/
 	chmod +x "${pkgdir}"/${_installer}
-	fakechroot chroot "${pkgdir}" /${_installer} --mode unattended --prefix /opt/${pkgname}
+
+	# IDA Pro 9.0 SP1 installer now tries to copy the .desktop files to $HOME even if you specify a prefix. Very annoying.
+	mkdir -p $pkgdir/$HOME/.local/share/applications
+	fakechroot chroot "${pkgdir}" /${_installer} --mode unattended --prefix "/opt/${pkgname}"
 	rm "${pkgdir}"/${_installer}
-	rm -R "${pkgdir}"/tmp
+	rm -R "${pkgdir}"/{tmp,home}
 
 	# the installer needlessly makes a lot of files executable
 	find "${pkgdir}"/opt/${pkgname} -type f -exec chmod -x {} \;
