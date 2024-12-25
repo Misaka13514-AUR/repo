@@ -2,7 +2,7 @@
 # Maintainer: Antoine Viallon <antoine+aur@lesviallon.fr>
 pkgname=video2x
 pkgver=6.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A machine learning-based video super resolution and frame interpolation framework"
 arch=('x86_64')
 url="https://github.com/k4yt3x/video2x"
