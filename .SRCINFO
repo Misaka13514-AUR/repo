@@ -1,8 +1,8 @@
 pkgbase = ida-pro
 	pkgdesc = Hex-Rays IDA Pro
-	pkgver = 9.0sp1
+	pkgver = 9.0.1.sp1
 	pkgrel = 1
-	url = https://www.hex-rays.com/products/ida/9.0sp1/index.shtml
+	url = https://www.hex-rays.com/products/ida/9.0.1.sp1/index.shtml
 	arch = x86_64
 	license = custom
 	makedepends = fakechroot

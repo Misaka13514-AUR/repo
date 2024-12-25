@@ -7,7 +7,7 @@
 
 # Maintainer: patchouli
 
-pkgver=9.0sp1
+pkgver=9.0.1.sp1
 pkgname="ida-pro"
 pkgrel=1
 pkgdesc="Hex-Rays IDA Pro"
@@ -51,7 +51,7 @@ package() {
 	mkdir -p $pkgdir/$HOME/.local/share/applications
 	fakechroot chroot "${pkgdir}" /${_installer} --mode unattended --prefix "/opt/${pkgname}"
 	rm "${pkgdir}"/${_installer}
-	rm -R "${pkgdir}"/{tmp,home}
+	rm -Rf "${pkgdir}"/{tmp,home}
 
 	# the installer needlessly makes a lot of files executable
 	find "${pkgdir}"/opt/${pkgname} -type f -exec chmod -x {} \;
