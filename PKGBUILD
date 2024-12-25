@@ -11,11 +11,12 @@ depends=('ffmpeg' 'ncnn' 'vulkan-driver' 'spdlog' 'boost-libs')
 makedepends=('git' 'cmake' 'clang' 'vulkan-headers' 'openmp' 'boost')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
-source=("git+${url}.git#tag=${pkgver}"
+#source=("git+${url}.git#tag=${pkgver}"
+source=("git+${url}.git#commit=517003a"
         "git+https://github.com/k4yt3x/libreal-esrgan-ncnn-vulkan.git"
 	    "git+https://github.com/k4yt3x/librealcugan-ncnn-vulkan.git"
 	    "git+https://github.com/k4yt3x/librife-ncnn-vulkan.git")
-b2sums=('f8b078d2440d4f28a4cf87566580d84a1d9856184901349b1b467426ad882edeb0afbfb98f13e2588913aaa2ec230a3c06a271291023271789dc9d81d1ee7a3b'
+b2sums=('40d22c212f8fc82fa8f81def724a0dbd66e175b2adb3425df049cf9bdd178ee49384c10b6cc2703b87ac1bacc8f36f5cab0cb6bfd6700072f086e15adcb8c1fe'
         'SKIP'
         'SKIP'
         'SKIP')
