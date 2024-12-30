@@ -11,7 +11,7 @@ arch=(any)
 url='https://github.com/archlinuxcn/lilac'
 license=(GPL-3.0-only)
 depends=(python git devtools nvchecker gnupg pid_children fakeroot bubblewrap pacman-contrib bash
-         python-requests python-lxml python-yaml python-tomli python-tomli-w pyalpm
+         python-requests python-lxml python-yaml python-tomli-w pyalpm
          python-structlog python-prctl python-fluent.runtime)
 makedepends=(python-setuptools-scm python-psycopg2)
 optdepends=(
