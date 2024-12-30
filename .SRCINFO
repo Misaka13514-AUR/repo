@@ -22,7 +22,6 @@ pkgbase = lilac-git
 	depends = python-requests
 	depends = python-lxml
 	depends = python-yaml
-	depends = python-tomli
 	depends = python-tomli-w
 	depends = pyalpm
 	depends = python-structlog
