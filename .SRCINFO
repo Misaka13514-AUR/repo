@@ -1,7 +1,7 @@
 pkgbase = intel-compute-runtime-legacy
 	pkgdesc = Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL Driver (legacy platforms)
 	pkgver = 24.35.30872.22
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/intel/compute-runtime/
 	arch = x86_64
 	license = MIT
@@ -9,7 +9,6 @@ pkgbase = intel-compute-runtime-legacy
 	makedepends = igsc-legacy
 	makedepends = libva
 	makedepends = level-zero-headers-legacy
-	makedepends = opencl-headers
 	depends = gcc-libs
 	depends = intel-gmmlib-legacy
 	depends = intel-graphics-compiler-legacy

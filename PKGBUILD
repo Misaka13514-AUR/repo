@@ -2,13 +2,13 @@
 
 pkgname=intel-compute-runtime-legacy
 pkgver=24.35.30872.22
-pkgrel=2
+pkgrel=3
 pkgdesc='Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL Driver (legacy platforms)'
 arch=('x86_64')
 url='https://github.com/intel/compute-runtime/'
 license=('MIT')
 depends=('gcc-libs' 'intel-gmmlib-legacy' 'intel-graphics-compiler-legacy')
-makedepends=('cmake' 'igsc-legacy' 'libva' 'level-zero-headers-legacy' 'opencl-headers')
+makedepends=('cmake' 'igsc-legacy' 'libva' 'level-zero-headers-legacy')
 optdepends=('libva: for cl_intel_va_api_media_sharing'
             'libdrm: for cl_intel_va_api_media_sharing')
 provides=("intel-compute-runtime=${pkgver}" 'opencl-driver' 'level-zero-driver')
@@ -34,6 +34,11 @@ build() {
     export CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
     export CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
     
+    # opencl and opengl headers supported by upstream are already in the source tree
+    local _opencl_headers_dir="${srcdir}/compute-runtime-${pkgver}/third_party/opencl_headers"
+    local _opengl_headers_dir="${srcdir}/compute-runtime-${pkgver}/third_party/opengl_headers"
+    export CXXFLAGS+=" -isystem${_opencl_headers_dir} -isystem${_opengl_headers_dir}"
+    
     # tests currently disabled because of https://github.com/intel/compute-runtime/issues/599
     cmake -B build -S "compute-runtime-${pkgver}" \
         -G 'Unix Makefiles' \
@@ -48,8 +53,8 @@ build() {
         -DNEO_VERSION_BUILD:STRING="$(cut -d . -f3 <<< "$pkgver")" \
         -DSUPPORT_DG1:BOOL='ON' \
         -DSUPPORT_DG2:BOOL='ON' \
-        -DKHRONOS_GL_HEADERS_DIR:PATH='/usr/include' \
-        -DKHRONOS_HEADERS_DIR:PATH='/usr/include' \
+        -DKHRONOS_GL_HEADERS_DIR:PATH="$_opengl_headers_dir" \
+        -DKHRONOS_HEADERS_DIR:PATH="$_opencl_headers_dir" \
         -DSKIP_UNIT_TESTS:BOOL='ON' \
         -Wno-dev
     cmake --build build
