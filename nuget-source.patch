@@ -1,35 +1,11 @@
 diff -r --unified PowerShell.old/nuget.config PowerShell.new/nuget.config
---- PowerShell.old/nuget.config	2025-01-22 12:00:52.545797286 +0000
-+++ PowerShell.new/nuget.config	2025-01-22 12:07:00.191141201 +0000
+--- PowerShell.old/nuget.config	2025-01-22 16:17:21.248933252 +0000
++++ PowerShell.new/nuget.config	2025-01-22 16:27:43.593596245 +0000
 @@ -2,7 +2,7 @@
  <configuration>
    <packageSources>
      <clear />
 -    <add key="powershell" value="https://pkgs.dev.azure.com/powershell/PowerShell/_packaging/powershell-dotnet-9/nuget/v3/index.json" />
-+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-   </packageSources>
-   <disabledPackageSources>
-     <clear />
-diff -r --unified PowerShell.old/test/tools/Modules/nuget.config PowerShell.new/test/tools/Modules/nuget.config
---- PowerShell.old/test/tools/Modules/nuget.config	2025-01-22 12:00:52.695796653 +0000
-+++ PowerShell.new/test/tools/Modules/nuget.config	2025-01-22 12:07:11.444439682 +0000
-@@ -2,7 +2,7 @@
- <configuration>
-   <packageSources>
-     <clear />
--    <add key="powershell" value="https://pkgs.dev.azure.com/powershell/PowerShell/_packaging/PowerShell-7-5-preview-test-2/nuget/v3/index.json" />
-+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-   </packageSources>
-   <disabledPackageSources>
-     <clear />
-diff -r --unified PowerShell.old/tools/wix/nuget.config PowerShell.new/tools/wix/nuget.config
---- PowerShell.old/tools/wix/nuget.config	2025-01-22 12:00:52.702463292 +0000
-+++ PowerShell.new/tools/wix/nuget.config	2025-01-22 12:07:24.281066905 +0000
-@@ -2,7 +2,7 @@
- <configuration>
-   <packageSources>
-     <clear />
--    <add key="dotnet-eng" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json" />
 +    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
    </packageSources>
    <disabledPackageSources>

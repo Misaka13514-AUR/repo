@@ -6,7 +6,7 @@
 
 pkgname=powershell
 pkgver=7.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A cross-platform automation and configuration tool/framework"
 arch=('x86_64')
 url='https://microsoft.com/PowerShell'
@@ -40,7 +40,7 @@ sha256sums=('38671446c6944fa0d7238dc8c571390a18a9070d55bd360bcc1dbc26b7073b28'
             '0c81200e5211a2f63bc8d9941432cbf98b5988249f0ceeb1f118a14adddbaa8e'
             '6c996dc4dc8bef068cefb1680292154f45577c66fb0600dd0fb50939bbf8a3a3'
             '0c752fdfef3695109f27bb3fc8ecd9722e44ac7c21e9233a11a88bb8124e312d'
-            'cca0534852e13679fb2c207e02ff89144a6229c151c9de108f26c413a2565e39'
+            '2d1947012cc4b98f1a258730b0b44dad7ae481de19b424131e0dd10f2c30b340'
             '339207f86fa709d801ae64db739eafb4850fb53e4feece52db53920fa9896aa7')
 
 prepare() {
