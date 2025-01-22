@@ -1,0 +1,12 @@
+diff -r --unified PowerShell.old/src/System.Management.Automation/SourceGenerators/PSVersionInfoGenerator/PSVersionInfoGenerator.csproj PowerShell.new/src/System.Management.Automation/SourceGenerators/PSVersionInfoGenerator/PSVersionInfoGenerator.csproj
+--- PowerShell.old/src/System.Management.Automation/SourceGenerators/PSVersionInfoGenerator/PSVersionInfoGenerator.csproj	2025-01-22 12:00:52.592463755 +0000
++++ PowerShell.new/src/System.Management.Automation/SourceGenerators/PSVersionInfoGenerator/PSVersionInfoGenerator.csproj	2025-01-22 12:02:28.058745808 +0000
+@@ -14,7 +14,7 @@
+   </PropertyGroup>
+ 
+   <ItemGroup>
+-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="all" />
++    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
+     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+     <!-- This section is to force the version of non-direct dependencies -->
+     <PackageReference Include="Microsoft.NETCore.Platforms" Version="1.1.2" />
