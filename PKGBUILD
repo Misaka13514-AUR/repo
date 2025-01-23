@@ -6,7 +6,7 @@
 
 pkgname=powershell
 pkgver=7.4.6
-pkgrel=3
+pkgrel=4
 pkgdesc="A cross-platform automation and configuration tool/framework"
 arch=('x86_64')
 url='https://microsoft.com/PowerShell'
@@ -84,6 +84,10 @@ prepare() {
 build() {
   cd PowerShell
 
+  export NUGET_PACKAGES="$PWD/nuget"
+  export DOTNET_NOLOGO=true
+  export DOTNET_CLI_TELEMETRY_OPTOUT=true
+
   ## Start-ResGen()
   pushd src/ResGen
   dotnet run --no-restore
@@ -132,6 +136,10 @@ build() {
 
 check() {
   cd PowerShell
+
+  export NUGET_PACKAGES="$PWD/nuget"
+  export DOTNET_NOLOGO=true
+  export DOTNET_CLI_TELEMETRY_OPTOUT=true
 
   # Two failing tests, don't know why
   rm test/powershell/engine/Help/HelpSystem.Tests.ps1
