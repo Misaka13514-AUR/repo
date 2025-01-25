@@ -1,7 +1,7 @@
 # Maintainer: K4YT3X <aur@k4yt3x.com>
 # Maintainer: Antoine Viallon <antoine+aur@lesviallon.fr>
 pkgname=video2x
-pkgver=6.3.1
+pkgver=6.4.0
 pkgrel=2
 pkgdesc="A machine learning-based video super resolution and frame interpolation framework"
 arch=('x86_64')
@@ -11,12 +11,11 @@ depends=('ffmpeg' 'ncnn' 'vulkan-driver' 'spdlog' 'boost-libs')
 makedepends=('git' 'cmake' 'clang' 'vulkan-headers' 'openmp' 'boost')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
-#source=("git+${url}.git#tag=${pkgver}"
-source=("git+${url}.git#commit=517003a"
+source=("git+${url}.git#tag=${pkgver}"
         "git+https://github.com/k4yt3x/libreal-esrgan-ncnn-vulkan.git"
 	    "git+https://github.com/k4yt3x/librealcugan-ncnn-vulkan.git"
 	    "git+https://github.com/k4yt3x/librife-ncnn-vulkan.git")
-b2sums=('40d22c212f8fc82fa8f81def724a0dbd66e175b2adb3425df049cf9bdd178ee49384c10b6cc2703b87ac1bacc8f36f5cab0cb6bfd6700072f086e15adcb8c1fe'
+b2sums=('9ef95c906046fbfa8f4514b0be90ff5375248af1c48cf20d022d19a6ab64f1ed9f0d83c39b300761b1ad34dfe4b52cc7020412d50085bd73c912b984109276f6'
         'SKIP'
         'SKIP'
         'SKIP')
