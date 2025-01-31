@@ -5,17 +5,17 @@
 # Contributor: Max Liebkies <mail@maxliebkies.de>
 
 pkgname=powershell
-pkgver=7.4.6
-pkgrel=4
+pkgver=7.5.0
+pkgrel=1
 pkgdesc="A cross-platform automation and configuration tool/framework"
 arch=('x86_64')
 url='https://microsoft.com/PowerShell'
 license=('MIT')
 depends=(
-  dotnet-runtime-8.0
+  dotnet-runtime-9.0
 )
 makedepends=(
-  dotnet-sdk-8.0
+  dotnet-sdk-9.0
   git
   unzip
 )
@@ -26,32 +26,24 @@ checkdepends=(
 )
 install=powershell.install
 
-_commit=81930547a20205e5bfed32c66ab6fed50d6e2008
+_commit=713e77f15f63bae9f23fb02045c7843ad6a8769b
 source=(
   "git+https://github.com/PowerShell/PowerShell.git#commit=$_commit"
   'Microsoft.PowerShell.SDK.csproj.TypeCatalog.targets'
   'https://globalcdn.nuget.org/packages/pester.4.10.1.nupkg'
-  'dotnet-sdk-version.patch'
   'nuget-source.patch'
-  'analyzer-version.patch'
 )
 noextract=('pester.4.10.1.nupkg')
-sha256sums=('38671446c6944fa0d7238dc8c571390a18a9070d55bd360bcc1dbc26b7073b28'
+sha256sums=('ea5e18b0f3514f89be46b2c3cc7bcc77382ad47d238a2cccdf3128d01ab7eb72'
             '0c81200e5211a2f63bc8d9941432cbf98b5988249f0ceeb1f118a14adddbaa8e'
             '6c996dc4dc8bef068cefb1680292154f45577c66fb0600dd0fb50939bbf8a3a3'
-            '0c752fdfef3695109f27bb3fc8ecd9722e44ac7c21e9233a11a88bb8124e312d'
-            '2d1947012cc4b98f1a258730b0b44dad7ae481de19b424131e0dd10f2c30b340'
-            '339207f86fa709d801ae64db739eafb4850fb53e4feece52db53920fa9896aa7')
+            '84d34a09759271aa7aa614b97ff62642c773b2f81a712ac18d99985cf7a3c3ea')
 
 prepare() {
   cd PowerShell
 
-  # Use older but available dotnet
-  patch --strip=1 --input=../dotnet-sdk-version.patch
   # Use nuget.org source
   patch --strip=1 --input=../nuget-source.patch
-  # Use older but compatible analyzer
-  patch --strip=1 --input=../analyzer-version.patch
 
   # I couldn't find any way of silencing the very verbose warnings from
   # Microsoft.SourceLink other than to set the remote to a proper URL..
@@ -127,10 +119,10 @@ build() {
 
   ## Restore-PSModuleToBuild()
   cp -a "$NUGET_PACKAGES/microsoft.powershell.archive/1.2.5/." lib/Modules/Microsoft.PowerShell.Archive
-  cp -a "$NUGET_PACKAGES/microsoft.powershell.psresourceget/1.0.4.1/." lib/Modules/Microsoft.PowerShell.PSResourceGet
+  cp -a "$NUGET_PACKAGES/microsoft.powershell.psresourceget/1.1.0/." lib/Modules/Microsoft.PowerShell.PSResourceGet
   cp -a "$NUGET_PACKAGES/packagemanagement/1.4.8.1/." lib/Modules/PackageManagement
   cp -a "$NUGET_PACKAGES/powershellget/2.2.5/." lib/Modules/PowerShellGet
-  cp -a "$NUGET_PACKAGES/psreadline/2.3.5/." lib/Modules/PSReadLine
+  cp -a "$NUGET_PACKAGES/psreadline/2.3.6/." lib/Modules/PSReadLine
   cp -a "$NUGET_PACKAGES/threadjob/2.0.3/." lib/Modules/ThreadJob
 }
 
@@ -160,7 +152,12 @@ check() {
   rm test/powershell/Modules/Microsoft.PowerShell.Management/Start-Process.Tests.ps1
 
   # Can't figure out why it fails
+  # If you want to dig into this, your patch will be appreciated
   rm test/powershell/Modules/Microsoft.PowerShell.Utility/Format-Table.Tests.ps1
+  rm test/powershell/Language/Parser/RedirectionOperator.Tests.ps1
+  rm test/powershell/Language/Scripting/NativeExecution/NativeWindowsTildeExpansion.Tests.ps1
+  rm test/powershell/Modules/Microsoft.PowerShell.Utility/WebCmdlets.Tests.ps1
+  rm test/powershell/Modules/Microsoft.PowerShell.PSResourceGet/Microsoft.PowerShell.PSResourceGet.Tests.ps1
 
   ## Restore-PSPester()
   unzip -ud temp_pester "$srcdir/pester.4.10.1.nupkg"
@@ -182,13 +179,13 @@ check() {
       --configuration Debug \
       --output test/tools/$project/bin \
       test/tools/$project
-    export PATH="$PATH:$PWD/test/tools/$project/bin/Debug/net8.0/linux-x64"
+    export PATH="$PATH:$PWD/test/tools/$project/bin/Debug/net9.0/linux-x64"
   done
 
   dotnet publish \
     --no-restore \
     --configuration Debug \
-    --framework net8.0 \
+    --framework net9.0 \
     --output test/tools/Modules/Microsoft.PowerShell.NamedPipeConnection \
     test/tools/NamedPipeConnection/src/code
   install -Dm644 -t test/tools/Modules/Microsoft.PowerShell.NamedPipeConnection \

@@ -4,6 +4,4 @@
 !.SRCINFO
 !PKGBUILD
 !Microsoft.PowerShell.SDK.csproj.TypeCatalog.targets
-!analyzer-version.patch
-!dotnet-sdk-version.patch
 !nuget-source.patch
