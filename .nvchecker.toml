@@ -1,0 +1,5 @@
+[bird]
+source = "git"
+git = "https://gitlab.nic.cz/labs/bird"
+prefix = "v"
+include_regex = '^v\d+\.\d+(\.\d+)?$'
