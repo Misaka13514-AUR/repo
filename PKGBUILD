@@ -1,4 +1,5 @@
 # Maintainer: Sébastien Luttringer
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=bird
 pkgver=2.15.1
