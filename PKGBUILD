@@ -8,9 +8,9 @@ pkgdesc='RIP, OSPF, BGP, MPLS, BFD, Babel routing daemon'
 arch=('x86_64')
 url='https://bird.network.cz/'
 license=('GPL-2.0-or-later')
-backup=('etc/bird.conf')
 depends=('glibc' 'readline' 'ncurses' 'libssh')
 replaces=('bird6')
+backup=('etc/bird.conf')
 options=(!emptydirs)
 source=("https://gitlab.nic.cz/labs/bird/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz"
         'bird.service')
