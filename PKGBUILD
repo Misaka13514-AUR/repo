@@ -18,19 +18,6 @@ source=("https://bird.network.cz/download/$pkgname-$pkgver.tar.gz"
 sha256sums=('48e85c622de164756c132ea77ad1a8a95cc9fd0137ffd0d882746589ce75c75d'
             '4aa1e8d41229badd276aa3747f613e7df34761892add2258c63bdb5097dfeb2b')
 
-prepare() {
-  cd $pkgname-$pkgver
-  # apply patch from the source array (should be a pacman feature)
-  local filename
-  for filename in "${source[@]}"; do
-    if [[ "$filename" =~ \.patch$ ]]; then
-      echo "Applying patch ${filename##*/}"
-      patch -p1 -N -i "$srcdir/${filename##*/}"
-    fi
-  done
-  :
-}
-
 build() {
   cd $pkgbase-$pkgver
   ./configure \
