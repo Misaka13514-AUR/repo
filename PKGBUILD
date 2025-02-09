@@ -12,14 +12,18 @@ backup=('etc/bird.conf')
 depends=('glibc' 'readline' 'ncurses' 'libssh')
 replaces=('bird6')
 options=(!emptydirs)
-source=("https://bird.network.cz/download/$pkgname-$pkgver.tar.gz"
-        'bird.service'
-        )
-sha256sums=('48e85c622de164756c132ea77ad1a8a95cc9fd0137ffd0d882746589ce75c75d'
+source=("https://gitlab.nic.cz/labs/bird/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz"
+        'bird.service')
+sha256sums=('5a4cf55c4767192aa57880ac5f6763e5b8c26f688ab5934df96e3615c4b0a1e1'
             '4aa1e8d41229badd276aa3747f613e7df34761892add2258c63bdb5097dfeb2b')
 
+prepare() {
+  cd $pkgbase-v$pkgver
+  autoreconf -vif
+}
+
 build() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase-v$pkgver
   ./configure \
     --prefix=/usr \
     --sbindir=/usr/bin \
@@ -31,8 +35,7 @@ build() {
 }
 
 package () {
-
-  cd $pkgbase-$pkgver
+  cd $pkgbase-v$pkgver
   make DESTDIR="$pkgdir" install
 
   # systemd
