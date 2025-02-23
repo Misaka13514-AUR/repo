@@ -4,18 +4,19 @@
 
 _pkgname=frida-tools
 pkgname=python-$_pkgname
-pkgver=12.4.2
+pkgver=13.6.1
 pkgrel=1
 pkgdesc="CLI tools for Frida. Python 3 version from PyPi."
 arch=('i686' 'x86_64')
 url="http://www.frida.re"
 license=('wxWindows Library License, Version 3.1')
-depends=('python' 'python-pygments>=2.15.1' 'python-colorama>=0.4.6' 'python-frida>=16.2.5' 'python-prompt_toolkit>=3.0.38')
+# This actually requires websockets>=13, but that's not available in the repo yet
+depends=('python' 'python-pygments>=2.15.1' 'python-colorama>=0.4.6' 'python-frida>=16.2.5' 'python-prompt_toolkit>=3.0.38' 'python-websockets>=12.0')
 makedepends=(python-build python-installer python-wheel python-setuptools)
 # Sourced from https://pypi.org/project/frida-tools/#files
 source=("https://files.pythonhosted.org/packages/source/f/${_pkgname}/${_pkgname}-${pkgver}.tar.gz"
         "COPYING")
-sha256sums=('5a978a55f95b5fb5b361643504589bf0b4d61a28f7c3accb625c90a6e56508bd'
+sha256sums=('8a6356d2fa2b63dd25a763a48582d8c20a725be57177591dab72ef778fe23550'
             '5ea1544b51a28bc823b03159190d4108f9fb4f4ef912389f5137c6d295e175b2')
 conflicts=("python2-${_pkgname}")
 
