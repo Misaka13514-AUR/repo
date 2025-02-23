@@ -2,9 +2,11 @@
 # Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
 # Contributor: algebro <algebro at tuta dot io>
 
+# The frida build process downloads files during the builds which cannot be disabled
+
 _pkgname=frida
 pkgname=python-$_pkgname
-pkgver=16.5.9
+pkgver=16.6.6
 pkgrel=1
 pkgdesc="Inject JavaScript to explore native apps on Windows, Mac, Linux, iOS and Android. Python 3 version from PyPi"
 arch=('i686' 'x86_64' 'armv7h' 'aarch64')
@@ -17,11 +19,14 @@ makedepends=(python-build python-installer python-wheel python-setuptools git)
 # Sourced from https://pypi.org/project/frida/#files
 source=("https://files.pythonhosted.org/packages/source/f/${_pkgname}/${_pkgname}-${pkgver}.tar.gz"
         "COPYING")
-sha256sums=('a563f78842d2663f0a8282091003b338af7336d57d56b329913177154b9083ac'
+sha256sums=('384572cd21185e6b152628216e83fcddbb869572ad55609582580494ce8b6c2a'
             '5ea1544b51a28bc823b03159190d4108f9fb4f4ef912389f5137c6d295e175b2')
 conflicts=("python2-${_pkgname}")
 
 build() {
+  if [[ -n $LDFLAGS ]]; then
+    export LDFLAGS="${LDFLAGS//-Wl,-z,pack-relative-relocs/}"
+  fi
   cd "$srcdir/$_pkgname-$pkgver"
   python -m build --wheel --no-isolation
 }
