@@ -1,11 +1,11 @@
 pkgbase = seclists
 	pkgdesc = Collection of multiple types of lists used during security assessments
-	pkgver = 2024.4
+	pkgver = 2025.1
 	pkgrel = 1
 	url = https://github.com/danielmiessler/SecLists
 	arch = any
 	license = MIT
-	source = SecLists-2024.4.tar.gz::https://github.com/danielmiessler/SecLists/archive/2024.4.tar.gz
-	sha512sums = 15b009eea16e79515e89146094dbde0a9dfcf7427fa33bea427e6e1d92b105d00bf11f4ec0a372a0f5df92cf85d89b98053175d167e2e9307650021e54c60398
+	source = SecLists-2025.1.tar.gz::https://github.com/danielmiessler/SecLists/archive/2025.1.tar.gz
+	sha512sums = 9147222c99930ac0cd7ee93cd27ff5339c3a507c8cd289703adff7265fee493b9ca0e40a6509bde8b948af6eed12aaaf28a8453cfcf55655f7e2fc0c635bdbd1
 
 pkgname = seclists
