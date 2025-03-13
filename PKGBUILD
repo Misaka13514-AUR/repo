@@ -7,7 +7,7 @@
 
 # Maintainer: patchouli
 
-pkgver=9.0.1.sp1
+pkgver=9.1
 pkgname="ida-pro"
 pkgrel=1
 pkgdesc="Hex-Rays IDA Pro"
@@ -24,7 +24,7 @@ depends=('libgl'
 	)
 options=('!strip')
 
-_installer='ida-pro_90sp1_x64linux.run'
+_installer='ida-pro_91_x64linux.run'
 
 source=("file://${_installer}"
 		"${pkgname}.desktop"
@@ -47,7 +47,7 @@ package() {
 	cp "${srcdir}"/${_installer} "${pkgdir}"/
 	chmod +x "${pkgdir}"/${_installer}
 
-	# IDA Pro 9.0 SP1 installer now tries to copy the .desktop files to $HOME even if you specify a prefix. Very annoying.
+	# IDA Pro 9.0 SP1 (and newer) installer now tries to copy the .desktop files to $HOME even if you specify a prefix. Very annoying.
 	mkdir -p $pkgdir/$HOME/.local/share/applications
 	fakechroot chroot "${pkgdir}" /${_installer} --mode unattended --prefix "/opt/${pkgname}"
 	rm "${pkgdir}"/${_installer}
@@ -65,3 +65,6 @@ package() {
 	ln -s /opt/${pkgname}/license.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 	ln -s /opt/${pkgname}/ida "${pkgdir}"/usr/bin/ida
 }
+sha256sums=('8ff08022be3a0ef693a9e3ea01010d1356b26cfdcbbe7fdd68d01b3c9700f9e2'
+            '662478dbcb939db8a36f89170246c2187b1086bff840dd96bd4d8f72eac3cad5'
+            '437fc36a8edd8dd6adadd773dd777966797640d93f499892bdd1217afaf1b636')
