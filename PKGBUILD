@@ -7,7 +7,7 @@
 
 # Maintainer: patchouli
 
-pkgver=9.1
+pkgver=9.1.0
 pkgname="ida-pro"
 pkgrel=1
 pkgdesc="Hex-Rays IDA Pro"
@@ -30,9 +30,9 @@ source=("file://${_installer}"
 		"${pkgname}.desktop"
 		"${pkgname}-teams.desktop")
 
-sha256sums=('c0e2d5f410f8a4a3745bb219d821d690ce1768a5ce0a25e86e0c30c1fe599c71'
-			'662478dbcb939db8a36f89170246c2187b1086bff840dd96bd4d8f72eac3cad5'
-			'437fc36a8edd8dd6adadd773dd777966797640d93f499892bdd1217afaf1b636')
+sha256sums=('8ff08022be3a0ef693a9e3ea01010d1356b26cfdcbbe7fdd68d01b3c9700f9e2'
+            '662478dbcb939db8a36f89170246c2187b1086bff840dd96bd4d8f72eac3cad5'
+            '437fc36a8edd8dd6adadd773dd777966797640d93f499892bdd1217afaf1b636')
 
 arch=('x86_64')
 
@@ -65,6 +65,3 @@ package() {
 	ln -s /opt/${pkgname}/license.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 	ln -s /opt/${pkgname}/ida "${pkgdir}"/usr/bin/ida
 }
-sha256sums=('8ff08022be3a0ef693a9e3ea01010d1356b26cfdcbbe7fdd68d01b3c9700f9e2'
-            '662478dbcb939db8a36f89170246c2187b1086bff840dd96bd4d8f72eac3cad5'
-            '437fc36a8edd8dd6adadd773dd777966797640d93f499892bdd1217afaf1b636')
