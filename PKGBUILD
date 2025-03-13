@@ -6,12 +6,14 @@
 pkgname=charles
 _name=charles-proxy5
 pkgver=5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Web debugging proxy application"
 arch=(x86_64)
 url="http://www.charlesproxy.com"
-license=('custom' 'APACHE')
+license=('LicenseRef-Charles-EULA')
 depends=('java-runtime>=8' 'hicolor-icon-theme')
+provides=('charles')
+conflicts=('charles-bin')
 source=(http://www.charlesproxy.com/assets/release/${pkgver}/charles-proxy-${pkgver}_$arch.tar.gz)
 md5sums=('62bcb560e41a8bc2d262e596ec660b50')
 
