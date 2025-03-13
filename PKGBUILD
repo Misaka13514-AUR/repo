@@ -4,15 +4,16 @@
 # Contributor: Alexander Baldeck <lex@tentriplenine.com>
 
 pkgname=charles
-pkgver=4.6.7
+_name=charles-proxy5
+pkgver=5.0
 pkgrel=1
 pkgdesc="Web debugging proxy application"
-arch=(any)
+arch=(x86_64)
 url="http://www.charlesproxy.com"
 license=('custom' 'APACHE')
 depends=('java-runtime>=8' 'hicolor-icon-theme')
-source=(http://www.charlesproxy.com/assets/release/${pkgver}/charles-proxy-${pkgver}_amd64.tar.gz)
-md5sums=('ca763c84ec4e32d91d632227d55eb3c5')
+source=(http://www.charlesproxy.com/assets/release/${pkgver}/charles-proxy-${pkgver}_$arch.tar.gz)
+md5sums=('62bcb560e41a8bc2d262e596ec660b50')
 
 build() {
   cd "$srcdir/$pkgname"
@@ -30,22 +31,20 @@ package() {
   done
 
   for dim in 16x16  32x32  64x64  128x128  256x256  512x512; do
-    install -D -m644 ${srcdir}/${pkgname}/icon/${dim}/apps/charles-proxy.png \
+    install -D -m644 ${srcdir}/${pkgname}/icon/${dim}/apps/$_name.png \
       ${pkgdir}/usr/share/icons/hicolor/${dim}/apps/charles.png
-    for mimetype in application-har+json.png application-vnd.tcpdump.pcap.png application-x-charles-savedsession.png application-x-charles-trace.png; do
+    for mimetype in $_name-har.png $_name-pcap.png $_name-savedsession.png $_name-trace.png; do
       install -D -m644 ${srcdir}/${pkgname}/icon/${dim}/mimetypes/$mimetype \
         ${pkgdir}/usr/share/icons/hicolor/${dim}/mimetypes/$mimetype
     done
   done
-  install -D -m644 ${srcdir}/${pkgname}/icon/128x128/apps/charles-proxy.png \
+  install -D -m644 ${srcdir}/${pkgname}/icon/128x128/apps/$_name.png \
     ${pkgdir}/usr/share/icons/charles128.png
 
-  install -D -m644 ${srcdir}/${pkgname}/doc/licenses/jakarta-oro-license.txt \
-    ${pkgdir}/usr/share/licenses/${pkgname}/jakarta-oro-license.txt
-  install -D -m644 ${srcdir}/${pkgname}/etc/charles-proxy.desktop \
-    ${pkgdir}/usr/share/applications/charles-proxy.desktop
+  install -D -m644 ${srcdir}/${pkgname}/etc/$_name.desktop \
+    ${pkgdir}/usr/share/applications/$_name.desktop
 
-  sed -i 's/Icon=\.\..\+/Icon=charles/' ${pkgdir}/usr/share/applications/charles-proxy.desktop
+  sed -i 's/Icon=\.\..\+/Icon=charles/' ${pkgdir}/usr/share/applications/$_name.desktop
   #Stop ^- from appearing in home directory
   sed -i 's/\^-/\/dev\/null/' ${pkgdir}/usr/bin/charles
   #Use XDG_CONFIG_HOME and if unset use ~/.config/charles rather than ~/ for .charles.config
