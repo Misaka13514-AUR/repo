@@ -1,0 +1,20 @@
+pkgbase = bangumium-git
+	pkgdesc = Universal third-party desktop client for bgm.tv
+	pkgver = v0.9.3.r0.0bb35fa
+	pkgrel = 1
+	url = https://github.com/Bangumium/Bangumium
+	arch = any
+	license = MIT
+	makedepends = git
+	makedepends = npm
+	makedepends = python
+	makedepends = python-pip
+	makedepends = nodejs
+	depends = python-gobject
+	depends = webkit2gtk-4.1
+	provides = bangumium
+	conflicts = bangumium
+	source = bangumium::git+https://github.com/Bangumium/Bangumium.git
+	sha256sums = SKIP
+
+pkgname = bangumium-git
