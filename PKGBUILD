@@ -3,7 +3,7 @@ pkgname=yubico-authenticator
 _app_id=com.yubico.yubioath
 pkgdesc="Yubico Authenticator for Desktop"
 pkgver=7.1.1
-pkgrel=1
+pkgrel=2
 _flutter_ver=3.24.2
 arch=('x86_64' 'aarch64')
 url="https://github.com/Yubico/yubioath-flutter"
@@ -41,11 +41,19 @@ prepare() {
   fvm install "${_flutter_ver}"
   fvm global "${_flutter_ver}"
 
+  # window_manager: Update commit
+  sed -i 's/2272d45bcf46d7e2b452a038906fbc85df3ce83d/3e6261be31ebab4a00f44887eee6af13b512c897/g' \
+    pubspec.yaml
+
   # Disable analytics
   fvm flutter --disable-analytics
 
   # Pull dependencies within prepare, allowing for offline builds later on
   fvm flutter pub get
+
+  # tray_manager_plugin: Ignore app_indicator_new deprecation warning
+  sed -i '15 i target_compile_options(${PLUGIN_NAME} PRIVATE -Wno-deprecated)' \
+    linux/flutter/ephemeral/.plugin_symlinks/tray_manager/linux/CMakeLists.txt
 
   desktop-file-edit --set-key=Exec --set-value="authenticator" --set-icon="${_app_id}" \
     resources/linux/linux_support/com.yubico.authenticator.desktop
