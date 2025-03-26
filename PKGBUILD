@@ -2,9 +2,9 @@
 pkgname=yubico-authenticator
 _app_id=com.yubico.yubioath
 pkgdesc="Yubico Authenticator for Desktop"
-pkgver=7.1.1
-pkgrel=2
-_flutter_ver=3.24.2
+pkgver=7.2.0
+pkgrel=1
+_flutter_ver=3.29.2  ## Check .github/workflows/env for version
 arch=('x86_64' 'aarch64')
 url="https://github.com/Yubico/yubioath-flutter"
 license=('Apache-2.0')
@@ -32,7 +32,7 @@ makedepends=(
   'python-wheel'
 )
 source=("git+https://github.com/Yubico/yubioath-flutter.git#tag=$pkgver?signed")
-sha256sums=('d2828dcf8affd8ee755c146d973890b0715a4a5c5cec7910322572abeca85d5e')
+sha256sums=('3def9e6c8eb0e8b60129cb76ef4928f5a7f80752aeeb96a1667088290dc40b90')
 validpgpkeys=('20EE325B86A81BCBD3E56798F04367096FBA95E8')  # Dain Nilsson <dain@yubico.com>
 
 prepare() {
@@ -40,10 +40,6 @@ prepare() {
   export FVM_CACHE_PATH="$srcdir/fvm"
   fvm install "${_flutter_ver}"
   fvm global "${_flutter_ver}"
-
-  # window_manager: Update commit
-  sed -i 's/2272d45bcf46d7e2b452a038906fbc85df3ce83d/3e6261be31ebab4a00f44887eee6af13b512c897/g' \
-    pubspec.yaml
 
   # Disable analytics
   fvm flutter --disable-analytics
@@ -56,7 +52,7 @@ prepare() {
     linux/flutter/ephemeral/.plugin_symlinks/tray_manager/linux/CMakeLists.txt
 
   desktop-file-edit --set-key=Exec --set-value="authenticator" --set-icon="${_app_id}" \
-    resources/linux/linux_support/com.yubico.authenticator.desktop
+    "resources/linux/linux_support/${_app_id}.desktop"
 
   # Don't copy the Helper since we're not using Pyinstaller
   sed -i '/build\/linux\/helper/d' linux/CMakeLists.txt
@@ -107,7 +103,7 @@ package() {
     "$pkgdir/usr/share/icons/hicolor/32x32/apps/${_app_id}.png"
   install -Dm644 "resources/icons/${_app_id}-1000x1000.png" \
     "$pkgdir/usr/share/icons/hicolor/1000x1000/apps/${_app_id}.png"
-  install -Dm644 resources/linux/linux_support/com.yubico.authenticator.desktop -t \
+  install -Dm644 "resources/linux/linux_support/${_app_id}.desktop" -t \
     "$pkgdir/usr/share/applications/"
 
   # Remove insecure RUNPATH pointing to build dir
