@@ -3,7 +3,7 @@
 
 pkgname=pid_children-git
 pkgver=r10.749d59c
-pkgrel=1
+pkgrel=0
 pkgdesc='A simple program outputs descendant process ids for each pid given on the command line'
 arch=(x86_64)
 depends=(gcc-libs)
