@@ -6,7 +6,7 @@
 
 _pkgname=frida
 pkgname=python-$_pkgname
-pkgver=16.7.4
+pkgver=16.7.7
 pkgrel=1
 pkgdesc="Inject JavaScript to explore native apps on Windows, Mac, Linux, iOS and Android. Python 3 version from PyPi"
 arch=('i686' 'x86_64' 'armv7h' 'aarch64')
@@ -19,7 +19,7 @@ makedepends=(python-build python-installer python-wheel python-setuptools git)
 # Sourced from https://pypi.org/project/frida/#files
 source=("https://files.pythonhosted.org/packages/source/f/${_pkgname}/${_pkgname}-${pkgver}.tar.gz"
         "COPYING")
-sha256sums=('fcdd99130c661f20816cfc640e85878f3df14a301092dcddbc7021591e9f5d3f'
+sha256sums=('55939ba4b7f8b0ce2a10f3ee99cc133f4e09405a8147ff617a2a241ef38ae9fd'
             '5ea1544b51a28bc823b03159190d4108f9fb4f4ef912389f5137c6d295e175b2')
 conflicts=("python2-${_pkgname}")
 
