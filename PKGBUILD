@@ -9,13 +9,13 @@ _spirv_tools_ver=2023.6.rc1
 _spirv_headers_commit=1c6bb2743599e6eb6f37b2969acc0aef812e32e3
 _spirv_llvm_commit=065a94408d01bacf2ee86443f56cfaa64fda1534
 _opencl_clang_commit=470cf0018e1ef6fc92eda1356f5f31f7da452abc
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel Graphics Compiler for OpenCL (legacy platforms)'
 arch=('x86_64')
 url='https://github.com/intel/intel-graphics-compiler/'
 license=('MIT' 'Apache-2.0 WITH LLVM-exception')
-depends=('gcc-libs' 'zlib')
-makedepends=('git' 'cmake' 'python' 'python-mako' 'python-yaml')
+depends=('gcc-libs' 'glibc' 'zlib')
+makedepends=('cmake' 'git' 'python' 'python-mako' 'python-yaml')
 provides=("intel-graphics-compiler=${pkgver}" "intel-opencl-clang=${_llvmmaj}")
 conflicts=('intel-graphics-compiler' 'intel-opencl-clang')
 replaces=('intel-opencl-clang')
@@ -39,41 +39,42 @@ prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
     # twice by the build process, which causes the build to fail
     mv SPIRV-LLVM-Translator{,-IGC-LLVM}
-
+    
     ln -s "${srcdir}/SPIRV-LLVM-Translator-IGC-LLVM"  "${srcdir}/llvm-project/llvm/projects/llvm-spirv"
     ln -s "${srcdir}/opencl-clang" "${srcdir}/llvm-project/llvm/projects/opencl-clang"
 }
 
 build() {
     # prevent IGC to load LLVM 15+ symbols
-    CFLAGS+=" -fno-semantic-interposition"
-    CXXFLAGS+=" -fno-semantic-interposition"
-    LDFLAGS+=" -Wl,-Bsymbolic"
+    CFLAGS+=' -fno-semantic-interposition'
+    CXXFLAGS+=' -fno-semantic-interposition'
+    LDFLAGS+=' -Wl,-Bsymbolic'
     
     # fix error: "_FORTIFY_SOURCE" redefined [-Werror]
     # note: upstream forces _FORTIFY_SOURCE=2
     export CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
     export CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
-
-    CXXFLAGS+=" -I ${srcdir}/SPIRV-LLVM-Translator/include"
-
+    
+    CXXFLAGS+=" -isystem${srcdir}/SPIRV-LLVM-Translator/include"
+    
     EMAIL='builduser@archlinux.org' \
     cmake -B build -S "intel-graphics-compiler-igc-${pkgver}" \
         -G 'Unix Makefiles' \
-        -DCMAKE_BUILD_TYPE:STRING='Release' \
-        -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
-        -DCMAKE_INSTALL_LIBDIR:PATH='lib' \
-        -DIGC_OPTION__ARCHITECTURE_TARGET:STRING='Linux64' \
-        -DIGC_OPTION__SPIRV_TOOLS_MODE:STRING='Source' \
-        -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS:BOOL='OFF' \
-        -DIGC_OPTION__CLANG_MODE:STRING='Source' \
-        -DIGC_OPTION__LLD_MODE:STRING='Source' \
-        -DIGC_OPTION__LLVM_PREFERRED_VERSION:STRING="${_llvmver}" \
-        -DIGC_OPTION__LLVM_MODE:STRING='Source' \
-        -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR:BOOL='ON' \
-        -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC:BOOL='ON' \
-        -DIGC_OPTION__VC_INTRINSICS_MODE:STRING='Source' \
         -DCCLANG_FROM_SYSTEM:BOOL='OFF' \
+        -DCMAKE_BUILD_TYPE:STRING='Release' \
+        -DCMAKE_INSTALL_LIBDIR:PATH='lib' \
+        -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
+        -DCMAKE_POLICY_VERSION_MINIMUM:STRING='3.5.0' \
+        -DIGC_OPTION__ARCHITECTURE_TARGET:STRING='Linux64' \
+        -DIGC_OPTION__CLANG_MODE:STRING='Source' \
+        -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR:BOOL='ON' \
+        -DIGC_OPTION__LLD_MODE:STRING='Source' \
+        -DIGC_OPTION__LLVM_MODE:STRING='Source' \
+        -DIGC_OPTION__LLVM_PREFERRED_VERSION:STRING="${_llvmver}" \
+        -DIGC_OPTION__SPIRV_TOOLS_MODE:STRING='Source' \
+        -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC:BOOL='ON' \
+        -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS:BOOL='OFF' \
+        -DIGC_OPTION__VC_INTRINSICS_MODE:STRING='Source' \
         -DINSTALL_GENX_IR:BOOL='ON' \
         -Wno-dev
     cmake --build build
