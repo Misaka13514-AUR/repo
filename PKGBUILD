@@ -2,12 +2,12 @@
 
 pkgname=intel-gmmlib-legacy
 pkgver=22.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel Graphics Memory Management Library (legacy platforms)'
 arch=('x86_64')
 url='https://github.com/intel/gmmlib/'
 license=('MIT')
-depends=('gcc-libs')
+depends=('gcc-libs' 'glibc')
 makedepends=('cmake')
 provides=("intel-gmmlib=${pkgver}" 'gmmlib')
 conflicts=('intel-gmmlib' 'gmmlib')
@@ -21,6 +21,7 @@ build() {
         -G 'Unix Makefiles' \
         -DCMAKE_BUILD_TYPE:STRING='Release' \
         -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
+        -DCMAKE_POLICY_VERSION_MINIMUM:STRING='3.5.0' \
         -DRUN_TEST_SUITE:BOOL='ON' \
         -Wno-dev
     cmake --build build
