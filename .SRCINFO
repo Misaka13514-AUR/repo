@@ -1,6 +1,6 @@
 pkgbase = linuxqq-nt-bwrap
 	pkgdesc = New Linux QQ based on Electron, with bubblewrap sandbox and some tweaks
-	pkgver = 3.2.16_250307
+	pkgver = 3.2.16_250401
 	pkgrel = 1
 	url = https://im.qq.com/linuxqq/index.shtml
 	install = linuxqq-nt-bwrap.install
@@ -48,11 +48,11 @@ pkgbase = linuxqq-nt-bwrap
 	sha256sums = bb2ec0f104da4da7422d9b0f51c71d0ab38ed2a21764a7a643ab42689e098e4b
 	sha256sums = cc002ee0eb2e8702c97d16f4ce628841cd5fe10195875a075432e92248741424
 	sha256sums = f1c778b5a8b23bc77fd8e5e89056fea07309794c9a44ec38134a176cf1f7b675
-	source_x86_64 = https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250307_amd64_01.deb
-	sha256sums_x86_64 = 4f27d68557909bb8217b52e2e0fbcd899fd7d4901d69961c5affdf9c285ac015
-	source_aarch64 = https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250307_arm64_01.deb
-	sha256sums_aarch64 = 673ac6d2b930b6027d62703e5acacba8df777f0171d2ee52189727370f87e2a3
-	source_loong64 = https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250307_loongarch64_01.deb
-	sha256sums_loong64 = ca764843022c56bfa20535980e54407b5ded886d41a41230d44144b443b04bcd
+	source_x86_64 = https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250401_amd64_01.deb
+	sha256sums_x86_64 = 7feedba38cd54b2c27004d5624f52354bc85250625cf9e905446a1dae0d2ccff
+	source_aarch64 = https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250401_arm64_01.deb
+	sha256sums_aarch64 = 6afd4fbb96570127342669b473bc71b6610220701858ea3535039d2377c39990
+	source_loong64 = https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.16_250401_loongarch64_01.deb
+	sha256sums_loong64 = 3b220f2d133fb8bbe96f23bf5ffb3fdb4ff2ce6657a358849ca6cb65ff6a8018
 
 pkgname = linuxqq-nt-bwrap
