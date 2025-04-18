@@ -9,7 +9,7 @@ pkgname="${_jdkname}-bin"
 _java_ver=11
 pkgver=11.0.27.u9
 _pkgver=11.0.27+9
-pkgrel=2
+pkgrel=3
 pkgdesc='BellSoft builds of OpenJDK are fully certified and 100% open source Java Development Kits (JDKs) for all Java development and production workloads. Full version includes OpenJFX.'
 arch=(aarch64 armv7h armv8h x86_64)
 url='https://bell-sw.com/'
@@ -50,9 +50,9 @@ source_armv7h=(https://download.bell-sw.com/java/$_pkgver/bellsoft-jdk$_pkgver-l
 source_armv8h=(${source_armv7h[@]})
 source_x86_64=(https://download.bell-sw.com/java/$_pkgver/bellsoft-jdk$_pkgver-linux-amd64-full.tar.gz)
 
-sha1sums_aarch64=('dc261e603a8575fad0d3fd13f346e9dab3f267d9')
-sha1sums_armv7h=('daf8d66151d45e5ae6e377406a59c653ca4eba74')
-sha1sums_armv8h=(${sha1sums_armv7h[@]})
+sha1sums_aarch64=('b25d966b33d5a2bfadae90efc6d93c0d8828eafd')
+sha1sums_armv7h=('a6def57ac7f77ee89d7354f569be0b38a807cad0')
+sha1sums_armv8h=('a6def57ac7f77ee89d7354f569be0b38a807cad0')
 sha1sums_x86_64=('14441eeca043b945045435dc2815a0f8c3edb6b9')
 
 _jvmdir="/usr/lib/jvm/${_jdkname}"
