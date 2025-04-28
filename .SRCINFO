@@ -1,10 +1,11 @@
 pkgbase = yin-yang
 	pkgdesc = Light/dark theme switcher for Linux. Supports popular Desktops, text editors and more!
-	pkgver = 3.4
+	pkgver = 4.0
 	pkgrel = 1
 	url = https://github.com/oskarsh/Yin-Yang
 	arch = any
 	license = MIT
+	makedepends = appstream
 	depends = hicolor-icon-theme
 	depends = python3
 	depends = python-numpy
@@ -17,7 +18,7 @@ pkgbase = yin-yang
 	depends = python-systemd
 	provides = yin-yang
 	conflicts = yin-yang-git
-	source = yin-yang-3.4.zip::https://github.com/oskarsh/Yin-Yang/archive/refs/tags/v3.4.zip
-	sha256sums = 733ad871120c891904acaca83088ebd1334d734c041742725509966bf4367b0e
+	source = yin-yang-4.0.zip::https://github.com/oskarsh/Yin-Yang/archive/refs/tags/v4.0.zip
+	sha256sums = 8c0808502e2413d563079ea7d1cf4fb09ccdec5da034c92283d21977b828da0c
 
 pkgname = yin-yang

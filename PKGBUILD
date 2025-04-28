@@ -1,17 +1,18 @@
 # Maintainer: Miroslav Jarý <mira.jary@gmail.com>
 
 pkgname=yin-yang
-pkgver=3.4
+pkgver=4.0
 pkgrel=1
 pkgdesc="Light/dark theme switcher for Linux. Supports popular Desktops, text editors and more!"
 arch=('any')
 url="https://github.com/oskarsh/Yin-Yang"
 license=('MIT')
 depends=('hicolor-icon-theme' 'python3' 'python-numpy' 'python-psutil' 'pyside6' 'python-pyqt6' 'qt6-positioning' 'python-requests' 'python-suntime>=1.3.2' 'python-systemd')
+makedepends=('appstream')
 provides=("${pkgname}")
 conflicts=("${pkgname}-git")
 source=("$pkgname-$pkgver.zip::https://github.com/oskarsh/Yin-Yang/archive/refs/tags/v$pkgver.zip")
-sha256sums=('733ad871120c891904acaca83088ebd1334d734c041742725509966bf4367b0e')
+sha256sums=('8c0808502e2413d563079ea7d1cf4fb09ccdec5da034c92283d21977b828da0c')
 
 package() {
     # This is a modified version of scripts/install.sh
@@ -19,12 +20,12 @@ package() {
 
     # Check if needed directories exists
     DIRS=(
-        "$pkgdir/opt/yin-yang/"
+        "$pkgdir/opt/yin_yang/"
         "$pkgdir/usr/bin/"
         "$pkgdir/usr/lib/mozilla/native-messaging-hosts/"
         "$pkgdir/usr/share/applications/"
         "$pkgdir/usr/share/icons/hicolor/scalable/apps/"
-        "$pkgdir/usr/share/licenses/yin-yang"
+        "$pkgdir/usr/share/licenses/yin_yang"
     )
     for dir in "${DIRS[@]}"
     do
@@ -34,21 +35,22 @@ package() {
     done
 
     # Pre-cleanup not needed files
-    rm -r .??* README*.md scripts/ tests/ requirements.txt
+    rm -r .??* README*.md scripts/ tests/ flatpak-*
 
     # copy files
-    cp -r ./* "$pkgdir/opt/yin-yang/"
+    cp -r ./* "$pkgdir/opt/yin_yang/"
     # move license to correct folder
-    mv "$pkgdir/opt/yin-yang/LICENSE" "$pkgdir/usr/share/licenses/yin-yang/MIT"
+    mv "$pkgdir/opt/yin_yang/LICENSE" "$pkgdir/usr/share/licenses/yin_yang/MIT"
 
     # copy manifest for firefox extension
     cp ./resources/yin_yang.json "$pkgdir/usr/lib/mozilla/native-messaging-hosts/"
-    # copy terminal executive
-    cp ./resources/yin-yang "$pkgdir/usr/bin/"
-    # copy .desktop file
-    cp ./resources/Yin-Yang.desktop "$pkgdir/usr/share/applications/Yin-Yang.desktop"
+    # copy terminal executable
+    cp ./resources/yin_yang "$pkgdir/usr/bin/"
+    # create .desktop file
+    ls
+    appstreamcli make-desktop-file "./resources/sh.oskar.yin_yang.metainfo.xml" "$pkgdir/usr/share/applications/yin_yang.desktop"
     # copy icon
-    cp ./resources/logo.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/yin_yang.svg"
+    cp ./resources/icon.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/sh.oskar.yin_yang.svg"
 
     cat << "EOF"
  __     ___          __     __
@@ -61,7 +63,7 @@ package() {
                                        |___/
 EOF
 echo ""
-echo "Yin-Yang brings Auto Night mode for Linux"
+echo "Yin & Yang brings Auto Night mode for Linux"
 echo ""
 cat << "EOF"
        _..oo8"""Y8b.._
