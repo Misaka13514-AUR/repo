@@ -2,7 +2,7 @@
   "version": 2,
   "data": {
     "android-studio": {
-      "version": "2024.3.1.14"
+      "version": "2024.3.1.15"
     },
     "bbg": {
       "version": "20250311",
@@ -10,12 +10,12 @@
       "url": "https://github.com/bbg-contributors/bbg/releases/tag/20250311"
     },
     "bbg-git": {
-      "version": "20250311.082324",
-      "revision": "1dffde5430f98bf49694ed8e437c3f44a1d04415",
-      "url": "https://github.com/bbg-contributors/bbg/commit/1dffde5430f98bf49694ed8e437c3f44a1d04415"
+      "version": "20250423.115604",
+      "revision": "20d6bfcdb9a27d64285090d54fef8277ab4cdf51",
+      "url": "https://github.com/bbg-contributors/bbg/commit/20d6bfcdb9a27d64285090d54fef8277ab4cdf51"
     },
     "burpsuite": {
-      "version": "2025.2.4"
+      "version": "2025.3.3"
     },
     "canokey-usbip-git": {
       "version": "20240311.144100",
@@ -31,9 +31,9 @@
       "url": "https://github.com/XIU2/CloudflareSpeedTest/releases/tag/v2.2.5"
     },
     "code-server": {
-      "version": "4.99.0",
-      "gitref": "refs/tags/v4.99.0",
-      "url": "https://github.com/coder/code-server/releases/tag/v4.99.0"
+      "version": "4.99.3",
+      "gitref": "refs/tags/v4.99.3",
+      "url": "https://github.com/coder/code-server/releases/tag/v4.99.3"
     },
     "cura": {
       "version": "5.10.0",
@@ -86,9 +86,9 @@
       "version": "2.2.37.7"
     },
     "freerouting": {
-      "version": "2.0.1",
-      "gitref": "refs/tags/v2.0.1",
-      "url": "https://github.com/freerouting/freerouting/releases/tag/v2.0.1"
+      "version": "2.1.0",
+      "gitref": "refs/tags/v2.1.0",
+      "url": "https://github.com/freerouting/freerouting/releases/tag/v2.1.0"
     },
     "frida-dexdump": {
       "version": "2.0.1",
@@ -101,7 +101,7 @@
       "url": "https://github.com/shadow1ng/fscan/releases/tag/2.0.0-build4"
     },
     "geogebra-6-electron": {
-      "version": "6.0.881.2"
+      "version": "6.0.882.0"
     },
     "gnome-shell-extension-blur-my-shell": {
       "version": "68-2",
@@ -146,7 +146,7 @@
       "url": "https://github.com/Mrs4s/go-cqhttp/releases/tag/v1.2.0"
     },
     "google-chrome": {
-      "version": "135.0.7049.52-1"
+      "version": "135.0.7049.114-1"
     },
     "gqrx-scanner": {
       "version": "1.0.5",
@@ -192,7 +192,7 @@
       "url": "https://github.com/WerWolv/ImHex/releases/tag/v1.37.4"
     },
     "intellij-idea-ultimate-edition": {
-      "version": "2024.3.5"
+      "version": "2025.1"
     },
     "iptv-checker": {
       "version": "0.29.1",
@@ -218,15 +218,15 @@
       "url": "https://github.com/espressif/kicad-libraries/commit/2dd885db4b69aa5b4d3a6ae72d3b84fa21747e7e"
     },
     "kicad-library-sparkfun-git": {
-      "version": "20250404.142825",
-      "revision": "2fc0d4af886b52eb81f49ed38b92f012a4ab974d",
-      "url": "https://github.com/sparkfun/SparkFun-KiCad-Libraries/commit/2fc0d4af886b52eb81f49ed38b92f012a4ab974d"
+      "version": "20250428.234719",
+      "revision": "6a17503fb316d22388cd3fb0b5f3b098fa3cef22",
+      "url": "https://github.com/sparkfun/SparkFun-KiCad-Libraries/commit/6a17503fb316d22388cd3fb0b5f3b098fa3cef22"
     },
     "lceda-pro": {
-      "version": "2.2.37.7"
+      "version": "2.2.38.8"
     },
     "lceda-pro-bin": {
-      "version": "2.2.37.7"
+      "version": "2.2.38.8"
     },
     "libnatspec": {
       "version": "0.3.3-alt1",
@@ -238,9 +238,9 @@
       "version": "3.2.9_240606"
     },
     "meanalyzer": {
-      "version": "r364",
-      "gitref": "refs/tags/r364",
-      "url": "https://github.com/platomav/MEAnalyzer/releases/tag/r364"
+      "version": "r365",
+      "gitref": "refs/tags/r365",
+      "url": "https://github.com/platomav/MEAnalyzer/releases/tag/r365"
     },
     "mfcuk-git": {
       "version": "20180714.103154",
@@ -264,9 +264,9 @@
       "url": "https://github.com/jaquadro/NBTExplorer/releases/tag/v2.8.0-win"
     },
     "needrestart": {
-      "version": "3.10",
-      "gitref": "refs/tags/v3.10",
-      "url": "https://github.com/liske/needrestart/releases/tag/v3.10"
+      "version": "3.11",
+      "gitref": "refs/tags/v3.11",
+      "url": "https://github.com/liske/needrestart/releases/tag/v3.11"
     },
     "nixfmt": {
       "version": "0.6.0",
@@ -290,14 +290,14 @@
       "url": "https://github.com/projectdiscovery/nuclei/releases/tag/v3.4.2"
     },
     "nuclei-templates": {
-      "version": "10.1.6",
-      "gitref": "refs/tags/v10.1.6",
-      "url": "https://github.com/projectdiscovery/nuclei-templates/releases/tag/v10.1.6"
+      "version": "10.2.0",
+      "gitref": "refs/tags/v10.2.0",
+      "url": "https://github.com/projectdiscovery/nuclei-templates/releases/tag/v10.2.0"
     },
     "nvidia-container-toolkit": {
-      "version": "1.17.5",
-      "gitref": "refs/tags/v1.17.5",
-      "url": "https://github.com/NVIDIA/nvidia-container-toolkit/releases/tag/v1.17.5"
+      "version": "1.17.6",
+      "gitref": "refs/tags/v1.17.6",
+      "url": "https://github.com/NVIDIA/nvidia-container-toolkit/releases/tag/v1.17.6"
     },
     "openvisualtraceroute": {
       "version": "20220521.225939",
@@ -341,15 +341,15 @@
       "url": "https://github.com/MartinScharrer/crccheck/releases/tag/v1.3.0"
     },
     "python-frida": {
-      "version": "16.7.9",
-      "gitref": "refs/tags/16.7.9",
-      "url": "https://github.com/frida/frida/releases/tag/16.7.9"
+      "version": "16.7.14",
+      "gitref": "refs/tags/16.7.14",
+      "url": "https://github.com/frida/frida/releases/tag/16.7.14"
     },
     "python-frida-tools": {
-      "version": "13.6.1",
-      "gitref": "refs/tags/13.6.1",
-      "revision": "eb3baca8f198e7feb88fbe68f0657f54e648e0c0",
-      "url": "https://github.com/frida/frida-tools/releases/tag/13.6.1"
+      "version": "13.7.1",
+      "gitref": "refs/tags/13.7.1",
+      "revision": "cc58199c4b560a426fcd014792208ce1eb57ff24",
+      "url": "https://github.com/frida/frida-tools/releases/tag/13.7.1"
     },
     "python-iptvtools": {
       "version": "0.3.1",
@@ -460,15 +460,15 @@
       "url": "https://github.com/f4exb/sdrangel/releases/tag/v7.22.6"
     },
     "seclists": {
-      "version": "2025.1",
-      "gitref": "refs/tags/2025.1",
-      "url": "https://github.com/danielmiessler/SecLists/releases/tag/2025.1"
+      "version": "2025.2",
+      "gitref": "refs/tags/2025.2",
+      "url": "https://github.com/danielmiessler/SecLists/releases/tag/2025.2"
     },
     "sedutil": {
-      "version": "1.49.9",
-      "gitref": "refs/tags/1.49.9",
-      "revision": "67f35dd8926edecebecb8e636aa2bd76da31540e",
-      "url": "https://github.com/Drive-Trust-Alliance/sedutil/releases/tag/1.49.9"
+      "version": "1.49.11",
+      "gitref": "refs/tags/1.49.11",
+      "revision": "6e38f42ac9125c5c0704fba7128dae35f5869311",
+      "url": "https://github.com/Drive-Trust-Alliance/sedutil/releases/tag/1.49.11"
     },
     "serenity": {
       "version": "1.1.0-beta.3",
@@ -477,9 +477,9 @@
       "url": "https://github.com/SagerNet/serenity/releases/tag/v1.1.0-beta.3"
     },
     "sing-box": {
-      "version": "1.11.7",
-      "gitref": "refs/tags/v1.11.7",
-      "url": "https://github.com/SagerNet/sing-box/releases/tag/v1.11.7"
+      "version": "1.11.9",
+      "gitref": "refs/tags/v1.11.9",
+      "url": "https://github.com/SagerNet/sing-box/releases/tag/v1.11.9"
     },
     "slack-desktop": {
       "version": "4.43.51-0.1"
@@ -495,14 +495,14 @@
       "url": "https://github.com/tindy2013/subconverter/releases/tag/v0.9.0"
     },
     "subfinder": {
-      "version": "2.7.0",
-      "gitref": "refs/tags/v2.7.0",
-      "url": "https://github.com/projectdiscovery/subfinder/releases/tag/v2.7.0"
+      "version": "2.7.1",
+      "gitref": "refs/tags/v2.7.1",
+      "url": "https://github.com/projectdiscovery/subfinder/releases/tag/v2.7.1"
     },
     "subfinder-bin": {
-      "version": "2.7.0",
-      "gitref": "refs/tags/v2.7.0",
-      "url": "https://github.com/projectdiscovery/subfinder/releases/tag/v2.7.0"
+      "version": "2.7.1",
+      "gitref": "refs/tags/v2.7.1",
+      "url": "https://github.com/projectdiscovery/subfinder/releases/tag/v2.7.1"
     },
     "tcping": {
       "version": "0.1.1rc1",
@@ -534,7 +534,7 @@
       "url": "https://github.com/k4yt3x/video2x/releases/tag/6.4.0"
     },
     "visual-studio-code": {
-      "version": "1.99.0"
+      "version": "1.99.3"
     },
     "wafw00f": {
       "version": "2.3.1",
@@ -570,9 +570,9 @@
       "url": "https://github.com/vinceliuice/WhiteSur-icon-theme/releases/tag/v2025-02-10"
     },
     "yay": {
-      "version": "12.4.2",
-      "gitref": "refs/tags/v12.4.2",
-      "url": "https://github.com/Jguer/yay/releases/tag/v12.4.2"
+      "version": "12.5.0",
+      "gitref": "refs/tags/v12.5.0",
+      "url": "https://github.com/Jguer/yay/releases/tag/v12.5.0"
     }
   }
 }
