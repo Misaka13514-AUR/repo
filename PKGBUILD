@@ -5,7 +5,7 @@
 # Contributor: Max Liebkies <mail@maxliebkies.de>
 
 pkgname=powershell
-pkgver=7.5.0
+pkgver=7.5.1
 pkgrel=1
 pkgdesc="A cross-platform automation and configuration tool/framework"
 arch=('x86_64')
@@ -18,6 +18,7 @@ makedepends=(
   dotnet-sdk-9.0
   git
   unzip
+  jq
 )
 checkdepends=(
   inetutils
@@ -26,21 +27,23 @@ checkdepends=(
 )
 install=powershell.install
 
-_commit=713e77f15f63bae9f23fb02045c7843ad6a8769b
 source=(
-  "git+https://github.com/PowerShell/PowerShell.git#commit=$_commit"
+  "git+https://github.com/PowerShell/PowerShell.git#tag=v$pkgver"
   'Microsoft.PowerShell.SDK.csproj.TypeCatalog.targets'
   'https://globalcdn.nuget.org/packages/pester.4.10.1.nupkg'
   'nuget-source.patch'
 )
 noextract=('pester.4.10.1.nupkg')
-sha256sums=('ea5e18b0f3514f89be46b2c3cc7bcc77382ad47d238a2cccdf3128d01ab7eb72'
+sha256sums=('3484db117777ced8128278ec0c54857cfd161dfe583cd6aa1c54bba3d457a2c8'
             '0c81200e5211a2f63bc8d9941432cbf98b5988249f0ceeb1f118a14adddbaa8e'
             '6c996dc4dc8bef068cefb1680292154f45577c66fb0600dd0fb50939bbf8a3a3'
             '84d34a09759271aa7aa614b97ff62642c773b2f81a712ac18d99985cf7a3c3ea')
 
 prepare() {
   cd PowerShell
+
+  jq '.sdk.version = "9.0.0" | .sdk.rollForward = "feature"' global.json > _global.json
+  mv _global.json global.json
 
   # Use nuget.org source
   patch --strip=1 --input=../nuget-source.patch
@@ -119,7 +122,7 @@ build() {
 
   ## Restore-PSModuleToBuild()
   cp -a "$NUGET_PACKAGES/microsoft.powershell.archive/1.2.5/." lib/Modules/Microsoft.PowerShell.Archive
-  cp -a "$NUGET_PACKAGES/microsoft.powershell.psresourceget/1.1.0/." lib/Modules/Microsoft.PowerShell.PSResourceGet
+  cp -a "$NUGET_PACKAGES/microsoft.powershell.psresourceget/1.1.1/." lib/Modules/Microsoft.PowerShell.PSResourceGet
   cp -a "$NUGET_PACKAGES/packagemanagement/1.4.8.1/." lib/Modules/PackageManagement
   cp -a "$NUGET_PACKAGES/powershellget/2.2.5/." lib/Modules/PowerShellGet
   cp -a "$NUGET_PACKAGES/psreadline/2.3.6/." lib/Modules/PSReadLine
