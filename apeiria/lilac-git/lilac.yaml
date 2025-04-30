@@ -1,0 +1,20 @@
+maintainers:
+  - github: Misaka13514
+    email: manual@apeiria.net
+
+build_prefix: extra-x86_64
+
+repo_depends:
+  - pid_children-git
+  - python-fluent.runtime
+
+pre_build: vcs_update
+
+post_build: git_pkgbuild_commit
+
+update_on:
+  - source: github
+    github: Misaka13514-AUR/lilac
+  - alias: python
+  # - source: aur
+  #   aur: lilac-git

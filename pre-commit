@@ -36,7 +36,7 @@ DIRS, FILES, COMMITS = None, None, None
 GIT_BRANCH = 'HEAD'
 ORIGIN_BRANCH = 'origin/master'
 CHANGED_PACKAGES = set()
-SUBFOLDER = 'archlinuxcn'
+SUBFOLDER = 'apeiria'
 
 # URL for downloading latest database of packages and groups in official repos
 DUMP_GROUPS_URL = 'https://build.archlinuxcn.org/~farseerfc/dump-groups.gz'
