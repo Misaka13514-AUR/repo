@@ -1,0 +1,6 @@
+config.toml
+nvchecker_keyfile.toml
+build.log
+build-log.json
+log/
+pacmandb/

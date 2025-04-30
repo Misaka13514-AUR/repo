@@ -1,0 +1,170 @@
+#!/usr/bin/python3
+# yoinked from https://github.com/archlinuxcn/misc_scripts/blob/master/repocleaner
+
+import os
+from collections import defaultdict
+import re
+import subprocess
+import sys
+from pathlib import Path
+from typing import Tuple
+
+from lilac2.vendor import archpkg
+
+repo_path: Path = Path('~/lilac/remote/aur').expanduser()
+archive_path: Path = Path('~/lilac/remote/aur/archive').expanduser()
+gitrepo_path: Path = Path('~/lilac/gitrepo').expanduser()
+
+packages_paths: dict[str, Path] = {
+  'x86_64': Path('~/lilac/gitrepo/apeiria').expanduser(),
+}
+# map other archs that are managed in another arch's directory
+arch_maps = {
+  'i686': 'x86_64',
+  'armv7h': 'aarch64',
+  'arm': 'aarch64',
+  'armv6h': 'aarch64',
+}
+
+max_keep: int = 1
+DRY_RUN: bool = False
+
+re_package = re.compile(r'package(?:_(.+))?\s*\(')
+
+def search_pkgbuild_for_pkgname(
+  pkgbuild: Path,
+) -> set[str]:
+  ret = set()
+  try:
+    with open(pkgbuild) as f:
+      for l in f:
+        l = l.strip()
+        m = re_package.match(l)
+        if m:
+          if m.group(1):
+            ret.add(m.group(1).strip())
+          else:
+            ret.add(pkgbuild.parent.name)
+  except FileNotFoundError:
+    pass
+
+  return ret
+
+def get_all_pkgnames() -> dict[str, set[str]]:
+  ret = {}
+  for arch, p in packages_paths.items():
+    ret[arch] = get_all_pkgnames_for_path(p)
+  return ret
+
+def get_all_pkgnames_for_path(p: Path) -> set[str]:
+  # also see lilac2.packages.get_all_pkgnames
+  packages: set[str] = set()
+  for ly in p.glob('*/lilac.yaml'):
+
+    pkgfile = ly.with_name('package.list')
+    if pkgfile.exists():
+      with open(pkgfile) as f:
+        packages.update(f.read().split())
+        continue
+
+    pkgbuild = ly.with_name('PKGBUILD')
+    new = search_pkgbuild_for_pkgname(pkgbuild)
+    if new:
+      packages.update(new)
+    else:
+      packages.add(pkgbuild.parent.name)
+
+  return packages
+
+def remove_pkg(path: Path) -> None:
+  if DRY_RUN:
+    return
+
+  try:
+    sig = path.with_name(path.name + '.sig')
+    path.rename(archive_path / path.name)
+    if sig.exists():
+      sig.rename(archive_path / sig.name)
+  except FileNotFoundError:
+    pass
+
+def clean(path: Path, all_packages: dict[str, set[str]]) -> None:
+  pkgs: dict[str, list[Tuple[archpkg.PkgNameInfo, Path]]] = defaultdict(list)
+  debug_pkgs: list[Path] = []
+
+  for f in path.iterdir():
+    if f.name[0] == '.':
+      continue
+
+    if f.name.endswith(('.pkg.tar.xz', '.pkg.tar.zst')):
+      pkg = archpkg.PkgNameInfo.parseFilename(f.name)
+
+      name = pkg.name
+      if pkg.arch == 'any':
+        removed = not any(name in s for s in all_packages.values())
+      else:
+        dir_arch = arch_maps.get(pkg.arch, pkg.arch)
+        removed = name not in all_packages.get(dir_arch, {})
+
+      # if package in all_packages (not removed), we don't count it as a debug package
+      if removed and pkg.name.endswith('-debug'):
+        debug_pkgs.append(f)
+        continue
+
+      if removed:
+        print('package %s removed, removing file %s.' % (pkg.name, f))
+        remove_pkg(f)
+      else:
+        pkgs[pkg.name].append((pkg, f))
+
+  for v in pkgs.values():
+    try:
+      # some files may have been deleted already
+      v = [x for x in v if x[1].exists()]
+      v.sort(key=lambda x: x[1].stat().st_mtime)
+    except TypeError:
+      print('Bad things happen: %s' % v)
+      raise
+    for _, f in v[:-max_keep]:
+      print('remove old package file %s.' % f)
+      remove_pkg(f)
+
+  for f in debug_pkgs:
+    pkgname = f.name.replace('-debug-', '-')
+    if not f.with_name(pkgname).exists():
+      print('Removing debug package %s.' % f)
+      remove_pkg(f)
+
+def main() -> None:
+  os.chdir(gitrepo_path)
+  try:
+    error = False
+    out = subprocess.check_output(['git', 'pull'],
+                                  stderr = subprocess.STDOUT)
+  except subprocess.CalledProcessError as e:
+    out = e.output
+    error = True
+  for line in out.decode('utf-8', errors='backslashreplace').splitlines():
+    if 'Already up to date.' in line:
+      continue
+    print(line)
+  if error:
+    sys.exit(1)
+
+  all_packages = get_all_pkgnames()
+  for d in repo_path.iterdir():
+    # ignore archive
+    if d == archive_path:
+      continue
+    if d.is_dir():
+      clean(d, all_packages)
+
+if __name__ == '__main__':
+  if len(sys.argv) == 1:
+    pass
+  elif len(sys.argv) == 2 and sys.argv[1] == '-n':
+    DRY_RUN = True
+  else:
+    sys.exit('bad argument')
+
+  main()
