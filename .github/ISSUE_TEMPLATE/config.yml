@@ -1,0 +1,21 @@
+blank_issues_enabled: false
+contact_links: []
+issue_templates:
+  - name: 软件打包请求 / Package Request
+    description: 请求新增一个软件包 / Request to package a new software
+    file: ISSUE_TEMPLATE/10-request.md
+  - name: 过期软件包 / Out-of-date Packages
+    description: 报告已过期的软件包 / Report outdated packages
+    file: ISSUE_TEMPLATE/20-out-of-date.md
+  - name: 弃置软件包 / Orphaning Packages
+    description: 通知某软件包将弃置 / Notify about orphaning a package
+    file: ISSUE_TEMPLATE/30-orphaning.md
+  - name: 软件包被官方仓库收录 / Available in Official Repos
+    description: 软件包已被官方仓库收录 / Package now in official repo
+    file: ISSUE_TEMPLATE/40-official.md
+  - name: 打包错误 / Packaging Error
+    description: 报告打包过程中出现的问题 / Report issues during packaging
+    file: ISSUE_TEMPLATE/60-error.md
+  - name: 其它 / Other
+    description: 其他类型的问题 / Miscellaneous issues
+    file: ISSUE_TEMPLATE/50-other.md
