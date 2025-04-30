@@ -1,0 +1,211 @@
+name: lilac
+on:
+  workflow_dispatch:
+    inputs:
+      lilac_args:
+        default: ''
+        description: 'Args pass to lilac'
+        type: string
+  schedule:
+    # Runs at 06:13, 14:13 and 22:13 UTC (actually same time as UTC+8)
+    # https://crontab.guru/#13_6,14,22_*_*_*
+    - cron: '13 6,14,22 * * *'
+env:
+  GITREPO: git@github.com:Misaka13514-AUR/repo.git
+  DOCKER_IMAGE: ghcr.io/misaka13514-aur/repo:latest
+  REPO_NAME: apeiria
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+jobs:
+  lilac:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      attestations: write
+    steps:
+      - name: 🛠️📂 Prepare directories
+        run: |
+          # git repository contains PKGBUILDs
+          mkdir -p lilac/gitrepo
+          # local temporary directory to store built packages
+          mkdir -p lilac/repo
+          # remote directory:
+          #   - lilac: .lilac persist files
+          #   - aur/x86_64: packages and pacman database
+          #   - aur/log: build logs
+          #   - aur/archive: old packages
+          mkdir -p lilac/remote
+          # config files
+          #   - ssh_key: SSH private key
+          #   - gpg_key: GPG private key
+          #   - rclone.conf: rclone config
+          #   - lilac.toml: lilac config
+          mkdir -p lilac/config
+      - name: ⬇️🐙 Clone git repository
+        run: |
+          echo "${{ secrets.SSH_KEY }}" | install -Dm600 /dev/stdin ~/.ssh/id_ed25519
+          git clone --single-branch ${{ env.GITREPO }} lilac/gitrepo
+      - name: 🛠️📝 Write configuration
+        run: |
+          umask 077
+          echo "${{ secrets.SSH_KEY }}" > lilac/config/ssh_key
+          echo "${{ secrets.GPG_KEY }}" > lilac/config/gpg_key
+          echo '${{ secrets.RCLONE_CONFIG }}' > lilac/config/rclone.conf
+          cp -a lilac/gitrepo/lilac.toml lilac/config/lilac.toml
+          sed -i "s|<DB_URL>|${{ secrets.DB_URL }}|g" lilac/config/lilac.toml
+          sed -i "s|<SMTP_PASSWORD>|${{ secrets.SMTP_PASSWORD }}|g" lilac/config/lilac.toml
+          sed -i "s|<GITHUB_TOKEN>|${{ secrets.GITHUB_TOKEN }}|g" lilac/config/lilac.toml
+          echo "[keys]" >> lilac/config/nvchecker_keyfile.toml
+          echo 'github = "${{ secrets.GITHUB_TOKEN }}"' >> lilac/config/nvchecker_keyfile.toml
+      - name: 🐳⚙️ Setup Docker environment
+        run: |
+          # https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_unconfined=0
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          # prepare the docker environment
+          # https://docs.docker.com/reference/cli/dockerd/#configure-cgroup-driver
+          docker info
+          docker pull ${{ env.DOCKER_IMAGE }}
+      - name: 🐳🚀 Start Docker container
+        run: |
+          docker run --rm -d \
+            --name lilac \
+            --privileged \
+            --cap-add SYS_ADMIN \
+            --security-opt seccomp=unconfined \
+            --cgroup-parent=docker.slice \
+            --cgroupns private \
+            --tmpfs /tmp \
+            --tmpfs /run \
+            --tmpfs /run/lock \
+            -v $(pwd)/lilac:/home/lilac/lilac \
+            ${{ env.DOCKER_IMAGE }}
+      - name: 🐳⏳ Wait for systemd to be ready and enable linger
+        run: |
+          timeout=30
+          while ! docker exec lilac busctl --system list >/dev/null 2>&1; do
+            echo "Waiting for systemd to be ready..."
+            sleep 1
+            timeout=$((timeout - 1))
+            if [ $timeout -le 0 ]; then
+              echo "❌ Timed out waiting for systemd"
+              exit 1
+            fi
+          done
+          echo "✅ systemd is ready."
+          docker exec lilac loginctl enable-linger lilac          
+      - name: 🐳⏳ Wait for memory controller in cgroup.subtree_control
+        run: |
+          echo "Waiting for 'memory' to appear in /sys/fs/cgroup/user.slice/cgroup.subtree_control..."
+          timeout=30
+          while ! docker exec lilac test -f /sys/fs/cgroup/user.slice/cgroup.subtree_control || \
+                ! docker exec lilac cat /sys/fs/cgroup/user.slice/cgroup.subtree_control | grep -q 'memory'; do
+            if docker exec lilac test -f /sys/fs/cgroup/user.slice/cgroup.subtree_control; then
+              output=$(docker exec lilac cat /sys/fs/cgroup/user.slice/cgroup.subtree_control)
+              echo "Current subtree_control: '$output'"
+              echo "'memory' not found yet, retrying in 1 second..."
+            else
+              echo "subtree_control file not found yet, retrying in 1 second..."
+            fi
+            sleep 1
+            timeout=$((timeout - 1))
+            if [ $timeout -le 0 ]; then
+              echo "❌ Timed out waiting for 'memory' controller."
+              exit 1
+            fi
+          done
+          echo "✅ 'memory' controller is available."
+      - name: 🐳🔍 Debug cgroup configuration
+        run: |
+          echo "Host cgroup configuration:"
+          findmnt -R /sys/fs/cgroup/
+          echo "cat /sys/fs/cgroup/user.slice/cgroup.subtree_control"
+          cat /sys/fs/cgroup/user.slice/cgroup.subtree_control
+          echo ""
+          echo "Container cgroup configuration:"
+          docker exec lilac findmnt -R /sys/fs/cgroup/
+          echo "cat /sys/fs/cgroup/user.slice/cgroup.subtree_control"
+          docker exec lilac cat /sys/fs/cgroup/user.slice/cgroup.subtree_control
+          echo "cat /proc/self/cgroup"
+          docker exec lilac cat /proc/self/cgroup
+      - name: 🐳📦 Initialize system environment
+        run: |
+          docker exec lilac /init.sh
+      - name: 🐳👤 Setup user environment
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/gpg --batch --import lilac/config/gpg_key
+      - name: 🐳🔗🗂️ Mount remote storage
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone mount --daemon --allow-other remote: lilac/remote
+      - name: 🐳⬇️🔐 Download lilac persist files
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone sync -v --exclude-from /rclone-exclude.txt remote:lilac .lilac
+      - name: 🐳🤖🚀 Run lilac
+        run: |
+          docker exec lilac machinectl shell lilac@ \
+            /usr/bin/lilac ${{ inputs.lilac_args }}
+      - name: 🧙🔍📜 Print lilac logs
+        run: |
+          echo "Summary log:"
+          docker exec lilac cat /home/lilac/.lilac/build.log
+          echo ""
+          echo "Detailed log:"
+          docker exec lilac /group-log.sh
+      - name: 📜➡️📄 Add build log to summary
+        run: |
+          echo "## Build log" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          docker exec lilac cat /home/lilac/.lilac/build.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+      - name: 🐳⬆️📜 Upload lilac logs
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone copy -v --copy-links .lilac/log remote:aur/log
+      - name: 🐳⬆️🔐 Upload lilac persist files
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone sync -v --exclude-from /rclone-exclude.txt .lilac remote:lilac
+      - name: 🔢📦 Count built packages
+        id: count
+        run: |
+          echo "pkgs_count=$(find lilac/repo -type f -name *.pkg.tar.zst | wc -l)" >> $GITHUB_OUTPUT
+      - name: ✅📦 Attest built packages
+        if: steps.count.outputs.pkgs_count != 0
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'lilac/repo/*.pkg.tar.zst'
+      - name: ⬇️🗃️ Download pacman database
+        if: steps.count.outputs.pkgs_count != 0
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone copy -v --copy-links remote:aur/x86_64/${{ env.REPO_NAME }}.db lilac/repo
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone copy -v --copy-links remote:aur/x86_64/${{ env.REPO_NAME }}.db.tar.gz lilac/repo
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone copy -v --copy-links remote:aur/x86_64/${{ env.REPO_NAME }}.files lilac/repo
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone copy -v --copy-links remote:aur/x86_64/${{ env.REPO_NAME }}.files.tar.gz lilac/repo
+      - name: 📦➡️🗃️ Add packages to database
+        if: steps.count.outputs.pkgs_count != 0
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/repo-add lilac/repo/${{ env.REPO_NAME }}.db.tar.gz lilac/repo/*.pkg.tar.zst
+          rm -f lilac/repo/${{ env.REPO_NAME }}.db.tar.gz.old
+          rm -f lilac/repo/${{ env.REPO_NAME }}.files.tar.gz.old
+      - name: ⬆️📦✍️🗃️ Upload packages and database
+        if: steps.count.outputs.pkgs_count != 0
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone copy -v --copy-links lilac/repo/ remote:aur/x86_64
+      - name: 💩➡️🚽 Clean up
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/fusermount3 -u lilac/remote
+          docker exec lilac sudo -iu lilac \
+            /usr/bin/rclone mount --daemon --allow-other remote: lilac/remote
+          docker exec lilac sudo -iu lilac \
+            /repocleaner.py
