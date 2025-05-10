@@ -2,12 +2,12 @@
 
 pkgname=intel-compute-runtime-legacy
 pkgver=24.35.30872.22
-pkgrel=3
+pkgrel=4
 pkgdesc='Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL Driver (legacy platforms)'
 arch=('x86_64')
 url='https://github.com/intel/compute-runtime/'
 license=('MIT')
-depends=('gcc-libs' 'intel-gmmlib-legacy' 'intel-graphics-compiler-legacy')
+depends=('gcc-libs' 'glibc' 'intel-gmmlib-legacy' 'intel-graphics-compiler-legacy')
 makedepends=('cmake' 'igsc-legacy' 'libva' 'level-zero-headers-legacy')
 optdepends=('libva: for cl_intel_va_api_media_sharing'
             'libdrm: for cl_intel_va_api_media_sharing')
@@ -16,12 +16,15 @@ conflicts=('intel-compute-runtime')
 # https://github.com/intel/compute-runtime/issues/528
 options=('!lto')
 source=("https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        '010-intel-compute-runtime-disable-werror.patch')
+        '010-intel-compute-runtime-disable-werror.patch'
+        '020-intel-compute-runtime-gcc15-fix.patch')
 sha256sums=('924781eba2268aaf3f2f5286006e219f8adff9b985a327ccf6acc39b7a00acc5'
-            'b98774fd019281d3a9bd6109d9fbaaae866e2ae4581397b582cdf454a29433e5')
+            'b98774fd019281d3a9bd6109d9fbaaae866e2ae4581397b582cdf454a29433e5'
+            'c0b9270af11ae418c98c54b91ee932de2040935a6649a8d4fcb5ff8c38b1f4ef')
 
 prepare() {
     patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
+    patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/020-intel-compute-runtime-gcc15-fix.patch"
 }
 
 build() {
