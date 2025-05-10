@@ -1,7 +1,7 @@
 pkgbase = intel-graphics-compiler-legacy
 	pkgdesc = Intel Graphics Compiler for OpenCL (legacy platforms)
 	pkgver = 1.0.17537.20
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/intel/intel-graphics-compiler/
 	arch = x86_64
 	license = MIT
@@ -28,6 +28,7 @@ pkgbase = intel-graphics-compiler-legacy
 	source = git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=1c6bb2743599e6eb6f37b2969acc0aef812e32e3
 	source = git+https://github.com/intel/opencl-clang.git#commit=470cf0018e1ef6fc92eda1356f5f31f7da452abc
 	source = git+https://github.com/llvm/llvm-project.git#tag=llvmorg-14.0.5
+	source = 010-intel-graphics-compiler-disable-werror.patch
 	sha256sums = 44e77384ea69215d0311a08393019323f1c30217c05c972be945f2aed7fbde53
 	sha256sums = da3aca24eb2d3f15240fb8dbdc90c2e27f8a921a56ca33ab2c964e77555c754a
 	sha256sums = 35357c8a651cf421656328e17a005bed088091eb46a5402f7dd06e64361312aa
@@ -35,5 +36,6 @@ pkgbase = intel-graphics-compiler-legacy
 	sha256sums = 86b7a82e8169097bb84741dff6003da85c841f9d3514034b213896c498ae294c
 	sha256sums = 19214ef9956892960ebd10c91f13cde103ccd270aa4681bdeeb048eb500cd165
 	sha256sums = f04acc3523802bc24fef7753c8e4326502b8525cb516705f362972ef5698d6c3
+	sha256sums = 08080d31d458200244864d2288f548af409697c1ac8b577f47faeb73c2100fb4
 
 pkgname = intel-graphics-compiler-legacy
