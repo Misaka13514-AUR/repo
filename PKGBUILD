@@ -6,16 +6,28 @@ _gmmver=22.5.0
 _gmmsover=12
 _igcver=1.0.17537.20
 _lzver="1.3.$(sed -E 's/([0-9]+\.){2}//' <<< "$pkgver")"
-pkgrel=2
+pkgrel=3
 pkgdesc='Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL Driver (legacy platforms; pre-compiled binaries)'
 arch=('x86_64')
 url='https://github.com/intel/compute-runtime/'
 license=('MIT')
-depends=("intel-graphics-compiler-legacy-bin=${_igcver}")
-optdepends=('libva: for cl_intel_va_api_media_sharing'
-            'libdrm: for cl_intel_va_api_media_sharing')
-provides=("intel-compute-runtime=${pkgver}" "intel-gmmlib=${_gmmver}" 'level-zero-driver' 'opencl-driver')
-conflicts=('intel-compute-runtime' 'intel-gmmlib')
+depends=(
+    'gcc-libs'
+    'glibc'
+    "intel-graphics-compiler-legacy-bin=${_igcver}")
+optdepends=(
+    'libva: for cl_intel_va_api_media_sharing'
+    'libdrm: for cl_intel_va_api_media_sharing')
+provides=(
+    "intel-compute-runtime=${pkgver}"
+    "intel-compute-runtime-legacy=${pkgver}"
+    "intel-gmmlib=${_gmmver}"
+    "intel-gmmlib-legacy=${_gmmver}"
+    'level-zero-driver'
+    'opencl-driver')
+conflicts=(
+    'intel-compute-runtime'
+    'intel-gmmlib')
 options=('!strip' '!emptydirs')
 source=("https://github.com/intel/compute-runtime/releases/download/${pkgver}/intel-opencl-icd-legacy1_${pkgver}_amd64.deb"
         "https://github.com/intel/compute-runtime/releases/download/${pkgver}/intel-level-zero-gpu-legacy1_${_lzver}_amd64.deb"
