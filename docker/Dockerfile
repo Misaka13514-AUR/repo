@@ -10,9 +10,10 @@ RUN --mount=type=cache,target=/var/cache/pacman/pkg \
     pacman-key --recv-keys ${MAINTAINER_GPG_FINGERPRINT} && \
     pacman-key --lsign-key ${MAINTAINER_GPG_FINGERPRINT} && \
     pacman -Syu --noconfirm && \
-    pacman -S --noconfirm base-devel && \
-    pacman -S --noconfirm devtools lilac-git python-psycopg2 && \
-    pacman -S --noconfirm rclone fuse3 && \
+    pacman -S --noconfirm --needed base-devel && \
+    pacman -S --noconfirm --needed nvchecker pyalpm python-awesomeversion python-lxml python-packaging python-jq python-toml python-aiohttp python-httpx git && \
+    pacman -S --noconfirm --needed devtools lilac-git python-psycopg2 && \
+    pacman -S --noconfirm --needed rclone fuse3 && \
     pacman -Scc --noconfirm && \
     rm -rf /etc/pacman.d/gnupg && \
     rm -rf /var/lib/pacman/sync && \
