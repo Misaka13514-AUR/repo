@@ -14,6 +14,7 @@ pre_build_script: |
     if line.startswith('_tag='):
       line = f"_tag={_G.newver}"
     print(line)
+  run_protected(["updpkgsums"])
 
 post_build_script: |
   aur_post_build()
