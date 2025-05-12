@@ -1,0 +1,25 @@
+maintainers:
+  - github: Misaka13514
+    email: Misaka13514@gmail.com
+
+build_prefix: extra-x86_64
+
+repo_depends:
+  - python-crccheck
+  - python-pltable
+
+pre_build_script: |
+  aur_pre_build()
+  for line in edit_file('PKGBUILD'):
+    if line.startswith('_tag='):
+      line = f"_tag={_G.newver}"
+    print(line)
+
+post_build_script: |
+  aur_post_build()
+  update_aur_repo()
+
+update_on:
+  - source: github
+    github: platomav/MEAnalyzer
+    use_latest_tag: true

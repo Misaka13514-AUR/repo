@@ -1,0 +1,20 @@
+maintainers:
+  - github: Misaka13514
+    email: Misaka13514@gmail.com
+
+build_prefix: extra-x86_64
+
+pre_build_script: |
+  aur_pre_build()
+  update_pkgver_and_pkgrel(_G.newver.lstrip('v'))
+
+post_build_script: |
+  aur_post_build()
+  update_aur_repo()
+
+update_on:
+  - source: github
+    github: vinceliuice/WhiteSur-icon-theme
+    use_latest_tag: true
+    from_pattern: '(\d+)-(\d+)-(\d+)'
+    to_pattern: '\1.\2.\3'
