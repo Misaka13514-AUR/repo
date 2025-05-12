@@ -9,20 +9,23 @@ arch=('x86_64' 'aarch64')
 url="https://pro.easyeda.com/"
 license=('LicenseRef-EasyEDA-Proprietary')
 depends=('electron' 'libnotify' 'libappindicator-gtk3')
-makedepends=()
+makedepends=('curl')
 provides=($_pkgname)
 conflicts=($_pkgname $_pkgname-git $_pkgname-bin)
 install=$pkgname.install
-source=("LICENSE-$pkgver.html::https://easyeda.com/page/legal"
-        "$pkgname.install"
+source=("$pkgname.install"
         "$_pkgname.sh")
 source_x86_64=("$_pkgname-x86_64-$pkgver.zip::https://image.easyeda.com/files/easyeda-pro-linux-x64-$pkgver.zip")
 source_aarch64=("$_pkgname-aarch64-$pkgver.zip::https://image.easyeda.com/files/easyeda-pro-linux-arm64-$pkgver.zip")
-sha256sums=('SKIP'
-            'ab64abe7821e4ea37a0e4d1f77c94f37d6a51c7df2038ba7b609c640adf8e51d'
+sha256sums=('ab64abe7821e4ea37a0e4d1f77c94f37d6a51c7df2038ba7b609c640adf8e51d'
             '89289056ed4b5d051280e3a69dfb550b6914f470f201be1ca3b165ddd4f3e435')
 sha256sums_x86_64=('dedb2ffcb1f1cb7b44c71276d143c369c9e2aff0637ea75166d34da0af856daa')
 sha256sums_aarch64=('017725f421faa85435a044f2dd051b53b7b8601e1ae56b4a4ad1699a65207923')
+
+prepare() {
+    # https://gitlab.archlinux.org/pacman/pacman-contrib/-/issues/119
+    curl -sSfL -o "LICENSE-$pkgver.html" "https://easyeda.com/page/legal"
+}
 
 package() {
     cd $srcdir

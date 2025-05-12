@@ -12,17 +12,21 @@ license=('LicenseRef-LCEDA-Proprietary')
 provides=(${_pkgname})
 conflicts=(${_pkgname} ${_pkgname}-git)
 depends=('gtk3' 'nss' 'alsa-lib')
+makedepends=('curl')
 install=${pkgname}.install
-source=("LICENSE-$pkgver.html::https://lceda.cn/page/legal"
-        "${pkgname}.install")
+source=("${pkgname}.install")
 source_x86_64=("${_pkgname}-x86_64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-x64-${pkgver}.zip")
 source_aarch64=("${_pkgname}-aarch64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-arm64-${pkgver}.zip")
 # source_loong64=("${_pkgname}-loong64-${pkgver}.zip::https://image.lceda.cn/files/lceda-pro-linux-loong64-${pkgver}.zip")
-sha256sums=('SKIP'
-            'afba3c6712227a37c08783b3cc1a97ae71e90dc2f575409213d2773372220697')
+sha256sums=('afba3c6712227a37c08783b3cc1a97ae71e90dc2f575409213d2773372220697')
 sha256sums_x86_64=('94128316f2ce3b228ccd341f929f8605e92c3b643a3b5a318958ba7bb6481066')
 sha256sums_aarch64=('a5add704cc4990d6ff5cb70c76ea0c214fa92bab2f30eb53d31bdfca9fdc297f')
 # sha256sums_loong64=('SKIP')
+
+prepare() {
+    # https://gitlab.archlinux.org/pacman/pacman-contrib/-/issues/119
+    curl -sSfL -o "LICENSE-$pkgver.html" "https://lceda.cn/page/legal"
+}
 
 package() {
     export LC_CTYPE="zh_CN.UTF-8"
