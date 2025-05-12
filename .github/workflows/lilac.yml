@@ -146,7 +146,7 @@ jobs:
             /usr/bin/rclone sync -v --exclude-from /rclone-exclude.txt remote:lilac .lilac
       - name: 🐳🤖🚀 Run lilac
         run: |
-          docker exec lilac machinectl shell lilac@ \
+          docker exec lilac sudo -iu lilac \
             /usr/bin/lilac ${{ inputs.lilac_args }}
       - name: 🧙🔍📜 Print lilac logs
         run: |
