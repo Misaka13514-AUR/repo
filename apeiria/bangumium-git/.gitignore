@@ -1,0 +1,4 @@
+pkg/
+src/
+bangumium/
+*.pkg.tar.zst
