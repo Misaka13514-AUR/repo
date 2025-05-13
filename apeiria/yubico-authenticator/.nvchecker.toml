@@ -1,0 +1,3 @@
+[yubico-authenticator]
+source = "git"
+git = "https://github.com/Yubico/yubioath-flutter.git"
