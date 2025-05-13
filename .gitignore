@@ -2,3 +2,5 @@
 *.zip
 *.zst
 .docker/
+pkg
+src
