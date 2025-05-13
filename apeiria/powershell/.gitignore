@@ -1,0 +1,7 @@
+*
+!.gitignore
+!.nvchecker.toml
+!.SRCINFO
+!PKGBUILD
+!Microsoft.PowerShell.SDK.csproj.TypeCatalog.targets
+!nuget-source.patch
