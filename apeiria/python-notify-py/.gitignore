@@ -1,7 +1,0 @@
-# ignore build files
-*.pkg.tar.xz
-*.pkg.tar.zst
-*.tar.gz
-*.sig
-src/
-pkg/
