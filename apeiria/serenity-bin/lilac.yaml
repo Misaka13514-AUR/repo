@@ -1,13 +1,25 @@
 maintainers:
-  - github: Misaka13514-AUR
-    email: aur@apeiria.net
+  - github: Misaka13514
+    email: Misaka13514@gmail.com
 
 build_prefix: extra-x86_64
 
-pre_build_script: aur_pre_build(maintainers=['mzwing'])
+pre_build_script: |
+  # aur_pre_build()
+  tag = _G.newver.lstrip('v')
+  for line in edit_file('PKGBUILD'):
+    if line.startswith('_pkgver='):
+      line = f"_pkgver='{tag}'"
+    print(line)
+  update_pkgver_and_pkgrel(tag.replace('-', ''))
 
-post_build: aur_post_build
+post_build_script: |
+  git_pkgbuild_commit()
+  # aur_post_build()
+  # update_aur_repo()
 
 update_on:
-  - source: aur
-    aur: serenity-bin
+  - source: github
+    github: SagerNet/serenity
+    use_latest_release: true
+    prefix: v
