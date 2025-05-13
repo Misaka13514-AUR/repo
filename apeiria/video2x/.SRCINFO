@@ -1,0 +1,30 @@
+pkgbase = video2x
+	pkgdesc = A machine learning-based video super resolution and frame interpolation framework
+	pkgver = 6.4.0
+	pkgrel = 3
+	url = https://github.com/k4yt3x/video2x
+	arch = x86_64
+	license = AGPL-3.0-only
+	makedepends = git
+	makedepends = cmake
+	makedepends = clang
+	makedepends = vulkan-headers
+	makedepends = boost
+	depends = ffmpeg
+	depends = ncnn
+	depends = openmp
+	depends = vulkan-driver
+	depends = spdlog
+	depends = boost-libs
+	provides = video2x
+	conflicts = video2x
+	source = git+https://github.com/k4yt3x/video2x.git#tag=6.4.0
+	source = git+https://github.com/k4yt3x/libreal-esrgan-ncnn-vulkan.git
+	source = git+https://github.com/k4yt3x/librealcugan-ncnn-vulkan.git
+	source = git+https://github.com/k4yt3x/librife-ncnn-vulkan.git
+	b2sums = 9ef95c906046fbfa8f4514b0be90ff5375248af1c48cf20d022d19a6ab64f1ed9f0d83c39b300761b1ad34dfe4b52cc7020412d50085bd73c912b984109276f6
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = video2x
