@@ -1,0 +1,16 @@
+pkgbase = snapd-xdg-open-git
+	pkgdesc = Software for opening links from snaps in desktop
+	pkgver = r44.6fed357
+	pkgrel = 2
+	url = https://github.com/snapcore/snapd-xdg-open
+	arch = i686
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = git
+	depends = glib2
+	provides = snapd-xdg-open
+	conflicts = snapd-xdg-open
+	source = git+https://github.com/snapcore/snapd-xdg-open
+	md5sums = SKIP
+
+pkgname = snapd-xdg-open-git
