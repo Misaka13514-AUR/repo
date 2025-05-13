@@ -40,7 +40,7 @@ package() {
     # copy files
     cp -r ./* "$pkgdir/opt/yin_yang/"
     # move license to correct folder
-    mv "$pkgdir/opt/yin_yang/LICENSE" "$pkgdir/usr/share/licenses/yin_yang/MIT"
+    mv "$pkgdir/opt/yin_yang/LICENSE" "$pkgdir/usr/share/licenses/yin-yang/MIT"
 
     # copy manifest for firefox extension
     cp ./resources/yin_yang.json "$pkgdir/usr/lib/mozilla/native-messaging-hosts/"

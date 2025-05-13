@@ -1,18 +1,16 @@
 all:
 	updpkgsums
 	makepkg --printsrcinfo > .SRCINFO
-	rm -f *.zip
-	rm -f *.zst
+	make clean
 
 clean:
-	rm -f *.zip
-	rm -f *.zst
+	rm -f *.tar *.zip *.zst
 
 test:
 	make clean
 	makepkg --cleanbuild
 	namcap PKGBUILD
-	namcap *.pkg.tar.zst
+	namcap *.pkg.tar
 
 mount:
 	xhost +local:$(USER)
