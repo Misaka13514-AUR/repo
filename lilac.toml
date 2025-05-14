@@ -26,7 +26,7 @@ master = "Admin <lilac-admin@apeiria.net>"
 # Set and unsubscribe_address to receive unsubscribe requests
 # unsubscribe_address = "unsubscribe@example.com"
 # Set to yes to automatically rebuild packages which failed to build last time
-rebuild_failed_pkgs = true
+rebuild_failed_pkgs = false
 git_push = true
 # Set a prefix for commit messages
 # commit_msg_prefix = ''
