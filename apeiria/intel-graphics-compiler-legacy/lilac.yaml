@@ -2,6 +2,8 @@ maintainers:
   - github: Misaka13514-AUR
     email: aur@apeiria.net
 
+time_limit_hours: 3
+
 build_prefix: extra-x86_64
 
 pre_build_script: aur_pre_build(maintainers=['dbermond'])
