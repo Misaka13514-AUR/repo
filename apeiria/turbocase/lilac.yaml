@@ -16,7 +16,6 @@ post_build_script: |
   update_aur_repo()
 
 update_on:
-  - source: regex
-    url: https://git.sr.ht/~martijnbraam/turbocase/refs/rss.xml
-    regex: 'turbocase/refs/([\d.]+)'
+  - source: git
+    git: https://git.sr.ht/~martijnbraam/turbocase
   - alias: python
