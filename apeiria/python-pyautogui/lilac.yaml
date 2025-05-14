@@ -11,7 +11,7 @@ repo_depends:
   - python-pytweening
 
 pre_build_script: |
-  aur_pre_build()
+  aur_pre_build(maintainers=['Misaka13514'])
   update_pkgver_and_pkgrel(_G.newver)
 
 post_build_script: |

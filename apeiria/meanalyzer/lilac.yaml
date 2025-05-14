@@ -9,7 +9,7 @@ repo_depends:
   - python-pltable
 
 pre_build_script: |
-  aur_pre_build()
+  aur_pre_build(maintainers=['Misaka13514', 'saruman9'])
   for line in edit_file('PKGBUILD'):
     if line.startswith('_tag='):
       line = f"_tag={_G.newver}"

@@ -5,7 +5,7 @@ maintainers:
 build_prefix: extra-x86_64
 
 pre_build_script: |
-  aur_pre_build()
+  aur_pre_build(maintainers=['mzwing', 'Misaka13514'])
   tag = _G.newver.lstrip('v')
   for line in edit_file('PKGBUILD'):
     if line.startswith('_pkgver='):
