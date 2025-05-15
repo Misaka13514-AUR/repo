@@ -1,0 +1,23 @@
+maintainers:
+  - github: Misaka13514
+    email: Misaka13514@gmail.com
+
+build_prefix: extra-x86_64
+
+repo_depends:
+  - python-selenium
+
+pre_build_script: |
+  aur_pre_build(maintainers=['Misaka13514'])
+  update_pkgver_and_pkgrel(_G.newver)
+
+post_build_script: |
+  aur_post_build()
+  update_aur_repo()
+
+update_on:
+  - source: github
+    github: appium/python-client
+    use_max_tag: true
+    prefix: v
+  - alias: python
