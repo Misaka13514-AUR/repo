@@ -1,55 +1,72 @@
-# NOT compatible with AUR helpers!
-#
-# To install:
-# 	git clone https://aur.archlinux.org/ida-pro.git && cd ida-pro
-# 	Download the `ida-pro_VERSION_x64linux.run` installer from the IDA download center at https://my.hex-rays.com/, and place it in the same directory
-# 	makepkg -sicf
+# Maintainer: Misaka13514 (Misaka13514-AUR fork)
+# Contributor: patchouli
 
-# Maintainer: patchouli
-
-pkgver=9.1.0
 pkgname="ida-pro"
+pkgver=9.1.0
 pkgrel=1
 pkgdesc="Hex-Rays IDA Pro"
+arch=('x86_64')
 url="https://www.hex-rays.com/products/ida/${pkgver}/index.shtml"
 license=('custom')
-makedepends=('fakechroot')
-depends=('libgl'
+depends=(
+	'libgl'
 	'libx11'
 	'libxext'
 	'libxrender'
 	'glib2'
 	'qt5-base'
 	'python-rpyc'
-	)
+)
+makedepends=(
+	'fakechroot'
+	'aria2'
+	'python'
+)
 options=('!strip')
-
 _installer='ida-pro_91_x64linux.run'
+_installer_path='ida91'
+_installer_sha256sum='8ff08022be3a0ef693a9e3ea01010d1356b26cfdcbbe7fdd68d01b3c9700f9e2'
+_installer_torrent='magnet:?xt=urn:btih:f24cfadb8a66b343bf1ff4f0c1386a5f6991c818&dn=ida91&tr=http%3A%2F%2Ftracker.mywaifu.best%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.qu.ax%3A6969%2Fannounce&tr=http%3A%2F%2Ftracker.renfei.net%3A8080%2Fannounce&tr=https%3A%2F%2Ftracker.bjut.jp%3A443%2Fannounce&tr=http%3A%2F%2Ffleira.no%3A6969%2Fannounce'
+_installer_torrent_file=2
+_keygen_url='https://raw.githubusercontent.com/misaka18931/misakaPkgs/b9732443a451c81f57f75ab295dfb5cd518b5ba4/pkgs/ida-pro-91/keygen3.py'
+source=("${pkgname}.desktop"
+		"${pkgname}-teams.desktop"
+		"$pkgname-$pkgver-crack.py::$_keygen_url")
+sha256sums=('662478dbcb939db8a36f89170246c2187b1086bff840dd96bd4d8f72eac3cad5'
+            '437fc36a8edd8dd6adadd773dd777966797640d93f499892bdd1217afaf1b636'
+            'f1459fd512ac44d589f020ba71e0de20ebf8798df26f167db6fe4c087c7cd0d6')
 
-source=("file://${_installer}"
-		"${pkgname}.desktop"
-		"${pkgname}-teams.desktop")
+prepare() {
+	# download the installer
+	if [ -f "${srcdir}/${_installer_path}/${_installer}" ]; then
+		echo "It looks like the installer has already been downloaded."
+		echo "If you want to redownload it, please remove ${srcdir}/${_installer_path}/${_installer}."
+	else
+		echo "Downloading the installer through bittorrent..."
+		echo "Abort if you do not want to do this."
+		aria2c --seed-time=0 --select-file=${_installer_torrent_file} --dir="${srcdir}" "${_installer_torrent}"
+	fi
 
-sha256sums=('8ff08022be3a0ef693a9e3ea01010d1356b26cfdcbbe7fdd68d01b3c9700f9e2'
-            '662478dbcb939db8a36f89170246c2187b1086bff840dd96bd4d8f72eac3cad5'
-            '437fc36a8edd8dd6adadd773dd777966797640d93f499892bdd1217afaf1b636')
-
-arch=('x86_64')
+	# verify the installer
+	echo "Verifying the installer (sha256sum): ${_installer_sha256sum}"
+	echo "${_installer_sha256sum}  ${srcdir}/${_installer_path}/${_installer}" | sha256sum -c
+}
 
 package() {
 	install -d "${pkgdir}"/opt/${pkgname}
 	install -d "${pkgdir}"/usr/bin
-	install -d "${pkgdir}"/usr/share/{icons,applications,licenses/${pkgname}}
+	install -d "${pkgdir}"/usr/share/{icons,applications,licenses}/${pkgname}
 	install -d "${pkgdir}"/tmp
 
 	# chroot is needed to prevent the installer from creating a single file outside of prefix
 	# have to copy the installer due to chroot
-	cp "${srcdir}"/${_installer} "${pkgdir}"/
-	chmod +x "${pkgdir}"/${_installer}
+	install -Dm755 "${srcdir}/${_installer_path}/${_installer}" "${pkgdir}/${_installer}"
 
 	# IDA Pro 9.0 SP1 (and newer) installer now tries to copy the .desktop files to $HOME even if you specify a prefix. Very annoying.
 	mkdir -p $pkgdir/$HOME/.local/share/applications
 	fakechroot chroot "${pkgdir}" /${_installer} --mode unattended --prefix "/opt/${pkgname}"
+	# delete for extra-x86_64-build
+	rm -rf "${pkgdir}"/build
 	rm "${pkgdir}"/${_installer}
 	rm -Rf "${pkgdir}"/{tmp,home}
 
@@ -64,4 +81,13 @@ package() {
 	ln -s /opt/${pkgname}/hvui.png "${pkgdir}"/usr/share/icons/${pkgname}-teams.png
 	ln -s /opt/${pkgname}/license.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 	ln -s /opt/${pkgname}/ida "${pkgdir}"/usr/bin/ida
+
+    # generate the patched files
+	cd ${pkgdir}/opt/${pkgname}
+	python "${srcdir}"/${pkgname}-${pkgver}-crack.py
+
+	# apply the patched files
+    mv libida32.so{.patched,}
+	mv libida.so{.patched,}
+	echo "Patched files have been applied."
 }
