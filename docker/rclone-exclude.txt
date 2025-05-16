@@ -5,3 +5,4 @@ build-log.json
 log/
 pacmandb/
 aur/
+gnupg/
