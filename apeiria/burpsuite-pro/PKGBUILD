@@ -1,5 +1,6 @@
-# Maintainer: Rasmus Moorats <xx+aur@nns.ee>
-# Maintainer: freb
+# Maintainer: Misaka13514 (Misaka13514-AUR fork)
+# Contributor: Rasmus Moorats <xx+aur@nns.ee>
+# Contributor: freb
 
 pkgname=burpsuite-pro
 pkgver=2025.4.2
@@ -10,8 +11,10 @@ depends=('java-runtime>=21.0.0' 'hicolor-icon-theme')
 makedepends=('zip')
 arch=('any')
 license=('custom')
-noextract=("${pkgname}-${pkgver}-orig.jar")
+noextract=("${pkgname}-${pkgver}-orig.jar"
+            "${pkgname}-${pkgver}-loader.jar")
 source=("${pkgname}-${pkgver}-orig.jar::https://portswigger.net/burp/releases/download?product=pro&version=${pkgver}&type=Jar"
+        "${pkgname}-${pkgver}-loader.jar::https://raw.githubusercontent.com/h3110w0r1d-y/BurpLoaderKeygen/a95136d57f65e814b327142b1f2bdce1bc06bdf9/BurpLoaderKeygen_v1.17.jar"
         "${pkgname}"
         "${pkgname}.desktop"
         'icon16.png'
@@ -23,7 +26,8 @@ source=("${pkgname}-${pkgver}-orig.jar::https://portswigger.net/burp/releases/do
         'icon512.png'
         'icon.svg')
 sha256sums=('c2d099dffec9bf28120a46b88b7225d9a8e94aeb933d3c0779525ae201850cfc'
-            '939b66c99461307d361c91b811785b92a3cd376a4ac8e72dbf76af1b75503d78'
+            'dcdf28acf360554a5a98d78f403c96ccea500be24b27d02b020e142820637c0a'
+            '8b1578eb1f4472227e9a7594f3af43358e1a2a0c4e02b493fd93b8fbbcb930b8'
             'f442258c5616969bfaad7c20b2ff99f05696ad04c2e2c3d145a360615650b9ec'
             'ff0b230af06fb76af053090ac021bf45b88341d746e67f6bb9e94ba40957d9d8'
             'a6791fcaee558f6744b4f5a3fc0af2c9ad7ce244033e224c4e4464563ac9b911'
@@ -41,7 +45,9 @@ prepare() {
 }
 
 package() {
-  install -Dm644 "${srcdir}/${pkgname}-${pkgver}.jar" "${pkgdir}/usr/share/${pkgname}/${pkgname}.jar"
+  install -Dm644 "${srcdir}/${pkgname}-${pkgver}.jar" "${pkgdir}/usr/share/${pkgname}/${pkgname//-/_}_${pkgver}.jar"
+  install -Dm644 "${srcdir}/${pkgname}-${pkgver}-loader.jar" "${pkgdir}/usr/share/${pkgname}/${pkgname}-loader.jar"
+  install -Dm666 /dev/null "${pkgdir}/usr/share/${pkgname}/.config.ini"
   install -Dm644 "${srcdir}/${pkgname}.desktop" -t "${pkgdir}/usr/share/applications/"
   install -Dm755 "${srcdir}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 
