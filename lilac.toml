@@ -85,7 +85,7 @@ password = "<SMTP_PASSWORD>"
 # mount these paths as tmpfs in the chroot
 tmpfs = [
   # bazel's cache causes failures frequently
-  "/build/.cache/bazel"
+  # "/build/.cache/bazel"
 ]
 
 # pacman.conf to use for repository databases
