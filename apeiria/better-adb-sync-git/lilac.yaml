@@ -11,3 +11,5 @@ post_build: aur_post_build
 update_on:
   - source: aur
     aur: better-adb-sync-git
+  - source: github
+    github: jb2170/better-adb-sync

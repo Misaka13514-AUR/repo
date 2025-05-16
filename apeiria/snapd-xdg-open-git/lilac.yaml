@@ -11,3 +11,5 @@ post_build: aur_post_build
 update_on:
   - source: aur
     aur: snapd-xdg-open-git
+  - source: github
+    github: snapcore/snapd-xdg-open
