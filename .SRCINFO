@@ -1,0 +1,26 @@
+pkgbase = hp-prime-virtual-calculator-bin
+	pkgdesc = Simulator of the HP Prime Graphing Calculator (using Wine)
+	pkgver = 2.2.15270_2025_01_31
+	pkgrel = 1
+	url = https://hpcalcs.com
+	install = hp-prime-virtual-calculator.install
+	arch = x86_64
+	license = LicenseRef-Hewlett-Packard
+	makedepends = binwalk
+	makedepends = msitools
+	makedepends = cabextract
+	depends = wine
+	depends = hicolor-icon-theme
+	depends = bash
+	optdepends = wine-staging: The recommended version of Wine for this package
+	provides = hp-prime-virtual-calculator
+	conflicts = hp-prime-virtual-calculator
+	noextract = HP_Prime_Virtual_Calculator_x64_2025_01_31.exe
+	source = HP_Prime_Virtual_Calculator_x64_2025_01_31.exe::https://www.hpcalc.org/prime/pc/HP_Prime_Virtual_Calculator_x64_2025_01_31.exe
+	source = hp-prime-virtual-calculator.sh
+	source = hp-prime-virtual-calculator.desktop
+	sha256sums = 9858c0a3a889144ba17df351360effde759ba993a13ab1dd4b51b3e754654f2f
+	sha256sums = ee62acad0d2e261ffd2714b3a977ff873e57fd01799efb4e1dc9507676425c73
+	sha256sums = c7ead1fad1707720e65a53348be12c43c5d152681b5b139a4542aaee6909fa6a
+
+pkgname = hp-prime-virtual-calculator-bin
