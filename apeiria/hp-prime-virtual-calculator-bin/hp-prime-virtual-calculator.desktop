@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=HP Prime Virtual Calculator
+Comment=Simulator of the HP Prime Graphing Calculator (using Wine)
+Exec=hp-prime-virtual-calculator
+Icon=hp-prime-virtual-calculator
+Terminal=false
+Categories=Education;Science;
+StartupNotify=true
+StartupWMClass=hpprime.exe

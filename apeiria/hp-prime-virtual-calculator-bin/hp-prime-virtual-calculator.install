@@ -1,0 +1,3 @@
+post_install() {
+    echo "User Guides are available at https://hpcalcs.com/manuals/ and https://www.hpcalc.org/prime/docs/"
+}
