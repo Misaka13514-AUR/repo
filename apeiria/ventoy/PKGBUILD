@@ -56,7 +56,7 @@ _busybox_ver=1.32.0             # (Jun 2020) old! FIXME
 _crypt_ver=1.7.5                # (Apr 2017) old! FIXME for veritysetup
 _lunzip_ver=1.11                # (Jan 2019) old! FIXME
 _wimboot_ver=2.7.3              # (Apr 2021) old! FIXME
-pkgrel=1
+pkgrel=2
 pkgdesc="A new bootable USB solution"
 arch=(x86_64)
 url="https://www.ventoy.net/"
@@ -103,6 +103,8 @@ source=(
   https://www.fefe.de/dietlibc/dietlibc-"$_diet_ver".tar.xz
   dietlibc-headers-fix.patch::https://salsa.debian.org/debian/dietlibc/-/raw/master/debian/patches/bugfixes/newer-linux-headers.diff
   https://musl.libc.org/releases/musl-"$_musl_ver".tar.gz
+  musl-CVE-2025-26519-fix1.patch::https://www.openwall.com/lists/musl/2025/02/13/1/1
+  musl-CVE-2025-26519-fix2.patch::https://www.openwall.com/lists/musl/2025/02/13/1/2
   kernel-headers-musl-"$_kern_hdrs_musl_ver".tar.gz::https://github.com/sabotage-linux/kernel-headers/archive/v"$_kern_hdrs_musl_ver".tar.gz
   https://github.com/libfuse/libfuse/releases/download/fuse-"$_fuse_ver/fuse-$_fuse_ver".tar.gz
   exfat-"$_exfat_ver".tar.gz::https://github.com/relan/exfat/archive/refs/tags/v"$_exfat_ver".tar.gz
@@ -140,6 +142,8 @@ sha256sums=('ad383a5970eefecf36afd171aab2987322c9fdd8a532702e198ba75c64133c99'
             '7994ad5a63d00446da2e95da1f3f03355b272f096d7eb9830417ab14393b3ace'
             '313aa962c7f80a02f41758d90d6f67687c77c74a6126b060337f248bc1b637f6'
             'a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4'
+            '0896fcdb5125d9d0723f4e165f13c209830e7045a75cba4e858060837cb7292e'
+            '0620fcee4e8a4e52ebe1ea75e2b51d2197ebda242489c0586924eafa9e9606a1'
             'd104397fc657ffb0f0bda46f54fd182b76a9ebc324149c183a4ff8c86a8db53d'
             'd0e69d5d608cc22ff4843791ad097f554dd32540ddc9bed7638cc6fea7c1b4b5'
             '689bcb4a639acd2d45e6fa0ff455f7f18edb2421d4f4f42909943775adc0e375'
@@ -229,6 +233,9 @@ prepare() {
 
     # Fix build with newer toolchain.
     sed -i 's/GCC48/GCC5/' ../build.sh
+    sed -i '/^BUILD_CFLAGS/s/\r$/ -std=gnu11\r/' BaseTools/Source/C/VfrCompile/Pccts/{antlr,dlg}/makefile
+    sed -i -e '/RELEASE_GCC5_IA32_CC_FLAGS/s/\r$/ -std=gnu11\r/' \
+           -e '/RELEASE_GCC5_X64_CC_FLAGS/s/\r$/ -std=gnu11\r/' BaseTools/Conf/tools_def.template
 
     # Fix build against recent python.
     patch -Np1 -i "$srcdir"/ventoy-fix-ucs-2-lookup-on-python-3.9.patch
@@ -243,6 +250,12 @@ prepare() {
 
     # <cpuid.h> compile fix
     sed -i 's/__leaf/__LEAF/' include/sys/cdefs.h
+  )
+
+  (
+    cd "$srcdir"/musl-$_musl_ver
+    patch -Np1 -i "$srcdir"/musl-CVE-2025-26519-fix1.patch
+    patch -Np1 -i "$srcdir"/musl-CVE-2025-26519-fix2.patch
   )
 
   (
@@ -296,21 +309,24 @@ _build_grub() (
 
   _build_grub-x86_64-efi() (
     cd SRC/grub-x86_64-efi
-    ./configure --with-platform=efi "${_conf_args[@]}"
+    CC="gcc -std=gnu11" \
+      ./configure --with-platform=efi "${_conf_args[@]}"
     make
     sh install.sh uefi
   )
 
   _build_grub-i386-efi() (
     cd SRC/grub-i386-efi
-    ./configure --target=i386 --with-platform=efi "${_conf_args[@]}"
+    CC="gcc -std=gnu11" TARGET_CC="gcc -std=gnu11" \
+      ./configure --target=i386 --with-platform=efi "${_conf_args[@]}"
     make
     sh install.sh i386efi
   )
 
   _build_grub-i386-pc() (
     cd SRC/grub-i386-pc
-    ./configure --target=i386 --with-platform=pc "${_conf_args[@]}"
+    CC="gcc -std=gnu11" TARGET_CC="gcc -std=gnu11" \
+      ./configure --target=i386 --with-platform=pc "${_conf_args[@]}"
     make
     sh install.sh
   )
@@ -332,7 +348,7 @@ _build_ipxe() (
   # Refer "IPXE/buildipxe.sh"
   cd Ventoy-$pkgver/IPXE/ipxe-$_ipxe_ver/src
 
-  make bin/ipxe.lkrn NO_WERROR=1 V=1
+  make bin/ipxe.lkrn NO_WERROR=1 V=1 CC="gcc -std=gnu11"
   install -Dv bin/ipxe.lkrn "$srcdir"/Ventoy-$pkgver/INSTALL/ventoy/ipxe.krn
 )
 
@@ -355,8 +371,8 @@ _build_dietlibc() (
   echo ":: dietlibc"
   # Refer "DOC/installdietlibc.sh"
   cd dietlibc-$_diet_ver
-  make
-  make i386
+  make CC="gcc -std=gnu11"
+  make i386 CC="gcc -std=gnu11"
 )
 
 _build_musl32() (
@@ -663,7 +679,8 @@ _build_unsquashfs() (
   (
     cd squashfs-tools-4.4/squashfs-tools
     sed -i 's|LIBS) -o|LIBS) /usr/lib/libz.a -o|' Makefile
-    make unsquashfs LZ4_LIBDIR="$_libdir"/LZ4 LZMA_LIBDIR="$_libdir"/LZMA \
+    CC="gcc -std=gnu11" \
+      make unsquashfs LZ4_LIBDIR="$_libdir"/LZ4 LZMA_LIBDIR="$_libdir"/LZMA \
       LZO_LIBDIR="$_libdir"/LZO ZSTD_LIBDIR="$_libdir"/ZSTD
 
     strip --strip-all unsquashfs
@@ -673,7 +690,7 @@ _build_unsquashfs() (
   (
     cd squashfs-tools-4.4/squashfs-tools-32
     sed -i "s|LIBS) -o|LIBS) ../../SRC/zlib-$_zlib_ver/libz.a -o|" Makefile
-    CC="gcc -m32" \
+    CC="gcc -std=gnu11 -m32" \
       make unsquashfs LZ4_LIBDIR="$_libdir"32/LZ4 LZMA_LIBDIR="$_libdir"32/LZMA \
       LZO_LIBDIR="$_libdir"32/LZO ZSTD_LIBDIR="$_libdir"32/ZSTD
 
