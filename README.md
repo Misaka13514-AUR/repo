@@ -166,6 +166,10 @@ If you are interested in building your own repository with GitHub Actions withou
 
 ## Acknowledgments
 
+Thanks to all contributors:
+
+[![Contributors](https://contrib.rocks/image?repo=Misaka13514-AUR/repo)](https://github.com/Misaka13514-AUR/repo/graphs/contributors)
+
 Thanks to the following projects and services for their support:
 
 - [Arch Linux](https://archlinux.org)  
