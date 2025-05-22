@@ -10,7 +10,7 @@ post_build: git_pkgbuild_commit
 
 update_on:
   - source: jq
-    url: "https://portswigger.net/burp/releases/data?pageSize=3"
+    url: "https://portswigger.net/burp/releases/data?pageSize=10"
     filter: '.ResultSet.Results[].builds[] | select(.ProductId == "pro" and .ProductPlatform == "Jar") | .Version'
   - source: manual
     manual: 1
