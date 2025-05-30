@@ -1,4 +1,4 @@
-pkgbase = bird
+pkgbase = bird2
 	pkgdesc = RIP, OSPF, BGP, MPLS, BFD, Babel routing daemon
 	pkgver = 2.15.1
 	pkgrel = 1
@@ -9,12 +9,13 @@ pkgbase = bird
 	depends = readline
 	depends = ncurses
 	depends = libssh
+	provides = bird
+	conflicts = bird
 	replaces = bird6
-	options = !emptydirs
 	backup = etc/bird.conf
-	source = https://bird.network.cz/download/bird-2.15.1.tar.gz
+	source = https://gitlab.nic.cz/labs/bird/-/archive/v2.15.1/bird-v2.15.1.tar.gz
 	source = bird.service
-	sha256sums = 48e85c622de164756c132ea77ad1a8a95cc9fd0137ffd0d882746589ce75c75d
+	sha256sums = 5a4cf55c4767192aa57880ac5f6763e5b8c26f688ab5934df96e3615c4b0a1e1
 	sha256sums = 4aa1e8d41229badd276aa3747f613e7df34761892add2258c63bdb5097dfeb2b
 
-pkgname = bird
+pkgname = bird2
