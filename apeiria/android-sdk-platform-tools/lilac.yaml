@@ -1,0 +1,13 @@
+maintainers:
+  - github: Misaka13514-AUR
+    email: aur@apeiria.net
+
+build_prefix: extra-x86_64
+
+pre_build_script: aur_pre_build(maintainers=['dreamingincode'])
+
+post_build: aur_post_build
+
+update_on:
+  - source: aur
+    aur: android-sdk-platform-tools
