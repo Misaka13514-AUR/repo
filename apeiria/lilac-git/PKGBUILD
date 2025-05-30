@@ -5,7 +5,7 @@
 
 _pkgname=lilac
 pkgname=$_pkgname-git
-pkgver=r1237.f498e3c
+pkgver=r1238.b49b00d
 pkgrel=1
 pkgdesc='The build bot for apeiria'
 arch=(any)
