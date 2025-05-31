@@ -1,0 +1,24 @@
+pkgbase = cortex.cpp-bin
+	pkgdesc = Local AI API Platform
+	pkgver = 1.0.12
+	pkgrel = 1
+	url = https://github.com/menloresearch/cortex.cpp
+	arch = x86_64
+	arch = aarch64
+	license = Apache-2.0
+	makedepends = tar
+	depends = openmpi
+	provides = cortex
+	provides = cortex-server
+	conflicts = cortex.cpp
+	conflicts = cortex.cpp-beta
+	conflicts = cortex.cpp-nightly
+	conflicts = cortex.cpp-git
+	conflicts = cortex.cpp-beta-bin
+	conflicts = cortex.cpp-nightly-bin
+	source_x86_64 = cortex_1.0.12_x86_64.deb::https://github.com/menloresearch/cortex.cpp/releases/download/v1.0.12/cortex-1.0.12-linux-amd64-network-installer.deb
+	sha256sums_x86_64 = 4072d672ab6afb7c7a29df5b96cc4e3015135368b00bac6e3d39857702a70421
+	source_aarch64 = cortex_1.0.12_aarch64.deb::https://github.com/menloresearch/cortex.cpp/releases/download/v1.0.12/cortex-1.0.12-linux-arm64-network-installer.deb
+	sha256sums_aarch64 = f4499a75f8eb510b7d1e7212bbd62b3704202dc7a9c976241a81b7ba1af1d608
+
+pkgname = cortex.cpp-bin
