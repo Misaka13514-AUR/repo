@@ -4,13 +4,13 @@
 _pkgname=cortex
 pkgname=cortex.cpp-bin
 pkgver=1.0.12
-pkgrel=1
+pkgrel=2
 pkgdesc='Local AI API Platform'
 arch=('x86_64' 'aarch64')
-makedepends=('tar')
-depends=('openmpi')
 url='https://github.com/menloresearch/cortex.cpp'
 license=('Apache-2.0')
+depends=('openmpi' 'glibc' 'gcc-libs')
+makedepends=('tar')
 provides=('cortex' 'cortex-server')
 conflicts=('cortex.cpp' 'cortex.cpp-beta' 'cortex.cpp-nightly' 'cortex.cpp-git' 'cortex.cpp-beta-bin' 'cortex.cpp-nightly-bin')
 source_x86_64=("${_pkgname}_${pkgver}_x86_64.deb::$url/releases/download/v$pkgver/${_pkgname}-${pkgver}-linux-amd64-network-installer.deb")
@@ -23,6 +23,6 @@ prepare() {
 }
 
 package() {
-    install -Dm644 "$srcdir"/usr/bin/cortex "$pkgdir"/usr/bin/cortex
-    install -Dm644 "$srcdir"/usr/bin/cortex-server "$pkgdir"/usr/bin/cortex-server
+    install -Dm755 "$srcdir"/usr/bin/cortex "$pkgdir"/usr/bin/cortex
+    install -Dm755 "$srcdir"/usr/bin/cortex-server "$pkgdir"/usr/bin/cortex-server
 }
