@@ -4,9 +4,9 @@ maintainers:
 
 build_prefix: extra-x86_64
 
-# pre_build_script: aur_pre_build(maintainers=['class101', 'horsicq'])
+pre_build_script: aur_pre_build(maintainers=['class101', 'horsicq', 'Misaka13514'])
 
-# post_build: aur_post_build
+post_build: aur_post_build
 
 update_on:
   - source: aur
