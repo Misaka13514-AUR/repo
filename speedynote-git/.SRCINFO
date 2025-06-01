@@ -1,0 +1,25 @@
+pkgbase = speedynote-git
+	pkgdesc = A simple note app with good performance and PDF import support
+	pkgver = r25.74044c9
+	pkgrel = 1
+	url = https://github.com/alpha-liu-01/SpeedyNote
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = qt5-tools
+	makedepends = qt5-translations
+	depends = qt6-base
+	depends = qt6-multimedia
+	depends = poppler-qt6
+	depends = sdl2-compat
+	depends = hicolor-icon-theme
+	source = git+https://github.com/alpha-liu-01/SpeedyNote.git#branch=linux
+	source = speedynote.desktop
+	source = speedynote.png
+	md5sums = SKIP
+	md5sums = SKIP
+	md5sums = SKIP
+
+pkgname = speedynote-git

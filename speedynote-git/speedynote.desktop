@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=SpeedyNote
+Comment=Fast stylus note-taking app
+Exec=NoteApp
+Icon=speedynote
+Terminal=false
+Type=Application
+Categories=Utility;
+
