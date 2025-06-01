@@ -35,19 +35,19 @@ build() {
 package() {
   cd "$srcdir/SpeedyNote"
 
-  # 安装主程序
+  # install main application
   install -Dm755 build/NoteApp "$pkgdir/usr/bin/speedynote"
 
-  # 安装翻译
+  # install translations
   install -d "$pkgdir/usr/share/speedynote/translations"
   install -m644 build/app_*.qm "$pkgdir/usr/share/speedynote/translations/"
 
-  # 安装 license
+  # install license
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
-  # 安装 .desktop 文件
+  # install .desktop
   install -Dm644 "$srcdir/speedynote.desktop" "$pkgdir/usr/share/applications/speedynote.desktop"
 
-  # 安装图标（建议 64x64 PNG）
+  # install icon
   install -Dm644 "$srcdir/speedynote.png" "$pkgdir/usr/share/icons/hicolor/256x256/apps/speedynote.png"
 }
