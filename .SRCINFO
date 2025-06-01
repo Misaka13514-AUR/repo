@@ -1,0 +1,17 @@
+pkgbase = speedynote-bin
+	pkgdesc = A simple note app with good performance and PDF import support
+	pkgver = 0.4.10
+	pkgrel = 1
+	url = https://github.com/alpha-liu-01/SpeedyNote
+	arch = x86_64
+	license = MIT
+	depends = qt6-base
+	depends = qt6-multimedia
+	depends = poppler-qt6
+	depends = sdl2-compat
+	depends = hicolor-icon-theme
+	conflicts = speedynote-git
+	source = https://github.com/alpha-liu-01/SpeedyNote/releases/download/v0.4.10-1/speedynote.deb
+	sha256sums = SKIP
+
+pkgname = speedynote-bin
