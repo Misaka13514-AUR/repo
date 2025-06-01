@@ -7,6 +7,7 @@ arch=('x86_64')
 url="https://github.com/alpha-liu-01/SpeedyNote"
 license=('MIT')
 depends=('qt6-base' 'qt6-multimedia' 'poppler-qt6' 'sdl2-compat' 'hicolor-icon-theme')
+conflicts=('speedynote-bin')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt5-translations')
 source=(
   "git+https://github.com/alpha-liu-01/SpeedyNote.git#branch=linux"
