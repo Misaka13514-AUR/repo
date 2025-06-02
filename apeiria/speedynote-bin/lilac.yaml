@@ -1,0 +1,23 @@
+maintainers:
+  - github: Misaka13514
+    email: Misaka13514@gmail.com
+
+build_prefix: extra-x86_64
+
+pre_build_script: |
+  aur_pre_build(maintainers=['Souiken', 'Misaka13514'])
+  tag = _G.newver.lstrip('v')
+  for line in edit_file('PKGBUILD'):
+    if line.startswith('_tagname='):
+      line = f"_tagname='{tag}'"
+    print(line)
+
+post_build_script: |
+  aur_post_build()
+  update_aur_repo()
+
+update_on:
+  - source: jq
+    url: https://api.github.com/repos/alpha-liu-01/SpeedyNote/releases
+    filter: '.[] | select(.assets[]?.name | test("\\.deb$")) | .tag_name'
+    prefix: v
