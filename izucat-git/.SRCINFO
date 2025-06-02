@@ -1,0 +1,22 @@
+pkgbase = izucat-git
+	pkgdesc = A program that can recursively concatenate (cat) text and binary files in a path to typst.
+	pkgver = r15.7c30580
+	pkgrel = 1
+	url = https://github.com/Souiken/izucat
+	arch = i686
+	arch = x86_64
+	arch = armv6h
+	arch = armv7h
+	license = MIT
+	makedepends = git
+	makedepends = cargo
+	depends = glibc
+	depends = gcc-libs
+	optdepends = typst: for generating pdf
+	optdepends = otf-unifont: font for pdf generation
+	provides = izucat
+	conflicts = izucat
+	source = git+https://github.com/Souiken/izucat.git
+	sha256sums = SKIP
+
+pkgname = izucat-git
