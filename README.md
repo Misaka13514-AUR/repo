@@ -13,7 +13,15 @@ Add the following lines to `/etc/pacman.conf`:
 
 ```ini
 [apeiria]
+# Primary server
+# User -> OneDrive (Redirected by Cloudflare)
 Server = https://aur.apeiria.net/$arch
+
+# Experimental server (may improve connectivity in some regions)
+# User -> Cloudflare -> OneDrive
+Server = https://aur-cloudflare.apeiria.net/$arch
+# User -> Fastly -> Cloudflare -> OneDrive
+Server = https://aur-fastly.apeiria.net/$arch
 ```
 
 Add my GPG key to the pacman keyring and trust it:
@@ -80,6 +88,8 @@ $ gh attestation verify -R Misaka13514-AUR/repo path/to/package.pkg.tar.zst
 The repository is completely built with free platforms (see [Architecture](#architecture)). If any of them goes down, or the repository is attacked, the repository will be unavailable. I will try my best to keep the repository online, but I cannot guarantee it.
 
 If you are concerned about the availability of the repository, you can mirror it to your own server: [OneDrive share link (read-only)](https://lockinwize-my.sharepoint.com/:f:/g/personal/misaka13514_lockinwize_onmicrosoft_com/Es6uIZIqFmVEs2LgpOy6MUQB_hGYl6_LV-K2rO8SwkIijA).
+
+All files in the repository are stored on OneDrive, which is scanned by Microsoft for malware and viruses. Seems I cannot bypass this scan, if there is a false positive (e.g. `nuclei-templates` is flagged because there is webshell in it), you will need to download the file manually from the OneDrive share link above, and then install it with `pacman -U`.
 
 ## Architecture
 
@@ -198,3 +208,6 @@ Thanks to the following projects and services for their support:
 
 - [Mailgun](https://www.mailgun.com)  
   Email service for sending lilac error reports.
+
+- [Fastly](https://www.fastly.com)  
+  Optional CDN for serving the packages.
