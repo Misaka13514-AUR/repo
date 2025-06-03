@@ -56,7 +56,7 @@ _busybox_ver=1.32.0             # (Jun 2020) old! FIXME
 _crypt_ver=1.7.5                # (Apr 2017) old! FIXME for veritysetup
 _lunzip_ver=1.11                # (Jan 2019) old! FIXME
 _wimboot_ver=2.7.3              # (Apr 2021) old! FIXME
-pkgrel=2
+pkgrel=3
 pkgdesc="A new bootable USB solution"
 arch=(x86_64)
 url="https://www.ventoy.net/"
@@ -100,7 +100,7 @@ source=(
   https://github.com/tianocore/edk2/archive/refs/tags/edk2-"$_edk2_ver".zip
   ventoy-fix-ucs-2-lookup-on-python-3.9.patch::https://github.com/tianocore/edk2/commit/5d864834.patch
   ventoy-fix-array.array.tostring-removal-in-python-3.9.patch::https://github.com/tianocore/edk2/commit/43bec9ea.patch
-  https://www.fefe.de/dietlibc/dietlibc-"$_diet_ver".tar.xz
+  https://github.com/ventoy/vtoytoolchain/releases/download/1.0/dietlibc-"$_diet_ver".tar.xz
   dietlibc-headers-fix.patch::https://salsa.debian.org/debian/dietlibc/-/raw/master/debian/patches/bugfixes/newer-linux-headers.diff
   https://musl.libc.org/releases/musl-"$_musl_ver".tar.gz
   musl-CVE-2025-26519-fix1.patch::https://www.openwall.com/lists/musl/2025/02/13/1/1
