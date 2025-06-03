@@ -11,6 +11,7 @@ pre_build_script: |
     if line.startswith('_tagname='):
       line = f"_tagname='{tag}'"
     print(line)
+  update_pkgver_and_pkgrel(tag.replace('-', '.'))
 
 post_build_script: |
   aur_post_build()
