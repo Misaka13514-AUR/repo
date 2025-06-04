@@ -2,7 +2,7 @@
 
 pkgname=httpdirfs
 pkgver=1.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A filesystem which allows you to mount HTTP directory listings"
 arch=('x86_64')
 url="https://github.com/fangfufu/httpdirfs"
@@ -13,7 +13,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/fangfufu/$pkgname/archive/$
 md5sums=("1e7d3ed7850d7a629e31b635e5954046")
 
 build() {
-  arch-meson "$pkgname-$pkgver" build
+  arch-meson "$pkgname-$pkgver" build -Dc_args="-std=gnu17"
   meson compile -C build
 }
 
