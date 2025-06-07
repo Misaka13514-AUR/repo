@@ -3,7 +3,7 @@
 
 pkgname=izucat-git
 _pkgname=${pkgname%-git}
-pkgver=r15.7c30580
+pkgver=r16.40ebdb4
 pkgrel=1
 pkgdesc="A program that can recursively concatenate (cat) text and binary files in a path to typst."
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
