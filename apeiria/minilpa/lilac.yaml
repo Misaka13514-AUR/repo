@@ -5,7 +5,7 @@ maintainers:
 build_prefix: extra-x86_64
 
 repo_depends:
-  - powershell-bin
+  - powershell
 
 pre_build_script: aur_pre_build(maintainers=['root-core'])
 
