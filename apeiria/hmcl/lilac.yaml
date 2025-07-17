@@ -7,7 +7,7 @@ build_prefix: extra-x86_64
 repo_depends:
   - liberica-jdk-11-full-bin
 
-pre_build_script: aur_pre_build(maintainers=['imlonghao'])
+pre_build_script: aur_pre_build(maintainers=['Misaka13514', 'lilac'])
 
 post_build: aur_post_build
 

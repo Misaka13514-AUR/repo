@@ -4,6 +4,8 @@ maintainers:
 
 build_prefix: extra-x86_64
 
+time_limit_hours: 2.5 # slow download speed
+
 pre_build_script: |
   aur_pre_build(maintainers=['taotieren', 'Misaka13514', 'lilac'])
   update_pkgver_and_pkgrel(_G.newver)
