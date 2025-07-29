@@ -14,4 +14,3 @@ post_build_script: |
 update_on:
   - source: github
     github: alpha-liu-01/SpeedyNote
-    branch: linux
