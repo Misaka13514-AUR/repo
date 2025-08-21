@@ -33,7 +33,7 @@
 # have been modified.
 
 pkgname=ventoy
-pkgver=1.1.05
+pkgver=1.1.07
 _grub_ver=2.04                  # (Jul 2019)
 #_unifont_ver=15.0.01            # FIXME see NOTE below
 _ipxe_ver=3fe683e               # (Sep 29 2019)
@@ -56,7 +56,7 @@ _busybox_ver=1.32.0             # (Jun 2020) old! FIXME
 _crypt_ver=1.7.5                # (Apr 2017) old! FIXME for veritysetup
 _lunzip_ver=1.11                # (Jan 2019) old! FIXME
 _wimboot_ver=2.7.3              # (Apr 2021) old! FIXME
-pkgrel=3
+pkgrel=1
 pkgdesc="A new bootable USB solution"
 arch=(x86_64)
 url="https://www.ventoy.net/"
@@ -89,7 +89,6 @@ optdepends=(
   'polkit: for GUI privilege escalation'
   'qt5-base: for Qt GUI'
 )
-conflicts=(ventoy-bin)
 options=(!buildflags)
 source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/ventoy/Ventoy/archive/refs/tags/v$pkgver.tar.gz"
@@ -132,7 +131,7 @@ noextract=(
   cryptsetup-"$_crypt_ver".tar.xz
   wimboot-"$_wimboot_ver".tar.gz
 )
-sha256sums=('ad383a5970eefecf36afd171aab2987322c9fdd8a532702e198ba75c64133c99'
+sha256sums=('65f744e694447300ee41c9310ed0855f47af4260c2ea47b5c7e274872bdb5560'
             'e5292496995ad42dabe843a0192cf2a2c502e7ffcc7479398232b10a472df77d'
             'SKIP' # Cannot rely on Savannah to maintain a stable patch checksum
             '5ee49d23d376aeea24269f7605fcaa7fbd326c04cda4e31b8eb7fa15a540ef44'
@@ -920,7 +919,7 @@ _build_lunzip() (
     cp -av lunzip ../lunzip32
   )
 
-  # Undocumented!
+  # Refer "LZIP/buildlz4.txt"
   rm -fv lz4cat*
   "$srcdir"/dietlibc-$_diet_ver/bin-x86_64/diet -Os gcc -D_FILE_OFFSET_BITS=64 smallz4cat.c -o lz4cat64
   strip --strip-all lz4cat64
