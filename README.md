@@ -183,7 +183,7 @@ Thanks to all contributors:
 Thanks to the following projects and services for their support:
 
 - [Arch Linux](https://archlinux.org)  
-  The best Linux distribution.
+  The [best](https://wiki.archlinux.org/title/Arch_is_the_best) Linux distribution.
 
 - [AUR](https://aur.archlinux.org)  
   World's largest software repository maintained by thousands of users like me.
