@@ -16,7 +16,7 @@ archive_path: Path = Path('~/lilac/remote/aur/archive').expanduser()
 gitrepo_path: Path = Path('~/lilac/gitrepo').expanduser()
 
 packages_paths: dict[str, Path] = {
-  'x86_64': Path('~/lilac/gitrepo/repo').expanduser(),
+  'x86_64': Path('~/lilac/gitrepo/apeiria').expanduser(),
 }
 # map other archs that are managed in another arch's directory
 arch_maps = {
@@ -26,9 +26,9 @@ arch_maps = {
   'armv6h': 'aarch64',
 }
 
-max_keep: int = 3
+max_keep: int = 1
 DRY_RUN: bool = False
-ARCHIVE_REMOVED: bool = False # archive removed packages to archive_path instead of deleting them
+ARCHIVE_REMOVED: bool = True # archive removed packages to archive_path instead of deleting them
 
 re_package = re.compile(r'package(?:_(.+))?\s*\(')
 
