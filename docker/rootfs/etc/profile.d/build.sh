@@ -1,3 +1,4 @@
+# https://lilac.readthedocs.io/en/latest/setup.html#configure-other-parts
 NPROC="$(nproc)"
 export MAKEFLAGS="-j$NPROC"
 unset NPROC

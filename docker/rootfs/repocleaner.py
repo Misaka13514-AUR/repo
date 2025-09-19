@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# yoinked from https://github.com/archlinuxcn/misc_scripts/blob/master/repocleaner
+# Modified from https://github.com/archlinuxcn/misc_scripts/blob/master/repocleaner
 
 import os
 from collections import defaultdict
@@ -16,7 +16,7 @@ archive_path: Path = Path('~/lilac/remote/aur/archive').expanduser()
 gitrepo_path: Path = Path('~/lilac/gitrepo').expanduser()
 
 packages_paths: dict[str, Path] = {
-  'x86_64': Path('~/lilac/gitrepo/apeiria').expanduser(),
+  'x86_64': Path('~/lilac/gitrepo/repo').expanduser(),
 }
 # map other archs that are managed in another arch's directory
 arch_maps = {
@@ -26,8 +26,9 @@ arch_maps = {
   'armv6h': 'aarch64',
 }
 
-max_keep: int = 1
+max_keep: int = 3
 DRY_RUN: bool = False
+ARCHIVE_REMOVED: bool = False # archive removed packages to archive_path instead of deleting them
 
 re_package = re.compile(r'package(?:_(.+))?\s*\(')
 
@@ -76,17 +77,41 @@ def get_all_pkgnames_for_path(p: Path) -> set[str]:
 
   return packages
 
+def archive_pkg(path: Path) -> None:
+  if DRY_RUN:
+    return
+
+  try:
+    path.rename(archive_path / path.name)
+  except FileNotFoundError:
+    pass
+  sig = path.with_name(path.name + '.sig')
+  if sig.exists():
+    try:
+      sig.rename(archive_path / sig.name)
+    except FileNotFoundError:
+      pass
+
 def remove_pkg(path: Path) -> None:
   if DRY_RUN:
     return
 
   try:
-    sig = path.with_name(path.name + '.sig')
-    path.rename(archive_path / path.name)
-    if sig.exists():
-      sig.rename(archive_path / sig.name)
+    path.unlink()
   except FileNotFoundError:
     pass
+  sig = path.with_name(path.name + '.sig')
+  if sig.exists():
+    try:
+      sig.unlink()
+    except FileNotFoundError:
+      pass
+
+def archive_or_remove_pkg(path: Path) -> None:
+  if ARCHIVE_REMOVED:
+    archive_pkg(path)
+  else:
+    remove_pkg(path)
 
 def clean(path: Path, all_packages: dict[str, set[str]]) -> None:
   pkgs: dict[str, list[Tuple[archpkg.PkgNameInfo, Path]]] = defaultdict(list)
@@ -113,7 +138,7 @@ def clean(path: Path, all_packages: dict[str, set[str]]) -> None:
 
       if removed:
         print('package %s removed, removing file %s.' % (pkg.name, f))
-        remove_pkg(f)
+        archive_or_remove_pkg(f)
       else:
         pkgs[pkg.name].append((pkg, f))
 
@@ -127,13 +152,13 @@ def clean(path: Path, all_packages: dict[str, set[str]]) -> None:
       raise
     for _, f in v[:-max_keep]:
       print('remove old package file %s.' % f)
-      remove_pkg(f)
+      archive_or_remove_pkg(f)
 
   for f in debug_pkgs:
     pkgname = f.name.replace('-debug-', '-')
     if not f.with_name(pkgname).exists():
       print('Removing debug package %s.' % f)
-      remove_pkg(f)
+      archive_or_remove_pkg(f)
 
 def main() -> None:
   os.chdir(gitrepo_path)

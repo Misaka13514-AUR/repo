@@ -1,4 +1,7 @@
 #!/bin/bash
+# This script is used to pretty-print log files for GitHub Actions.
+# It groups logs by their directory and prints them in a collapsible format.
+
 set -e
 
 LOG_DIR=${LOG_DIR:-"/home/lilac/.lilac/log"}
