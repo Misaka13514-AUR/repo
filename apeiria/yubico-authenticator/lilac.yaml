@@ -5,7 +5,6 @@ maintainers:
 build_prefix: extra-x86_64
 
 repo_depends:
-  - fvm
   - python-zxing-cpp
 
 pre_build_script: aur_pre_build(maintainers=['yochananmarqos'])
