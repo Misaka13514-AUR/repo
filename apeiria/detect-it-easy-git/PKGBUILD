@@ -2,7 +2,7 @@
 # Co-Maintainer: Hors Icq <horsicq at googlemail dot com>
 # Co-Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
 pkgname=detect-it-easy-git
-pkgver=3.10.r20103.871455d
+pkgver=3.10.r20108.efd957d
 pkgrel=1
 pkgdesc='Detect It Easy, or abbreviated "DIE" is a program for determining types of files'
 arch=('x86_64')
