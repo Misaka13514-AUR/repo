@@ -2,7 +2,7 @@
 # Contributor: patchouli
 
 pkgname="ida-pro"
-pkgver=9.1.0
+pkgver=9.2.0
 pkgrel=1
 pkgdesc="Hex-Rays IDA Pro"
 arch=('x86_64')
@@ -23,10 +23,10 @@ makedepends=(
 	'python'
 )
 options=('!strip')
-_installer='ida-pro_91_x64linux.run'
-_installer_path='ida91'
-_installer_sha256sum='8ff08022be3a0ef693a9e3ea01010d1356b26cfdcbbe7fdd68d01b3c9700f9e2'
-_installer_torrent='magnet:?xt=urn:btih:f24cfadb8a66b343bf1ff4f0c1386a5f6991c818&dn=ida91&tr=http%3A%2F%2Ftracker.mywaifu.best%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.qu.ax%3A6969%2Fannounce&tr=http%3A%2F%2Ftracker.renfei.net%3A8080%2Fannounce&tr=https%3A%2F%2Ftracker.bjut.jp%3A443%2Fannounce&tr=http%3A%2F%2Ffleira.no%3A6969%2Fannounce'
+_installer='ida-pro_92_x64linux.run'
+_installer_path='ida92'
+_installer_sha256sum='aadd0f8ae972b84f94f2a974834abf1619f3bd933b3b4d8275f9c50008d05ae1'
+_installer_torrent='magnet:?xt=urn:btih:ce86306a417dd64fab8d26a4983a58412008aa9e&dn=ida92&tr=http%3A%2F%2Ftracker.mywaifu.best%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.qu.ax%3A6969%2Fannounce&tr=http%3A%2F%2Ftracker.renfei.net%3A8080%2Fannounce&tr=https%3A%2F%2Ftracker.bjut.jp%3A443%2Fannounce&tr=http%3A%2F%2Ffleira.no%3A6969%2Fannounce'
 _installer_torrent_file=2
 _keygen_url='https://raw.githubusercontent.com/misaka18931/misakaPkgs/b9732443a451c81f57f75ab295dfb5cd518b5ba4/pkgs/ida-pro-91/keygen3.py'
 source=("${pkgname}.desktop"
@@ -72,7 +72,7 @@ package() {
 
 	# the installer needlessly makes a lot of files executable
 	find "${pkgdir}"/opt/${pkgname} -type f -exec chmod -x {} \;
-	chmod +x "${pkgdir}"/opt/${pkgname}/{assistant,hv,hvui,ida,idapyswitch,idat,picture_decoder,qwingraph,upg32}
+	chmod +x "${pkgdir}"/opt/${pkgname}/{hv,hvui,ida,idapyswitch,idat,picture_decoder,upg32}
 
 	rm "${pkgdir}"/opt/${pkgname}/{uninstall*,Uninstall*}
 
