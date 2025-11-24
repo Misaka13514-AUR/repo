@@ -42,6 +42,11 @@ jobs:
       contents: write
       attestations: write
     steps:
+      - name: 🛠️🌐 Setup Cloudflare WARP
+        uses: Misaka13514-AUR/warp-on-actions@v1.4
+        with:
+          stack: ipv6
+          mode: client
       - name: 🛠️📂 Prepare directories
         run: |
           # git repository contains PKGBUILDs
