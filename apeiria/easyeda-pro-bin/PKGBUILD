@@ -3,7 +3,7 @@
 
 pkgname=easyeda-pro-bin
 _pkgname=${pkgname%-bin}
-pkgver=2.2.43.4
+pkgver=2.2.45.4
 pkgrel=1
 pkgdesc="EasyEDA Professional Edition"
 arch=('x86_64' 'aarch64')
@@ -18,8 +18,8 @@ source=("$pkgname.install")
 source_x86_64=("$_pkgname-x86_64-$pkgver.zip::https://image.easyeda.com/files/easyeda-pro-linux-x64-$pkgver.zip")
 source_aarch64=("$_pkgname-aarch64-$pkgver.zip::https://image.easyeda.com/files/easyeda-pro-linux-arm64-$pkgver.zip")
 sha256sums=('ab64abe7821e4ea37a0e4d1f77c94f37d6a51c7df2038ba7b609c640adf8e51d')
-sha256sums_x86_64=('714721d8f37212bf624e253a3ec81a4730edce69238cc6a5353c4e16971cf2d0')
-sha256sums_aarch64=('5caf8bc65a16929e4da2602c97b039835e835ed6a1b279f26073b24893bcdb28')
+sha256sums_x86_64=('acb6157cf8ac361554d9888756108641fe5ca16acf71c611daa6ed54910d5002')
+sha256sums_aarch64=('24e39b5c901cf24417da0c78d902fa490185aca34c2a1a1c9d81479752a95fd3')
 
 prepare() {
     # https://gitlab.archlinux.org/pacman/pacman-contrib/-/issues/119
