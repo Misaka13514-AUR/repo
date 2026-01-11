@@ -13,6 +13,8 @@ post_build_script: |
   update_aur_repo()
 
 update_on:
-  - source: regex
-    url: https://forums.e-hentai.org/index.php?showtopic=234458
-    regex: 'The most recent version is <b>([\d.]+)</b>.'
+  # - source: regex
+  #   url: https://forums.e-hentai.org/index.php?showtopic=234458
+  #   regex: 'The most recent version is <b>([\d.]+)</b>.'
+  - source: manual
+    manual: 1
