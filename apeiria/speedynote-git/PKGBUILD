@@ -2,7 +2,7 @@
 # Co-Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
 
 pkgname=speedynote-git
-pkgver=1.0.0.r2.g81c8803
+pkgver=1.0.0.r4.g72a4954
 pkgrel=1
 pkgdesc="A simple note app with good performance and PDF import support"
 arch=('x86_64')
