@@ -1,4 +1,4 @@
-# Maintainer:  Misaka13514 <Misaka13514 at gmail dot com>
+# Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
 # Co-Maintainer: Mark Wagie <mark dot wagie at proton dot me>
 # Contributor: PumpkinCheshire <me at pumpkincheshire dot com>
 # Contributor: awh
