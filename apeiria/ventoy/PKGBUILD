@@ -47,7 +47,7 @@ _lz4_ver=1.8.1.2                # (Jan 2018) old! FIXME statically linked into u
 _xz_ver=5.0.4                   # (Jun 2012) old! FIXME statically linked into unsquashfs
 _lzo_ver=2.08                   # (Jun 2014) old! FIXME statically linked into unsquashfs
 _zstd_ver=1.4.4                 # (Nov 2019) old! FIXME statically linked into unsquashfs
-_zlib_ver=1.3.1                 # need a static 32-bit lib for unsquashfs, build our own
+_zlib_ver=1.3.2                 # need a static lib for unsquashfs, build our own
 _squash_ver=4.4                 # (Aug 2019) old! FIXME for unsquashfs
 _dm_ver=1.02.28                 # (Sep 2008) old! FIXME for dmsetup
 _zstd1_ver=1.0.0                # (Sep 2016) old! FIXME for standalone zstdcat
@@ -56,7 +56,7 @@ _busybox_ver=1.32.0             # (Jun 2020) old! FIXME
 _crypt_ver=1.7.5                # (Apr 2017) old! FIXME for veritysetup
 _lunzip_ver=1.11                # (Jan 2019) old! FIXME
 _wimboot_ver=2.7.3              # (Apr 2021) old! FIXME
-pkgrel=1
+pkgrel=2
 pkgdesc="A new bootable USB solution"
 arch=(x86_64)
 url="https://www.ventoy.net/"
@@ -97,8 +97,8 @@ source=(
   # https://ftp.gnu.org/gnu/unifont/unifont-"$_unifont_ver/unifont-$_unifont_ver".bdf.gz
   git+https://github.com/ipxe/ipxe.git#commit="$_ipxe_ver"
   https://github.com/tianocore/edk2/archive/refs/tags/edk2-"$_edk2_ver".zip
-  ventoy-fix-ucs-2-lookup-on-python-3.9.patch::https://github.com/tianocore/edk2/commit/5d864834.patch
-  ventoy-fix-array.array.tostring-removal-in-python-3.9.patch::https://github.com/tianocore/edk2/commit/43bec9ea.patch
+  ventoy-fix-ucs-2-lookup-on-python-3.9.patch::https://github.com/tianocore/edk2/commit/5d864834.patch?full_index=1
+  ventoy-fix-array.array.tostring-removal-in-python-3.9.patch::https://github.com/tianocore/edk2/commit/43bec9ea.patch?full_index=1
   https://github.com/ventoy/vtoytoolchain/releases/download/1.0/dietlibc-"$_diet_ver".tar.xz
   dietlibc-headers-fix.patch::https://salsa.debian.org/debian/dietlibc/-/raw/master/debian/patches/bugfixes/newer-linux-headers.diff
   https://musl.libc.org/releases/musl-"$_musl_ver".tar.gz
@@ -133,11 +133,11 @@ noextract=(
 )
 sha256sums=('5a0d4a9914157161fb346633bcda06b0d60c2d9a6bd90a54d4f1ff979c880072'
             'e5292496995ad42dabe843a0192cf2a2c502e7ffcc7479398232b10a472df77d'
-            'SKIP' # Cannot rely on Savannah to maintain a stable patch checksum
+            'e6cccc4a958a9fafbb11b05c9bc98612d75b293035d7c47d52588590103a40a0'
             '5ee49d23d376aeea24269f7605fcaa7fbd326c04cda4e31b8eb7fa15a540ef44'
             'c6f691aa91afbaab811a369fe729f61d8e5b58bb5ad79a45446c9ee849c1a60b'
-            'SKIP' # Cannot rely on GitHub to maintain a stable patch checksum
-            'SKIP' # Cannot rely on GitHub to maintain a stable patch checksum
+            '032d770f17a92b19e484ef43302cd8eb020d2148c797a65c7e63261960858fa3'
+            'a8d6d84deafb3f9ab95620985556e0ba267481732db8ed66cfadad569512a31c'
             '7994ad5a63d00446da2e95da1f3f03355b272f096d7eb9830417ab14393b3ace'
             '313aa962c7f80a02f41758d90d6f67687c77c74a6126b060337f248bc1b637f6'
             'a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4'
@@ -146,7 +146,7 @@ sha256sums=('5a0d4a9914157161fb346633bcda06b0d60c2d9a6bd90a54d4f1ff979c880072'
             'd104397fc657ffb0f0bda46f54fd182b76a9ebc324149c183a4ff8c86a8db53d'
             'd0e69d5d608cc22ff4843791ad097f554dd32540ddc9bed7638cc6fea7c1b4b5'
             '689bcb4a639acd2d45e6fa0ff455f7f18edb2421d4f4f42909943775adc0e375'
-            '38ef96b8dfe510d42707d9c781877914792541133e1870841463bfa73f883e32'
+            'd7a0654783a4da529d1bb793b7ad9c3318020af77667bcae35f95d0e42a792f3'
             'a7fa4845e9908523c38d4acf92f8a41fdfcd19def41bd5090d7ad767a6dc75c3'
             '599a630fdf020282e27c66aa2b4f3d624d731bd150749a8d7b74f544be03b2bb'
             '197e6ef74da878cbf72844f38461bb18129d144fd5221b3598e973ecda6f5963'
@@ -155,6 +155,9 @@ sha256sums=('5a0d4a9914157161fb346633bcda06b0d60c2d9a6bd90a54d4f1ff979c880072'
             '2b30cd1d0dd606a53ac77b406e1d37798d4b0762fa89de6ea546201906a251bd'
             '3cf04ca4a5b4466e624570d980638f8ab72feaed9b94106dd6ed2bed674a4cdf'
             '8121a64145ff317693de80148fbdca6cb73d3f2ed92f66b946949750ab71afe9')
+
+            # Cannot depend on Savannah (cgit) to maintain a stable patch checksum
+            sha256sums[2]='SKIP'
 
 # Some components below are notated as follows:
 #
@@ -655,20 +658,29 @@ _build_unsquashfs() (
     )
   )
 
-  __build_zlib_static-32() (
+  __build_zlib_static() (
     tar -xf "$srcdir"/zlib-$_zlib_ver.tar.xz
-    cd zlib-$_zlib_ver
+    cp -a zlib-$_zlib_ver{,-32}
 
-    CC="gcc -m32" \
+    (
+      cd zlib-$_zlib_ver
       ./configure --static
-    make
+      make
+    )
+
+    (
+      cd zlib-$_zlib_ver-32
+      CC="gcc -m32" \
+        ./configure --static
+      make
+    )
   )
 
   __build_lz4_static
   __build_xz_static
   __build_lzo_static
   __build_zstd_static
-  __build_zlib_static-32
+  __build_zlib_static
 
   cd "$srcdir"/Ventoy-$pkgver/SQUASHFS
   unset CFLAGS
@@ -677,7 +689,7 @@ _build_unsquashfs() (
 
   (
     cd squashfs-tools-4.4/squashfs-tools
-    sed -i 's|LIBS) -o|LIBS) /usr/lib/libz.a -o|' Makefile
+    sed -i "s|LIBS) -o|LIBS) ../../SRC/zlib-$_zlib_ver/libz.a -o|" Makefile
     CC="gcc -std=gnu11" \
       make unsquashfs LZ4_LIBDIR="$_libdir"/LZ4 LZMA_LIBDIR="$_libdir"/LZMA \
       LZO_LIBDIR="$_libdir"/LZO ZSTD_LIBDIR="$_libdir"/ZSTD
@@ -688,7 +700,7 @@ _build_unsquashfs() (
 
   (
     cd squashfs-tools-4.4/squashfs-tools-32
-    sed -i "s|LIBS) -o|LIBS) ../../SRC/zlib-$_zlib_ver/libz.a -o|" Makefile
+    sed -i "s|LIBS) -o|LIBS) ../../SRC/zlib-$_zlib_ver-32/libz.a -o|" Makefile
     CC="gcc -std=gnu11 -m32" \
       make unsquashfs LZ4_LIBDIR="$_libdir"32/LZ4 LZMA_LIBDIR="$_libdir"32/LZMA \
       LZO_LIBDIR="$_libdir"32/LZO ZSTD_LIBDIR="$_libdir"32/ZSTD
