@@ -1,0 +1,3 @@
+[python-pyautogui]
+source = "pypi"
+pypi = "PyAutoGUI"

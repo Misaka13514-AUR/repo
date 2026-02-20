@@ -1,35 +1,55 @@
-# Maintainer: PumpkinCheshire <me at pumpkincheshire dot top>
+# Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
+# Co-Maintainer: Mark Wagie <mark dot wagie at proton dot me>
+# Contributor: PumpkinCheshire <me at pumpkincheshire dot top>
 # Contributor: Jack Rubacha <rubacha.jack03@gmail.com>
-# Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
 # Contributor: Clemmitt M. Sigler <cmsigler dot online at gmail dot com>
 # Contributor: xantares
-
 pkgname=python-pyautogui
 _name=PyAutoGUI
 pkgver=0.9.54
-pkgrel=2
+pkgrel=3
 pkgdesc="A cross-platform GUI automation Python module for human beings"
 arch=('any')
 url="https://github.com/asweigart/pyautogui"
-license=('BSD')
-depends=('python-xlib' 'python-pymsgbox' 'python-pytweening' 'python-pyscreeze' 'python-mouseinfo')
-optdepends=('tk: windowing tool kit' 'scrot: screenshot tool')
-# 'python-pygetwindow' - Not compatible with Linux yet
-# 'python-pillow' - is provided by mouseinfo
-makedepends=('python' 'python-setuptools')
-provides=('python-pyautogui')
-conflicts=('python-pyautogui-git')
-source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-b2sums=('a18994b0392a8c4d9b068b1cebe1d65b67526f04cbaf6d6f0d6406336ebc40b770c3b617025e6db21558e603f7cd60badced99ac59e51e375aed4a17236446e0')
+license=('BSD-3-Clause')
+depends=(
+  'python-mouseinfo'
+  'python-pymsgbox'
+  'python-pyscreeze'
+  'python-pytweening'
+  'python-xlib'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+#  'python-sphinx'  ## docs
+  'python-wheel'
+)
+#checkdepends=(
+#  'python-pytest'
+#  'xorg-server-xvfb'
+#)
+optdepends=(
+  'scrot: screenshot tool'
+  'tk: windowing tool kit'
+)
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
+sha256sums=('dd1d29e8fd118941cb193f74df57e5c6ff8e9253b99c7b04f39cfc69f3ae04b2')
 
 build() {
-	cd "$srcdir/$_name-$pkgver"
-	export PYTHONHASHSEED=0
-	python setup.py build
+  cd "$_name-$pkgver"
+  python -m build --wheel --no-isolation
 }
 
+#check() {
+#  cd "$_name-$pkgver"
+#  PYTHONPATH=. xvfb-run pytest || :
+#}
+
 package() {
-	cd "$srcdir/$_name-$pkgver"
-	python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
-	install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname"
+  cd "$_name-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
