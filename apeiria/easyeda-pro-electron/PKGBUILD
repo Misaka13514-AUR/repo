@@ -2,7 +2,7 @@
 
 pkgname=easyeda-pro-electron
 _pkgname=${pkgname%-electron}
-pkgver=2.2.45.4
+pkgver=2.2.47.7
 pkgrel=1
 pkgdesc="EasyEDA Professional Edition. Run with system electron."
 arch=('x86_64' 'aarch64')
@@ -19,8 +19,8 @@ source_x86_64=("$_pkgname-x86_64-$pkgver.zip::https://image.easyeda.com/files/ea
 source_aarch64=("$_pkgname-aarch64-$pkgver.zip::https://image.easyeda.com/files/easyeda-pro-linux-arm64-$pkgver.zip")
 sha256sums=('ab64abe7821e4ea37a0e4d1f77c94f37d6a51c7df2038ba7b609c640adf8e51d'
             '89289056ed4b5d051280e3a69dfb550b6914f470f201be1ca3b165ddd4f3e435')
-sha256sums_x86_64=('acb6157cf8ac361554d9888756108641fe5ca16acf71c611daa6ed54910d5002')
-sha256sums_aarch64=('24e39b5c901cf24417da0c78d902fa490185aca34c2a1a1c9d81479752a95fd3')
+sha256sums_x86_64=('2a504564c2d49189309c29da1e24eb7c3166d9cd09a38c4d19478c9c6f2bde29')
+sha256sums_aarch64=('0c47ce6257aa07d4a2831e20811cfd7f2d1b78508bb3e3158086307325334524')
 
 prepare() {
     # https://gitlab.archlinux.org/pacman/pacman-contrib/-/issues/119
