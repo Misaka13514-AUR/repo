@@ -1,20 +1,13 @@
 maintainers:
-  - github: Misaka13514
-    email: Misaka13514@gmail.com
+  - github: Misaka13514-AUR
+    email: aur@apeiria.net
 
 build_prefix: extra-x86_64
 
-pre_build_script: |
-  aur_pre_build(maintainers=['scientificworld', 'Misaka13514'])
-  update_pkgver_and_pkgrel(_G.newver)
+pre_build_script: aur_pre_build(maintainers=['scientificworld', 'Misaka13514'])
 
-post_build_script: |
-  aur_post_build()
-  update_aur_repo()
+post_build: aur_post_build
 
 update_on:
-  # - source: regex
-  #   url: https://forums.e-hentai.org/index.php?showtopic=234458
-  #   regex: 'The most recent version is <b>([\d.]+)</b>.'
-  - source: manual
-    manual: 1
+  - source: aur
+    aur: hath
