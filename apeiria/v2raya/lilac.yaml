@@ -4,7 +4,7 @@ maintainers:
 
 build_prefix: extra-x86_64
 
-pre_build_script: aur_pre_build(maintainers=['mzz2017'])
+pre_build_script: aur_pre_build(maintainers=['mzz2017', 'douglarek', 'bz_chirs'])
 
 post_build: aur_post_build
 
