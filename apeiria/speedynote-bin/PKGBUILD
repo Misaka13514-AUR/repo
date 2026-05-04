@@ -2,20 +2,20 @@
 # Co-Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
 
 pkgname=speedynote-bin
-_tagname='1.1.4'
+_tagname='1.4.3'
 pkgver=${_tagname//-/.}
 pkgrel=1
 pkgdesc="A simple note app with good performance and PDF import support"
 arch=('x86_64')
 url="https://github.com/alpha-liu-01/SpeedyNote"
-license=('MIT')
-depends=('qt6-base' 'qt6-multimedia' 'poppler-qt6' 'sdl2-compat' 'glibc' 'gcc-libs')
+license=('GPL-3.0-only')
+depends=('qt6-base' 'qt6-multimedia' 'poppler-qt6' 'sdl2-compat' 'hicolor-icon-theme' 'glibc' 'gcc-libs')
 provides=('speedynote')
 conflicts=('speedynote' 'speedynote-git')
 source=("$pkgname-$pkgver.deb::https://github.com/alpha-liu-01/SpeedyNote/releases/download/v$_tagname/speedynote_${_tagname}-1_amd64.deb"
         "LICENSE-$_tagname::https://raw.githubusercontent.com/alpha-liu-01/SpeedyNote/v$_tagname/LICENSE")
-sha256sums=('324d0092214d4131ac1e8af5df106e10b5418d21a9647cbbf58277a127e9f353'
-            'b3fac2b0946e0676aaef25f841b1be51df3331289301520e9a0bf23da9f93f01')
+sha256sums=('26e054040734a39532e6774e762e1dee3c62001e23a6c636320ce26734a8af1d'
+            'da81bb8d6b55be3dad3fa38151d4e37cc807464ab468c7f76150d2d71fce64f0')
 
 prepare() {
   mkdir -p "$pkgname-$pkgver"
@@ -27,9 +27,11 @@ package() {
   # binary
   install -Dm755 "usr/bin/speedynote" "$pkgdir/usr/bin/speedynote"
   # desktop file
-  install -Dm644 "usr/share/applications/speedynote.desktop" "$pkgdir/usr/share/applications/speedynote.desktop"
+  install -Dm644 "usr/share/applications/org.speedynote.SpeedyNote.desktop" "$pkgdir/usr/share/applications/org.speedynote.SpeedyNote.desktop"
   # icon
-  install -Dm644 "usr/share/pixmaps/speedynote.png" "$pkgdir/usr/share/pixmaps/speedynote.png"
+  install -Dm644 "usr/share/icons/hicolor/scalable/apps/org.speedynote.SpeedyNote.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/org.speedynote.SpeedyNote.svg"
+  # translations
+  install -Dm644 usr/share/speedynote/translations/*.qm -t "$pkgdir/usr/share/speedynote/translations/"
   # doc
   install -Dm644 "usr/share/doc/speedynote/README.md" "$pkgdir/usr/share/doc/speedynote/README.md"
   # license

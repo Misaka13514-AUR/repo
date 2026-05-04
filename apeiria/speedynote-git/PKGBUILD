@@ -9,7 +9,7 @@ arch=('x86_64')
 url="https://github.com/alpha-liu-01/SpeedyNote"
 license=('MIT')
 depends=('qt6-base' 'qt6-multimedia' 'poppler-qt6' 'sdl2-compat' 'hicolor-icon-theme' 'glibc' 'gcc-libs')
-makedepends=('git' 'cmake' 'qt5-tools')
+makedepends=('git' 'cmake' 'qt6-tools')
 provides=('speedynote')
 conflicts=('speedynote' 'speedynote-bin')
 source=(
@@ -27,9 +27,6 @@ pkgver() {
 }
 
 build() {
-  cd "$srcdir/SpeedyNote"
-  lrelease resources/translations/*.ts
-
   cd "$srcdir"
   local cmake_options=(
     -B build
@@ -46,7 +43,7 @@ package() {
   # DESTDIR="$pkgdir" cmake --install build
 
   # install main application
-  install -Dm755 build/NoteApp "$pkgdir/usr/bin/speedynote"
+  install -Dm755 build/speedynote "$pkgdir/usr/bin/speedynote"
 
   # install translations
   # install -Dm644 build/app_*.qm -t "$pkgdir/usr/share/speedynote/translations/"
