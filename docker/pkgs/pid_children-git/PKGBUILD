@@ -1,5 +1,5 @@
 # Maintainer: malacology
-# Contriubtor: Chih-Hsuan Yen <yan12125@gmail.com>
+# Contriubtor: Chih-Hsuan Yen <base64_decode("eXUzYWN0eHQydHR0ZmlteEBjaHllbi5jYwo=")>
 
 pkgname=pid_children-git
 pkgver=r10.749d59c

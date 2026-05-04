@@ -1,11 +1,11 @@
 # Maintainer: Misaka13514 (Misaka13514-AUR fork)
 # Contributor: malacology
-# Contributor: Chih-Hsuan Yen <yan12125@gmail.com>
+# Contributor: Chih-Hsuan Yen <base64_decode("eXUzYWN0eHQydHR0ZmlteEBjaHllbi5jYwo=")>
 # Contributor: lilydjwg <lilydjwg@gmail.com>
 
 _pkgname=lilac
 pkgname=$_pkgname-git
-pkgver=r1250.699dbdf
+pkgver=r1351.6d10f46
 pkgrel=1
 pkgdesc='The build bot for apeiria'
 arch=(any)
@@ -18,6 +18,7 @@ makedepends=(python-setuptools-scm python-psycopg2 python-build python-installer
 optdepends=(
   'smtp-forwarder: for sending error reports'
   'python-psycopg2: for recording build results in a database'
+  'pacfiles: efficient alpmfiles implementation'
 )
 checkdepends=(python-pytest python-pytest-asyncio)
 provides=("$_pkgname=$pkgver")
