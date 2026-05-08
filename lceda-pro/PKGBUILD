@@ -2,7 +2,7 @@
 # Co-Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
 
 pkgname=lceda-pro
-pkgver=2.2.32.3
+pkgver=3.2.131
 pkgrel=1
 pkgdesc="免费、专业、强大的国产PCB设计工具"
 arch=(x86_64)
@@ -35,6 +35,7 @@ package() {
 
     cd ${srcdir}/${pkgname}/
     cp -r resources ${pkgdir}/usr/lib/${pkgname}
+    chmod -R u=rwX,go=rX ${pkgdir}/usr/lib/${pkgname}
 
     # icon
     local _icon
@@ -49,8 +50,8 @@ package() {
 
     # desktop entry
     if [ -f lceda-pro.dkt ]; then
-        install -Dm644 lceda-pro.dkt \
-                       $pkgdir/usr/share/applications/${pkgname}.desktop
+        install -Dm0644 lceda-pro.dkt \
+                       ${pkgdir}/usr/share/applications/${pkgname}.desktop
 
         sed -i 's|/opt/lceda-pro/icon/icon_128x128.png|lceda-pro|g' \
             ${pkgdir}/usr/share/applications/${pkgname}.desktop
@@ -67,7 +68,7 @@ GenericName=嘉立创EDA(专业版)
 Icon=lceda-pro
 Name=嘉立创EDA(专业版)
 Type=Application
-Name[en_US]=嘉立创EDA(专业版)
+Name[en_US]=LCEDA Pro
 MimeType=application/eprj
 EOF
     fi
