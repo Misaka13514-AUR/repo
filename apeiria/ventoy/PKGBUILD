@@ -56,7 +56,7 @@ _busybox_ver=1.32.0             # (Jun 2020) old! FIXME
 _crypt_ver=1.7.5                # (Apr 2017) old! FIXME for veritysetup
 _lunzip_ver=1.11                # (Jan 2019) old! FIXME
 _wimboot_ver=2.7.3              # (Apr 2021) old! FIXME
-pkgrel=1
+pkgrel=2
 pkgdesc="A new bootable USB solution"
 arch=(x86_64)
 url="https://www.ventoy.net/"
@@ -434,7 +434,7 @@ _build_vtoycli() (
 
   local _SRCS=(vtoycli.c vtoyfat.c vtoygpt.c crc32.c partresize.c)
 
-  musl-gcc -Os -static -D_FILE_OFFSET_BITS=64 \
+  musl-gcc -fno-link-libatomic -Os -static -D_FILE_OFFSET_BITS=64 \
     "${_SRCS[@]}" -Ifat_io_lib/include fat_io_lib/lib/libfat_io_64.a -o vtoycli_64
 
   # "$srcdir"/dietlibc-$_diet_ver/bin-i386/diet -Os gcc -D_FILE_OFFSET_BITS=64 -m32 \
@@ -462,7 +462,7 @@ _build_fuseiso() (
       --disable-shared
       --disable-util
       --disable-example
-      CFLAGS=-Os
+      CFLAGS="-Os -fno-link-libatomic"
     )
 
     (
@@ -485,10 +485,10 @@ _build_fuseiso() (
 
   rm -fv vtoy_fuse_iso_*
 
-  musl-gcc -static -O2 -D_FILE_OFFSET_BITS=64 vtoy_fuse_iso.c -Ifuse-$_fuse_ver/include \
+  musl-gcc -fno-link-libatomic -static -O2 -D_FILE_OFFSET_BITS=64 vtoy_fuse_iso.c -Ifuse-$_fuse_ver/include \
     fuse-$_fuse_ver/build64/lib/.libs/libfuse.a -o vtoy_fuse_iso_64
 
-  "$srcdir"/musl32/bin/musl-gcc -m32 -static -O2 -D_FILE_OFFSET_BITS=64 \
+  "$srcdir"/musl32/bin/musl-gcc -fno-link-libatomic -m32 -static -O2 -D_FILE_OFFSET_BITS=64 \
     vtoy_fuse_iso.c -Ifuse-$_fuse_ver/include -Wl,-melf_i386 \
     fuse-$_fuse_ver/build32/lib/.libs/libfuse.a -o vtoy_fuse_iso_32
 
@@ -818,7 +818,7 @@ _build_xzminidec() (
   make clean
   rm -v bytetest.o
 
-  make -f ventoy_makefile CC="musl-gcc -Os -static -std=gnu89"
+  make -f ventoy_makefile CC="musl-gcc -fno-link-libatomic -Os -static -std=gnu89"
   mv -v xzminidec{,64_musl}
   make clean
   rm -v bytetest.o
@@ -841,7 +841,7 @@ _build_busybox() (
 
     "$srcdir"/dietlibc-$_diet_ver/bin-x86_64/diet gcc -Os vtchmod.c -o vtchmod64
     "$srcdir"/dietlibc-$_diet_ver/bin-i386/diet gcc -Os -m32 vtchmod.c -o vtchmod32
-    musl-gcc -Os -static vtchmod.c -o vtchmod64_musl
+    musl-gcc -fno-link-libatomic -Os -static vtchmod.c -o vtchmod64_musl
     strip --strip-all vtchmod{64,32} vtchmod64_musl
     cp -avt ../../IMG/cpio_x86/ventoy/busybox vtchmod{64,32} vtchmod64_musl
   )
@@ -855,7 +855,7 @@ _build_busybox() (
   (
     cd busybox-$_busybox_ver-xzcat64
     cp -av ../x86_64_xzcat.config .config
-    make CC=musl-gcc V=1
+    make CC="musl-gcc -fno-link-libatomic" V=1
     mv -v busybox xzcat64_musl
     xz xzcat64_musl
     cp -avt ../../IMG/cpio_x86/ventoy/busybox xzcat64_musl.xz
@@ -864,7 +864,7 @@ _build_busybox() (
   (
     cd busybox-$_busybox_ver-xzcat32
     sed 's/# CONFIG_LFS is not set/CONFIG_LFS=y/' ../x86_64_xzcat.config > .config
-    make CC="$srcdir/musl32/bin/musl-gcc -m32 -Wl,-melf_i386" V=1
+    make CC="$srcdir/musl32/bin/musl-gcc -fno-link-libatomic -m32 -Wl,-melf_i386" V=1
     mv -v busybox xzcat32_musl
     xz xzcat32_musl
     cp -avt ../../IMG/cpio_x86/ventoy/busybox xzcat32_musl.xz
@@ -874,7 +874,7 @@ _build_busybox() (
     cd busybox-$_busybox_ver
     make defconfig
     sed -i 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/' .config
-    make CC=musl-gcc V=1
+    make CC="musl-gcc -fno-link-libatomic" V=1
     mv -v busybox busybox64
     xz busybox64
     cp -avt ../../IMG/cpio_x86/ventoy/busybox busybox64.xz
@@ -884,7 +884,7 @@ _build_busybox() (
     cd busybox-$_busybox_ver-32
     make defconfig
     sed -i 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/' .config
-    make CC="$srcdir/musl32/bin/musl-gcc -m32 -Wl,-melf_i386" V=1
+    make CC="$srcdir/musl32/bin/musl-gcc -fno-link-libatomic -m32 -Wl,-melf_i386" V=1
     mv -v busybox busybox32
     xz busybox32
     cp -avt ../../IMG/cpio_x86/ventoy/busybox busybox32.xz
@@ -1074,7 +1074,7 @@ _pack_ventoy() (
     cd Vlnk
     local _SRCS=(src/crc32.c src/main_linux.c src/vlnk.c)
 
-    musl-gcc -Os -static -D_FILE_OFFSET_BITS=64 "${_SRCS[@]}" -Isrc -o vlnk
+    musl-gcc -fno-link-libatomic -Os -static -D_FILE_OFFSET_BITS=64 "${_SRCS[@]}" -Isrc -o vlnk
     strip --strip-all vlnk
     install -Dvt ../INSTALL/tool/x86_64 vlnk
 
