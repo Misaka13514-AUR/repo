@@ -2,7 +2,7 @@
 
 pkgname=python-ite8291r3-ctl-git
 _pkgname=${pkgname%-git}
-pkgver=r29.5e126e2
+pkgver=r30.4b43277
 pkgrel=1
 pkgdesc="ITE 8291 (rev 0.03) userspace driver"
 arch=('any')
