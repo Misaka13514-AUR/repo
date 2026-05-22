@@ -40,7 +40,7 @@ _ipxe_ver=3fe683e               # (Sep 29 2019)
 _edk2_ver=stable201911          # (Dec 2019)
 _diet_ver=0.34                  # FIXME AUR pkg needs a patch, see below, build our own (64/32)
 _musl_ver=1.2.6                 # upstream uses 1.2.1, use repo for 64-bit, build our own 32-bit
-_kern_hdrs_musl_ver=4.19.88     # for busybox 32-bit
+_kern_hdrs_musl_ver=6.12.77     # for busybox
 _fuse_ver=2.9.9                 # need a static lib built against musl, build our own (64/32)
 _exfat_ver=1.3.0                # (Sep 2018) old! FIXME see comments below for why we build our own
 _lz4_ver=1.8.1.2                # (Jan 2018) old! FIXME statically linked into unsquashfs
@@ -56,7 +56,7 @@ _busybox_ver=1.32.0             # (Jun 2020) old! FIXME
 _crypt_ver=1.7.5                # (Apr 2017) old! FIXME for veritysetup
 _lunzip_ver=1.11                # (Jan 2019) old! FIXME
 _wimboot_ver=2.7.3              # (Apr 2021) old! FIXME
-pkgrel=2
+pkgrel=3
 pkgdesc="A new bootable USB solution"
 arch=(x86_64)
 url="https://www.ventoy.net/"
@@ -139,7 +139,7 @@ sha256sums=('14baaa316a2fd5e932fa4de776366774ea8b791bc465ee925807a6f62eaabffc'
             '7994ad5a63d00446da2e95da1f3f03355b272f096d7eb9830417ab14393b3ace'
             '313aa962c7f80a02f41758d90d6f67687c77c74a6126b060337f248bc1b637f6'
             'd585fd3b613c66151fc3249e8ed44f77020cb5e6c1e635a616d3f9f82460512a'
-            'd104397fc657ffb0f0bda46f54fd182b76a9ebc324149c183a4ff8c86a8db53d'
+            'cd70720ccdae889ffb4c4e7764f11b8c26add20d6bde78c0012225d52d38d3cb'
             'd0e69d5d608cc22ff4843791ad097f554dd32540ddc9bed7638cc6fea7c1b4b5'
             '689bcb4a639acd2d45e6fa0ff455f7f18edb2421d4f4f42909943775adc0e375'
             'd7a0654783a4da529d1bb793b7ad9c3318020af77667bcae35f95d0e42a792f3'
@@ -873,7 +873,8 @@ _build_busybox() (
   (
     cd busybox-$_busybox_ver
     make defconfig
-    sed -i 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/' .config
+    sed -e 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/' \
+        -e 's/CONFIG_TC=y/# CONFIG_TC is not set/' -i .config
     make CC="musl-gcc -fno-link-libatomic" V=1
     mv -v busybox busybox64
     xz busybox64
@@ -883,7 +884,8 @@ _build_busybox() (
   (
     cd busybox-$_busybox_ver-32
     make defconfig
-    sed -i 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/' .config
+    sed -e 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/' \
+        -e 's/CONFIG_TC=y/# CONFIG_TC is not set/' -i .config
     make CC="$srcdir/musl32/bin/musl-gcc -fno-link-libatomic -m32 -Wl,-melf_i386" V=1
     mv -v busybox busybox32
     xz busybox32
