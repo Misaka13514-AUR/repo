@@ -44,6 +44,10 @@ dburl = "<DB_URL>"
 # the schema to use; by default lilac uses the schema "lilac"
 # schema = "lilac"
 max_concurrency = 1
+# Maximum number of independent packages to build in a single run.
+# If a package is a dependency of another package that was built in this run,
+# it will still be built even if the limit is exceeded, so that dependency chains are completed.
+max_builds = 10
 # whether to disable local worker (and use remote only)
 # disable_local_worker = false
 
