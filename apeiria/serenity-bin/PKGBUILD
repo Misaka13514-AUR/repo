@@ -1,6 +1,6 @@
-# Maintainer:  mzwing <mzwing@mzwing.eu.org>
-# Contributor: Misaka13514 <Misaka13514 at gmail dot com>
-# Contributor: Henry-ZHR <henry-zhr@qq.com>
+# Maintainer:    mzwing <mzwing@mzwing.eu.org>
+# Co-Maintainer: Misaka13514 <Misaka13514 at gmail dot com>
+# Contributor:   Henry-ZHR <henry-zhr@qq.com>
 
 _pkgname=serenity
 pkgname=serenity-bin
