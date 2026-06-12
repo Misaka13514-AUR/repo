@@ -1,7 +1,7 @@
 # Maintainer: Owen Trigueros <owentrigueros@gmail.com>
 
 pkgname=httpdirfs
-pkgver=1.3.2
+pkgver=1.3.3
 pkgrel=1
 pkgdesc="A filesystem which allows you to mount HTTP directory listings"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('gumbo-parser' 'fuse3' 'curl' 'expat' 'util-linux-libs' 'openssl')
 makedepends=('meson' 'help2man' 'doxygen' 'graphviz')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/fangfufu/$pkgname/archive/$pkgver.tar.gz"
          "httpdirfs.patch")
-md5sums=("ef86aa478c4a7c24add78ba5403c5eb3"
+md5sums=("61cd87fde28aeaec7d39e38f533dc058"
          "068486cabbb5818ba1e019976f2ed340")
 
 prepare() {
