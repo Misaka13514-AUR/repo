@@ -74,7 +74,7 @@ try_start() {
         fi
         WECHAT_DATA_DIR="${XDG_DOCUMENTS_DIR}/WeChat_Data"
     fi
-    echo "Using '${WECHAT_DATA_DIR}' as Wechat Data folder"
+    echo "Using '${WECHAT_DATA_DIR}' as WeChat Data folder"
     WECHAT_FILES_DIR="${WECHAT_DATA_DIR}/xwechat_files"
     WECHAT_HOME_DIR="${WECHAT_DATA_DIR}/home"
 
@@ -331,7 +331,7 @@ applet_start() {
                 echo
                 printf '    --%s\t%s\n' \
                     'data [wechat data]' 'Path to Wechat_Data folder, absolute or relative to user home, default: ~/Documents/Wechat_Data, as environment: WECHAT_DATA_DIR' \
-                    'bind [custom bind]' 'Custom bindings, could be specified multiple times, absolute or relative to user home, as environment: WECHAT_CUSTOM_BINDS (colon ":" seperated like PATH)' \
+                    'bind [custom bind]' 'Custom bindings, could be specified multiple times, absolute or relative to user home, as environment: WECHAT_CUSTOM_BINDS (colon ":" separated like PATH)' \
                     'binds-config [file]' 'Path to text file that contains one --bind value per line, default: ~/.config/wechat-universal/binds.list, as environment: WECHAT_CUSTOM_BINDS_CONFIG'\
                     'ime [input method]' 'Apply IME-specific workaround, support: fcitx (also for 5), ibus, default: auto, as environment: WECHAT_IME_WORKAROUND'\
                     'no-callout        ' 'do not try to call out an already running WeChat instance. default: not set, as environment: WECHAT_NO_CALLOUT'\
