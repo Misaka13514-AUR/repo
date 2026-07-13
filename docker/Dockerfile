@@ -30,8 +30,6 @@ RUN --mount=type=cache,target=/var/cache/pacman/pkg \
     echo "lilac ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/lilac-build && \
     chmod 440 /etc/sudoers.d/lilac-build && \
     cd /pkgs/pid_children-git && sudo -u lilac makepkg --syncdeps --install --noconfirm --rmdeps --clean && \
-    cd /pkgs/python-fluent.syntax && sudo -u lilac makepkg --syncdeps --install --noconfirm --rmdeps --clean && \
-    cd /pkgs/python-fluent.runtime && sudo -u lilac makepkg --syncdeps --install --noconfirm --rmdeps --clean && \
     cd /pkgs/pacfiles && sudo -u lilac makepkg --syncdeps --install --noconfirm --rmdeps --clean && \
     cd /pkgs/lilac-git && sudo -u lilac makepkg --syncdeps --install --noconfirm --rmdeps --clean && \
     rm -f /etc/sudoers.d/lilac-build && \
