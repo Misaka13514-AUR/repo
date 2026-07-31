@@ -2,7 +2,7 @@
 
 _pkgbase=hid-ite8291r3
 pkgname=hid-ite8291r3-dkms-git
-pkgver=r16.961702d
+pkgver=r17.1e1f01b
 pkgrel=1
 pkgdesc="Linux kernel driver for the ITE 8291 (rev 0.03) RGB keyboard backlight controller"
 arch=('x86_64')
