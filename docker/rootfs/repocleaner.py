@@ -28,7 +28,7 @@ arch_maps = {
 
 max_keep: int = 1
 DRY_RUN: bool = False
-ARCHIVE_REMOVED: bool = True # archive removed packages to archive_path instead of deleting them
+ARCHIVE_REMOVED: bool = False # archive removed packages to archive_path instead of deleting them
 
 re_package = re.compile(r'package(?:_(.+))?\s*\(')
 
