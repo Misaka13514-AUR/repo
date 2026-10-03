@@ -180,6 +180,10 @@ jobs:
         run: |
           docker exec lilac sudo -iu lilac \
             /usr/bin/rclone mount --daemon --allow-other ${{ env.RCLONE_REMOTE }} lilac/remote
+      - name: 💩➡️🚽 Clean up
+        run: |
+          docker exec lilac sudo -iu lilac \
+            /repocleaner.py
       - name: 🐳⬇️🔐 Download lilac persist files
         run: |
           docker exec lilac sudo -iu lilac \
