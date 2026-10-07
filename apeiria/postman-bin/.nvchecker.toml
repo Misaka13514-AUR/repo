@@ -1,3 +1,0 @@
-[postman-bin]
-source = "cmd"
-cmd = "grep -E '^\\s*pkgver=' ./PKGBUILD | sed -E 's/pkgver=(.*)/\\1/'"
