@@ -2,7 +2,7 @@
 # Co-Maintainer:    zzjzxq33 <wojiushixxx at 126 dot com>
 pkgname=bbg-git
 _pkgname=${pkgname%-git}
-pkgver=20261001.r3.2ec705b
+pkgver=20261001.r6.0924c32
 pkgrel=1
 pkgdesc="A static blog generator built with electron"
 arch=('any')
